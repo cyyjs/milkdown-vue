@@ -1,0 +1,44 @@
+{
+  "name": "milkdown-full",
+  "description": "milkdown 封装",
+  "private": true,
+  "version": "0.0.0",
+  "module": "./dist/milkdown.es.js",
+  "main": "./dist/milkdown.umd.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "@milkdown/plugin-listener": "^6.2.0",
+    "vue": "^3.2.25",
+    "@babel/core": "^7.18.5",
+    "@milkdown/core": "^6.1.5",
+    "@milkdown/design-system": "^6.2.0",
+    "@milkdown/plugin-clipboard": "^6.1.5",
+    "@milkdown/plugin-cursor": "^6.1.5",
+    "@milkdown/plugin-diagram": "^6.2.0",
+    "@milkdown/plugin-emoji": "^6.1.5",
+    "@milkdown/plugin-history": "^6.1.5",
+    "@milkdown/plugin-indent": "^6.2.0",
+    "@milkdown/plugin-math": "^6.1.5",
+    "@milkdown/plugin-menu": "^6.2.0",
+    "@milkdown/plugin-prism": "^6.1.5",
+    "@milkdown/plugin-slash": "^6.1.5",
+    "@milkdown/plugin-tooltip": "^6.1.5",
+    "@milkdown/plugin-upload": "^6.2.0",
+    "@milkdown/preset-commonmark": "^6.1.5",
+    "@milkdown/preset-gfm": "^6.1.5",
+    "@milkdown/prose": "^6.2.0",
+    "@milkdown/theme-pack-helper": "^6.2.0",
+    "@milkdown/theme-tokyo": "^6.1.5",
+    "@milkdown/vue": "^6.1.5",
+    "@vitejs/plugin-vue": "^2.3.3",
+    "katex": "^0.16.0",
+    "vite": "^2.9.9",
+    "vite-plugin-libcss": "^1.0.5"
+  }
+}
