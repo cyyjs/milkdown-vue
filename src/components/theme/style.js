@@ -2,7 +2,7 @@
  * @Author: cyy
  * @Date: 2022-06-23 17:00:19
  * @LastEditors: cyy
- * @LastEditTime: 2022-07-12 15:23:35
+ * @LastEditTime: 2022-07-19 17:12:21
  * @Description: 
  */
 
@@ -35,7 +35,7 @@ export const getStyle = (manager, emotion) => {
     `;
 
     const editorLayout = css`
-        padding: 1em;
+        padding: 1em 2em;
         outline: none;
         & > * {
             margin: 1em 0;
@@ -104,19 +104,34 @@ export const getStyle = (manager, emotion) => {
     `;
 
     const list = css`
-        .list-item,
-        .list-item > * {
-            margin: 0.5em 0;
+        ul, ol {
+            margin: 0;
+            padding: 0;
+        }
+        .list-item {
+            display: flex;
+            align-items: baseline;
+            .list-item_label {
+                margin-right: 0.5em;
+            }
         }
         li {
+            margin: 0.5em 0;
             &::marker {
                 color: ${palette('primary')};
+            }
+            .paragraph {
+                margin: 0;
             }
         }
         .task-list-item {
             display: flex;
             flex-direction: row;
             align-items: flex-start;
+            .iconfont {
+                font-size: 1.5em;
+                padding: 0;
+            }
             &_checkbox {
                 margin: 0.5em 0.5em 0.5em 0;
                 height: 1em;
@@ -126,6 +141,41 @@ export const getStyle = (manager, emotion) => {
 
     const code = css`
         .code-fence {
+            ::before {
+                content: ' ';
+                width: 54px;
+                display: inline-block;
+                background-repeat: no-repeat;
+                height: 14px;
+                margin-left: 1rem;
+                margin-bottom: 1rem;
+                background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI1NCIgaGVpZ2h0PSIxNCIgdmlld0JveD0iMCAwIDU0IDE0Ij48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEgMSkiPjxjaXJjbGUgY3g9IjYiIGN5PSI2IiByPSI2IiBmaWxsPSIjRkY1RjU2IiBzdHJva2U9IiNFMDQ0M0UiIHN0cm9rZS13aWR0aD0iLjUiPjwvY2lyY2xlPjxjaXJjbGUgY3g9IjI2IiBjeT0iNiIgcj0iNiIgZmlsbD0iI0ZGQkQyRSIgc3Ryb2tlPSIjREVBMTIzIiBzdHJva2Utd2lkdGg9Ii41Ij48L2NpcmNsZT48Y2lyY2xlIGN4PSI0NiIgY3k9IjYiIHI9IjYiIGZpbGw9IiMyN0M5M0YiIHN0cm9rZT0iIzFBQUIyOSIgc3Ryb2tlLXdpZHRoPSIuNSI+PC9jaXJjbGU+PC9nPjwvc3ZnPg==');
+            }
+            .code-fence_selector-wrapper {
+                text-align: right;
+                float: right;
+                .code-fence_selector {
+                    background-color: transparent;
+                    box-shadow: none;
+                    margin: 0;
+                    height: 1rem;
+                    border: 0;
+                    width: initial;
+                }
+                .code-fence_selector-list {
+                    top: 2em;
+                    right: 0;
+                    left: initial;
+                    width: 7em;
+                    padding: 0;
+                    box-shadow: none;
+                    border-radius: 4px;
+                    li {
+                        padding-right: 0.5em;
+                        padding-left: 0;
+                    }
+                }
+            }
             pre {
                 font-family: ${manager.get(ThemeFont, 'code')};
                 margin: 0 1.2em !important;
@@ -143,6 +193,18 @@ export const getStyle = (manager, emotion) => {
             }
         }
     `;
+    // 只读状态
+    const codeReadonly = css`
+        .code-fence_selector-wrapper {
+            .code-fence_selector {
+                margin-right: 1em;
+                cursor: default;
+            }
+            .icon-arrow-down {
+                display: none;
+            }
+        }
+    `;
 
     const img = css`
         .image {
@@ -153,6 +215,16 @@ export const getStyle = (manager, emotion) => {
             position: relative;
             height: auto;
             text-align: center;
+        }
+        .image-container {
+            .icon-image {
+                display: none;
+            }
+            &.system {
+                .icon-image {
+                    display: inline-block;
+                }
+            }
         }
     `;
 
@@ -284,6 +356,32 @@ export const getStyle = (manager, emotion) => {
         }
     `;
 
+    // 快捷下拉框
+    const slashDropdown = css`
+        .slash-dropdown {
+            box-shadow: none;
+            width: 10em;
+            .slash-dropdown-item {
+                height: 2.8em;
+            }
+        }
+    `;
+    const blockHandle = css`
+        .icon-drag {
+            font-size: 24px;
+        }
+        .block-menu {
+            box-shadow: none;
+        }
+    `;
+    const tooltip = css`
+        .tooltip, .table-tooltip, .tooltip-input {
+            box-shadow: none;
+            span {
+                font-size: 18px;
+            }
+        }
+    `;
     injectProsemirrorView(emotion);
 
     injectGlobal`
@@ -300,6 +398,9 @@ export const getStyle = (manager, emotion) => {
             font-family: ${manager.get(ThemeFont, 'typography')};
             ${manager.get(ThemeScrollbar, undefined)}
             ${selection};
+            ${blockHandle};
+            ${tooltip};
+            ${slashDropdown};
             .editor {
                 ${editorLayout};
                 ${paragraph};
@@ -312,6 +413,9 @@ export const getStyle = (manager, emotion) => {
                 ${table};
                 ${footnote};
                 ${inline};
+            }
+            .editor[contenteditable="false"] {
+                ${codeReadonly};
             }
         }
     `;

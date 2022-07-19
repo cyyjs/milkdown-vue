@@ -2,25 +2,13 @@
  * @Author: cyy
  * @Date: 2022-06-24 16:53:03
  * @LastEditors: cyy
- * @LastEditTime: 2022-07-13 16:03:43
+ * @LastEditTime: 2022-07-19 16:08:38
  * @Description: 
  */
 import { themeManagerCtx, schemaCtx, commandsCtx, editorCtx } from "@milkdown/core";
 import { slash, slashPlugin, createDropdownItem } from '@milkdown/plugin-slash';
 import { insert } from '@milkdown/utils';
-const zh = {
-  h1: '一级标题',
-  h2: '二级标题',
-  h3: '三级标题',
-  bulletList: '符号列表',
-  orderedList: '数字列表',
-  image: '图像',
-  blockquote: '引用',
-  code: '代码',
-  table: '表格',
-  taskList: '任务列表',
-  divider: '水平线'
-}
+import zh from './zh'
 
 export const defaultActions = (ctx, input = '/') => {
   const { nodes } = ctx.get(schemaCtx);
@@ -150,7 +138,6 @@ export default slash.configure(slashPlugin, {
       };
 
       if (content.startsWith("/")) {
-        console.log(parentNode)
         if (parentNode.type.name === 'customNode') {
           actions.push({
             id: 'custom',

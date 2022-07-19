@@ -14,6 +14,14 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.icon-drag:before {
+  content: "\e648";
+}
+
+.icon-text:before {
+  content: "\e768";
+}
+
 .icon-diagram:before {
   content: "\ec09";
 }

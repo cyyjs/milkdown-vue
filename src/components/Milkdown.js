@@ -2,13 +2,13 @@
  * @Author: cyy
  * @Date: 2021-10-14 18:47:03
  * @LastEditors: cyy
- * @LastEditTime: 2022-07-13 14:32:17
+ * @LastEditTime: 2022-07-19 16:39:42
  * @Description: 
 */
 import './font/iconfont.css'
 import { defineComponent, h, watch } from 'vue'
 import { Editor, rootCtx, defaultValueCtx, editorViewOptionsCtx } from '@milkdown/core';
-import { forceUpdate, getHTML, outline } from '@milkdown/utils';
+import { forceUpdate, getHTML, outline, switchTheme } from '@milkdown/utils';
 import { VueEditor, useEditor } from '@milkdown/vue';
 // import { commonmark, commonmarkPlugins, blockquote, SupportedKeys } from '@milkdown/preset-commonmark';
 import { history } from '@milkdown/plugin-history';
@@ -25,15 +25,17 @@ import { diagram } from '@milkdown/plugin-diagram';
 import { listener, listenerCtx } from '@milkdown/plugin-listener';
 import { nord, nordDark, nordLight } from './theme'
 import gfm from './plugins/gfm';
+import block from './plugins/block';
 import getUploader from './plugins/uploder'
 import 'katex/dist/katex.min.css';
+import './theme/code.css'
 // const nodes = commonmark.configure(blockquote, {
 //     keymap: {
 //       // [SupportedKeys.Blockquote]: 'Mod-Shift-b',
 //     },
 // });
 
-console.log(defaultConfig)
+// console.log(defaultConfig)
 const myMenu = menu.configure(menuPlugin, {
   config: defaultConfig.map((section) => {
     return section.map((item) => {
@@ -94,6 +96,7 @@ export default defineComponent({
         })
         .use(listener)
         .use(gfm)
+        .use(block)
         .use(history)
         .use(clipboard)
         .use(math)
@@ -115,7 +118,6 @@ export default defineComponent({
       if (config.menu) {
         editorInstance.use(myMenu)
       }
-
       // 主题配置
       switch (config.theme) {
         case 'dark':
@@ -130,13 +132,14 @@ export default defineComponent({
       }
       return editorInstance
     })
-
+    
     // 只读切换
     watch(() => props.config, () => {
       editorInstance.action(forceUpdate())
+      editorInstance.action(switchTheme(config.theme === 'dark' ? nordDark: nordLight))
     }, {deep: true})
 
-    console.log(editor)
+    // console.log(editor)
     expose({
       loading: editor.loading,
       // 返回HTML

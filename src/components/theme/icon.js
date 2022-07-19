@@ -2,7 +2,7 @@
  * @Author: cyy
  * @Date: 2022-06-23 16:59:55
  * @LastEditors: cyy
- * @LastEditTime: 2022-07-13 15:58:52
+ * @LastEditTime: 2022-07-19 15:38:45
  * @Description: 
  */
 
@@ -155,6 +155,14 @@ const iconMapping = {
     label: '块级公式',
     icon: 'math_block',
   },
+  dragHandle: {
+    label: '拖放',
+    icon: 'drag',
+  },
+  text: {
+    label: '文本',
+    icon: 'text',
+  }
 };
 
 export const getIcon = (id) => {
