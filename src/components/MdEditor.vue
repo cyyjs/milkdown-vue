@@ -2,7 +2,7 @@
  * @Author: cyy
  * @Date: 2022-07-20 11:58:55
  * @LastEditors: cyy
- * @LastEditTime: 2022-07-20 17:21:29
+ * @LastEditTime: 2022-07-21 12:14:19
  * @Description: markdown编辑器
 -->
 <template>
@@ -132,7 +132,7 @@ const createState = (doc, dark = false) => EditorState.create({
     ]),
     markdown(),
     baseTheme,
-    // EditorView.theme( { }, { dark } ),
+    EditorView.theme( { }, { dark } ),
     EditorView.updateListener.of((v) => {
       if (v.focusChanged) {
         mdFocus.value = v.view.hasFocus
