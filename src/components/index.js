@@ -2,7 +2,7 @@
  * @Author: cyy
  * @Date: 2021-10-14 18:47:03
  * @LastEditors: cyy
- * @LastEditTime: 2022-07-20 17:55:53
+ * @LastEditTime: 2022-07-21 17:27:06
  * @Description:
 */
 import './font/iconfont.css'
@@ -70,7 +70,7 @@ export default defineComponent({
       }
     }))
 
-    const editor = useEditor((root) => {
+    const editor = useEditor((root, renderVue) => {
       editorInstance = Editor.make()
         .config((ctx) => {
           ctx.set(rootCtx, root)
@@ -88,7 +88,7 @@ export default defineComponent({
         })
         .use(listener)
         .use(myShortcut)
-        .use(gfm)
+        .use(gfm(renderVue))
         .use(block)
         .use(history)
         .use(clipboard)

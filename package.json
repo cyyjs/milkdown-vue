@@ -27,7 +27,11 @@
   "files": [
     "dist"
   ],
-  "keywords": ["markdown", "milkdown", "vue"],
+  "keywords": [
+    "markdown",
+    "milkdown",
+    "vue"
+  ],
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
@@ -56,6 +60,7 @@
     "@milkdown/theme-tokyo": "^6.3.0",
     "@milkdown/vue": "^6.3.0",
     "@vitejs/plugin-vue": "^3.0.1",
+    "@vitejs/plugin-vue-jsx": "^2.0.0",
     "codemirror": "^6.0.1",
     "eslint": "^8.0.1",
     "eslint-config-standard": "^17.0.0",

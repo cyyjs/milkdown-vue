@@ -2,14 +2,17 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
 import libCss from 'vite-plugin-libcss'
-
+import vueJsx from '@vitejs/plugin-vue-jsx'
 const isBuildDemo = !!process.env.DEMO
 
 export default defineConfig({
   base: isBuildDemo ? '/milkdown-vue' : '/',
   plugins: [
     vue(),
-    libCss()
+    libCss(),
+    vueJsx({
+      include: /\.js$/
+    })
   ],
   build: isBuildDemo ? {} :{
     lib: {

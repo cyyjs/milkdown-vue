@@ -32,7 +32,9 @@
    overflow: auto;
    border-radius: 0.3em;
  }
- 
+ .code-inline {
+  margin: 0 3px;
+ }
  :not(pre) > code[class*="language-"],
  pre[class*="language-"] {
    background: #2E3440;
@@ -98,7 +100,7 @@
  .token.attr-value,
  .token.function,
  .token.class-name {
-   color: #88C0D0;
+   color: #41a9c7;
  }
  
  .token.keyword {

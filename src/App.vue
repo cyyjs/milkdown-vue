@@ -2,15 +2,19 @@
 <main>
   <Editor class="left" v-model="doc" ref="editorRef" :config="config" @save="save" :uploader="uploader"/>
   <div class="right">
-    <div>
+    <div class="btns">
       <button @click="getHtml">getHtml</button>
       <button @click="getOutline">getOutline</button>
       <button @click="config.readonly = !config.readonly">readonly:{{config.readonly}}</button>
       <button @click="config.theme = config.theme === 'light' ? 'dark' : 'light'">theme:{{config.theme}}</button>
       <button @click="setValue(doc2)">setValue</button>
+      <a href="https://github.com/cyyjs/milkdown-vue" target="_black">
+        <img class="github" src="https://github.com/fluidicon.png" alt="">
+      </a>
     </div>
+    #Doc
     <textarea v-model="doc" disabled></textarea>
-    #print
+    #Print
     <textarea v-model="log" disabled></textarea>
   </div>
 </main>
@@ -58,15 +62,22 @@ const uploader = (images) => {
 </script>
 
 <style>
-html,body, #app {
-  height: 100%;
-}
 .left {
   border: 1px solid #ccc;
-  margin-right: 20px;
+}
+.right {
+  padding-left: 20px;
+  box-sizing: border-box;
+}
+.btns {
+  margin-bottom: 10px;
 }
 .right button {
   margin-right: 10px;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
 }
 main {
   display: flex;
@@ -80,5 +91,11 @@ textarea {
   width: 100%;
   margin-top: 20px;
   padding: 10px;
+  box-sizing: border-box;
+}
+.github {
+  width: 32px;
+  height: 32px;
+  float: right;
 }
 </style>
