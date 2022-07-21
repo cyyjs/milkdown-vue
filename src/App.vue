@@ -1,42 +1,61 @@
-<script setup>
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import Milkdown from './components/Milkdown'
-import { ref } from 'vue'
-const milkdown = ref(null)
-const config = ref({
-  readonly: false,
-  menu: true,
-  theme: 'auto'
-})
-const doc = ref(`### Hello
-\`\`\`javascript
-console.log("hello!")
-\`\`\`
-`)
-const getHtml = () => {
-  console.log(milkdown.value.loading)
-  console.log(milkdown.value.getHtml())
-}
-const getOutline = () => {
-  console.log(milkdown.value.getOutline())
-}
-</script>
-
 <template>
 <main>
-  <Milkdown class="left" v-model="doc" ref="milkdown" :config="config"/>
+  <Editor class="left" v-model="doc" ref="editorRef" :config="config" @save="save" :uploader="uploader"/>
   <div class="right">
     <div>
       <button @click="getHtml">getHtml</button>
       <button @click="getOutline">getOutline</button>
       <button @click="config.readonly = !config.readonly">readonly:{{config.readonly}}</button>
       <button @click="config.theme = config.theme === 'light' ? 'dark' : 'light'">theme:{{config.theme}}</button>
+      <button @click="setValue(doc2)">setValue</button>
     </div>
     <textarea v-model="doc" disabled></textarea>
+    #print
+    <textarea v-model="log" disabled></textarea>
   </div>
 </main>
 </template>
+<script setup>
+// This starter template is using Vue 3 <script setup> SFCs
+// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
+// import Editor from '../'
+import { ref } from 'vue'
+import Editor from './components/index.js'
+import Readme from '../README.md?raw'
+
+const editorRef = ref(null)
+const config = ref({
+  readonly: false,
+  menu: true,
+  theme: 'auto'
+})
+const doc = ref(Readme)
+const doc2 = ref(`### Hello Wold
+\`\`\`javascript
+console.log("Hello Wold!")
+\`\`\`
+
+`)
+const log = ref('')
+const getHtml = () => {
+  log.value = editorRef.value.getHtml()
+}
+const getOutline = () => {
+  log.value = JSON.stringify(editorRef.value.getOutline(), null, 2)
+}
+const setValue = (v) => {
+  editorRef.value.setValue(v)
+}
+const save = (v) => {
+  console.log(v)
+}
+const uploader = (images) => {
+  return [{
+    url: 'https://cyyjs.top/_nuxt/img/qrcode.5c9aef0.jpg',
+    name: 'head'
+  }]
+}
+</script>
 
 <style>
 html,body, #app {

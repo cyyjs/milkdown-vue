@@ -3,7 +3,7 @@
  * @Date: 2022-06-23 16:59:44
  * @LastEditors: cyy
  * @LastEditTime: 2022-06-23 18:42:33
- * @Description: 
+ * @Description:
  */
 export const typography = [
   'iconfont',
@@ -13,7 +13,7 @@ export const typography = [
   'Helvetica',
   'Arial',
   'Lucida Grande',
-  'sans-serif',
-];
+  'sans-serif'
+]
 
-export const code = ['Consolas', 'Monaco', 'Andale Mono', 'Ubuntu Mono', 'monospace'];
+export const code = ['Consolas', 'Monaco', 'Andale Mono', 'Ubuntu Mono', 'monospace']

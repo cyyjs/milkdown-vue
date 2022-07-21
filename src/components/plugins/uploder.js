@@ -2,48 +2,47 @@
  * @Author: cyy
  * @Date: 2022-06-24 11:39:34
  * @LastEditors: cyy
- * @LastEditTime: 2022-06-24 11:42:52
- * @Description: 
+ * @LastEditTime: 2022-07-20 18:16:42
+ * @Description:
  */
 
-import { upload, uploadPlugin } from '@milkdown/plugin-upload';
+import { upload, uploadPlugin } from '@milkdown/plugin-upload'
 
-const uploader = async (files, schema) => {
-  const images = [];
-
-  for (let i = 0; i < files.length; i++) {
-    const file = files.item(i);
-    if (!file) {
-      continue;
+const createUploader = (uploaderFn) => {
+  const uploader = async (files, schema) => {
+    const images = []
+    for (let i = 0; i < files.length; i++) {
+      const file = files.item(i)
+      if (!file) {
+        continue
+      }
+      if (!file.type.includes('image')) {
+        continue
+      }
+      images.push(file)
     }
-
-    // You can handle whatever the file type you want, we handle image here.
-    if (!file.type.includes('image')) {
-      continue;
+    let result = []
+    try {
+      result = await uploaderFn(images)
+    } catch (e) {
+      console.error(e)
     }
-
-    images.push(file);
-  }
-
-  const nodes = await Promise.all(
-    images.map(async (image) => {
-      // const src = await YourUploadAPI(image);
-      const src = ''
-      const alt = image.name;
-      return schema.nodes.image.createAndFill({
-        src,
-        alt,
+    if (Array.isArray(result) && result.length) {
+      const nodes = result.map(image => {
+        const src = image.url
+        const alt = image.name
+        return schema.nodes.image.createAndFill({ src, alt, title: alt })
       })
-    }),
-  );
+      return nodes
+    }
+  }
+  return uploader
+}
 
-  return nodes;
-};
-
-export default (config = {}) => {
-  if (config.url) {
+export default (uploaderFn) => {
+  if (uploaderFn) {
     return upload.configure(uploadPlugin, {
-      uploader,
+      uploader: createUploader(uploaderFn)
     })
   }
   return upload

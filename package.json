@@ -1,23 +1,26 @@
 {
-  "name": "milkdown-full",
+  "name": "milkdown-vue",
   "description": "milkdown 封装",
   "private": true,
   "version": "0.0.0",
   "module": "./dist/milkdown.es.js",
   "main": "./dist/milkdown.umd.js",
-  "homepage": "",
+  "homepage": "https://cyyjs.github.io/milkdown-vue",
   "repository": {
     "type": "git",
-    "url": "git@github.com:cyyjs/milkdown-full.git"
+    "url": "git@github.com:cyyjs/milkdown-vue.git"
   },
   "scripts": {
+    "precommit": "yarn lint",
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "lint": "eslint --fix --ext .js,.vue --ignore-path .gitignore ."
   },
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.18.9",
+    "@codemirror/lang-markdown": "^6.0.0",
     "@milkdown/core": "^6.3.0",
     "@milkdown/design-system": "^6.3.0",
     "@milkdown/plugin-block": "^6.3.0",
@@ -41,6 +44,13 @@
     "@milkdown/theme-tokyo": "^6.3.0",
     "@milkdown/vue": "^6.3.0",
     "@vitejs/plugin-vue": "^3.0.1",
+    "codemirror": "^6.0.1",
+    "eslint": "^8.0.1",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-vue": "^9.2.0",
     "katex": "^0.16.0",
     "vite": "^3.0.2",
     "vite-plugin-libcss": "^1.0.5",

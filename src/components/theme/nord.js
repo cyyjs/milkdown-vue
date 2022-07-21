@@ -3,7 +3,7 @@
  * @Date: 2022-06-23 17:00:08
  * @LastEditors: cyy
  * @LastEditTime: 2022-06-23 17:03:41
- * @Description: 
+ * @Description:
  */
 
 export const Nord = {
@@ -22,8 +22,8 @@ export const Nord = {
   nord12: '#d08770',
   nord13: '#ebcb8b',
   nord14: '#a3be8c',
-  nord15: '#b48ead',
-};
+  nord15: '#b48ead'
+}
 
 export const lightColor = {
   shadow: Nord.nord1,
@@ -33,8 +33,8 @@ export const lightColor = {
   solid: Nord.nord3,
   line: Nord.nord4,
   background: Nord.nord6,
-  surface: '#fff',
-};
+  surface: '#fff'
+}
 
 export const darkColor = {
   shadow: Nord.nord1,
@@ -44,10 +44,10 @@ export const darkColor = {
   solid: Nord.nord4,
   line: Nord.nord2,
   background: '#252932',
-  surface: Nord.nord0,
-};
+  surface: Nord.nord0
+}
 
 export const color = {
   lightColor,
-  darkColor,
+  darkColor
 }

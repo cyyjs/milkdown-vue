@@ -8,53 +8,53 @@ import {
   ThemeIcon,
   ThemeScrollbar,
   ThemeShadow,
-  ThemeSize,
-} from '@milkdown/core';
-import { useAllPresetRenderer } from '@milkdown/theme-pack-helper';
+  ThemeSize
+} from '@milkdown/core'
+import { useAllPresetRenderer } from '@milkdown/theme-pack-helper'
 
-import { code, typography } from './font';
-import { getIcon } from './icon';
-import { darkColor, lightColor } from './nord';
-import { getStyle } from './style';
+import { code, typography } from './font'
+import { getIcon } from './icon'
+import { darkColor, lightColor } from './nord'
+import getStyle from './style'
 
 export const font = {
   typography,
-  code,
-};
+  code
+}
 
 export const size = {
   radius: '4px',
-  lineWidth: '1px',
-};
+  lineWidth: '1px'
+}
 
 export const createTheme = (isDarkMode) => (emotion, manager) => {
-  const { css } = emotion;
-  const colorSet = isDarkMode ? darkColor : lightColor;
+  const { css } = emotion
+  const colorSet = isDarkMode ? darkColor : lightColor
 
   manager.set(ThemeColor, (options) => {
-    if (!options) return;
-    const [key, opacity] = options;
-    const hex = colorSet[key];
-    const rgb = hex2rgb(hex);
-    if (!rgb) return;
+    if (!options) return
+    const [key, opacity] = options
+    const hex = colorSet[key]
+    const rgb = hex2rgb(hex)
+    if (!rgb) return
 
-    return `rgba(${rgb?.join(', ')}, ${opacity || 1})`;
-  });
+    return `rgba(${rgb?.join(', ')}, ${opacity || 1})`
+  })
 
   manager.set(ThemeSize, (key) => {
-    if (!key) return;
-    return size[key];
-  });
+    if (!key) return
+    return size[key]
+  })
 
   manager.set(ThemeFont, (key) => {
-    if (!key) return;
-    return font[key].join(', ');
-  });
+    if (!key) return
+    return font[key].join(', ')
+  })
 
   manager.set(ThemeScrollbar, ([direction = 'y', type = 'normal'] = ['y', 'normal']) => {
-    const main = manager.get(ThemeColor, ['secondary', 0.38]);
-    const bg = manager.get(ThemeColor, ['secondary', 0.12]);
-    const hover = manager.get(ThemeColor, ['secondary']);
+    const main = manager.get(ThemeColor, ['secondary', 0.38])
+    const bg = manager.get(ThemeColor, ['secondary', 0.12])
+    const hover = manager.get(ThemeColor, ['secondary'])
     return css`
           scrollbar-width: thin;
           scrollbar-color: ${main} ${bg};
@@ -77,54 +77,53 @@ export const createTheme = (isDarkMode) => (emotion, manager) => {
           &::-webkit-scrollbar-thumb:hover {
               background-color: ${hover};
           }
-      `;
-  });
+      `
+  })
 
   manager.set(ThemeShadow, () => {
-    const lineWidth = manager.get(ThemeSize, 'lineWidth');
-    const getShadow = (opacity) => manager.get(ThemeColor, ['shadow', opacity]);
+    const lineWidth = manager.get(ThemeSize, 'lineWidth')
+    const getShadow = (opacity) => manager.get(ThemeColor, ['shadow', opacity])
     return css`
           box-shadow: 0 ${lineWidth} ${lineWidth} ${getShadow(0.14)}, 0 2px ${lineWidth} ${getShadow(0.12)},
               0 ${lineWidth} 3px ${getShadow(0.2)};
-      `;
-  });
+      `
+  })
 
   manager.set(ThemeBorder, (direction) => {
-    const lineWidth = manager.get(ThemeSize, 'lineWidth');
-    const line = manager.get(ThemeColor, ['line']);
+    const lineWidth = manager.get(ThemeSize, 'lineWidth')
+    const line = manager.get(ThemeColor, ['line'])
     if (!direction) {
       return css`
               border: ${lineWidth} solid ${line};
-          `;
+          `
     }
     return css`
           ${`border-${direction}`}: ${lineWidth} solid ${line};
-      `;
-  });
+      `
+  })
 
   manager.set(ThemeIcon, (icon) => {
-    if (!icon) return;
+    if (!icon) return
 
-    return getIcon(icon);
-  });
+    return getIcon(icon)
+  })
 
   manager.set(ThemeGlobal, () => {
-    getStyle(manager, emotion);
-  });
+    getStyle(manager, emotion)
+  })
 
-  useAllPresetRenderer(manager, emotion);
-};
-
-export const getNord = (isDarkMode = false) =>
-  themeFactory((emotion, manager) => createTheme(isDarkMode)(emotion, manager));
-
-export const nordDark = getNord(true);
-export const nordLight = getNord(false);
-
-let darkMode = false;
-if (typeof window !== 'undefined') {
-  darkMode = Boolean(window.matchMedia?.('(prefers-color-scheme: dark)').matches);
+  useAllPresetRenderer(manager, emotion)
 }
-export const nord = getNord(darkMode);
 
-export { color, darkColor, lightColor } from './nord';
+export const getNord = (isDarkMode = false) => themeFactory((emotion, manager) => createTheme(isDarkMode)(emotion, manager))
+
+export const nordDark = getNord(true)
+export const nordLight = getNord(false)
+
+let darkMode = false
+if (typeof window !== 'undefined') {
+  darkMode = Boolean(window.matchMedia?.('(prefers-color-scheme: dark)').matches)
+}
+export const nord = getNord(darkMode)
+
+export { color, darkColor, lightColor } from './nord'

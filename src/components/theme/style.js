@@ -2,24 +2,26 @@
  * @Author: cyy
  * @Date: 2022-06-23 17:00:19
  * @LastEditors: cyy
- * @LastEditTime: 2022-07-19 17:12:21
- * @Description: 
+ * @LastEditTime: 2022-07-20 18:34:42
+ * @Description:
  */
 
-import { ThemeBorder, ThemeFont, ThemeScrollbar, ThemeShadow, ThemeSize } from '@milkdown/core';
-import { getPalette } from '@milkdown/design-system';
-import { injectProsemirrorView } from '@milkdown/theme-pack-helper';
+import {
+  ThemeBorder, ThemeFont, ThemeScrollbar, ThemeSize
+} from '@milkdown/core'
+import { getPalette } from '@milkdown/design-system'
+import { injectProsemirrorView } from '@milkdown/theme-pack-helper'
 
-export const getStyle = (manager, emotion) => {
-    const { injectGlobal, css } = emotion;
-    const palette = getPalette(manager);
-    const radius = manager.get(ThemeSize, 'radius');
-    const neutral = palette('neutral', 0.87);
-    const surface = palette('surface');
-    const line = palette('line');
-    const highlight = palette('secondary', 0.38);
+export default (manager, emotion) => {
+  const { injectGlobal, css } = emotion
+  const palette = getPalette(manager)
+  const radius = manager.get(ThemeSize, 'radius')
+  const neutral = palette('neutral', 0.87)
+  const surface = palette('surface')
+  const line = palette('line')
+  const highlight = palette('secondary', 0.38)
 
-    const selection = css`
+  const selection = css`
         .ProseMirror-selectednode {
             outline: ${manager.get(ThemeSize, 'lineWidth')} solid ${line};
         }
@@ -32,27 +34,27 @@ export const getStyle = (manager, emotion) => {
         & ::selection {
             background: ${highlight};
         }
-    `;
+    `
 
-    const editorLayout = css`
+  const editorLayout = css`
         padding: 1em 2em;
         outline: none;
         & > * {
             margin: 1em 0;
         }
-    `;
+    `
 
-    const paragraph = css`
+  const paragraph = css`
         p {
             font-size: 1em;
             line-height: 1.5;
             letter-spacing: 0.5px;
         }
-    `;
+    `
 
-    const blockquote = css`
+  const blockquote = css`
         blockquote {
-            padding-left: 1.875em;
+            padding-left: 1em;
             line-height: 1.75em;
             border-left: 4px solid ${palette('primary')};
             margin-left: 0;
@@ -62,48 +64,50 @@ export const getStyle = (manager, emotion) => {
                 line-height: 1.5em;
             }
         }
-    `;
+    `
 
-    const heading = css`
+  const heading = css`
         h1 {
-            font-size: 3em;
-            line-height: 1.167;
+            font-size: 2em;
+            line-height: 1.25;
+            font-weight: 600;
         }
         h2 {
-            font-size: 2.5em;
-            line-height: 1.2;
+            font-size: 1.5em;
+            line-height: 1.25;
+            font-weight: 500;
         }
         h3 {
-            font-size: 2.125em;
-            line-height: 1.05;
+            font-size: 1.25em;
+            line-height: 1.25;
+            font-weight: 500;
         }
         h4 {
-            font-size: 1.75em;
-            line-height: 1.14;
+            font-size: 1em;
+            line-height: 1.25;
         }
         h5 {
-            font-size: 1.5em;
-            line-height: 1;
+            font-size: 0.875em;
+            line-height: 1.25;
         }
         h6 {
-            font-size: 1.25em;
-            line-height: 1;
+            font-size: 0.85em;
+            line-height: 1.25;
         }
         .heading {
-            margin: 40px 0;
-            font-weight: 400;
+            margin: 20px 0;
         }
-    `;
+    `
 
-    const hr = css`
+  const hr = css`
         hr {
             height: ${manager.get(ThemeSize, 'lineWidth')};
             background-color: ${line};
             border-width: 0;
         }
-    `;
+    `
 
-    const list = css`
+  const list = css`
         ul, ol {
             margin: 0;
             padding: 0;
@@ -137,9 +141,9 @@ export const getStyle = (manager, emotion) => {
                 height: 1em;
             }
         }
-    `;
+    `
 
-    const code = css`
+  const code = css`
         .code-fence {
             ::before {
                 content: ' ';
@@ -192,9 +196,9 @@ export const getStyle = (manager, emotion) => {
                 }
             }
         }
-    `;
-    // 只读状态
-    const codeReadonly = css`
+    `
+  // 只读状态
+  const codeReadonly = css`
         .code-fence_selector-wrapper {
             .code-fence_selector {
                 margin-right: 1em;
@@ -204,9 +208,9 @@ export const getStyle = (manager, emotion) => {
                 display: none;
             }
         }
-    `;
+    `
 
-    const img = css`
+  const img = css`
         .image {
             display: inline-block;
             margin: 0 auto;
@@ -226,9 +230,9 @@ export const getStyle = (manager, emotion) => {
                 }
             }
         }
-    `;
+    `
 
-    const inline = css`
+  const inline = css`
         .code-inline {
             background-color: ${palette('neutral')};
             color: ${palette('background')};
@@ -255,9 +259,9 @@ export const getStyle = (manager, emotion) => {
         .strike-through {
             text-decoration-color: ${palette('secondary')};
         }
-    `;
+    `
 
-    const footnote = css`
+  const footnote = css`
         .footnote-definition {
             ${manager.get(ThemeBorder, undefined)};
             border-radius: ${manager.get(ThemeSize, 'radius')};
@@ -280,9 +284,9 @@ export const getStyle = (manager, emotion) => {
                 width: 1em;
             }
         }
-    `;
+    `
 
-    const table = css`
+  const table = css`
         /* copy from https://github.com/ProseMirror/prosemirror-tables/blob/master/style/tables.css */
         .tableWrapper {
             overflow-x: auto;
@@ -354,10 +358,10 @@ export const getStyle = (manager, emotion) => {
                 background: transparent;
             }
         }
-    `;
+    `
 
-    // 快捷下拉框
-    const slashDropdown = css`
+  // 快捷下拉框
+  const slashDropdown = css`
         .slash-dropdown {
             box-shadow: none;
             width: 10em;
@@ -365,26 +369,26 @@ export const getStyle = (manager, emotion) => {
                 height: 2.8em;
             }
         }
-    `;
-    const blockHandle = css`
+    `
+  const blockHandle = css`
         .icon-drag {
             font-size: 24px;
         }
         .block-menu {
             box-shadow: none;
         }
-    `;
-    const tooltip = css`
+    `
+  const tooltip = css`
         .tooltip, .table-tooltip, .tooltip-input {
             box-shadow: none;
             span {
                 font-size: 18px;
             }
         }
-    `;
-    injectProsemirrorView(emotion);
+    `
+  injectProsemirrorView(emotion)
 
-    injectGlobal`
+  injectGlobal`
         .milkdown {
             .material-icons-outlined {
                 font-size: 1.5em;
@@ -418,5 +422,5 @@ export const getStyle = (manager, emotion) => {
                 ${codeReadonly};
             }
         }
-    `;
-};
+    `
+}
