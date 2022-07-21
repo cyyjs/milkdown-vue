@@ -1,7 +1,6 @@
 {
   "name": "milkdown-vue",
   "description": "milkdown vue 封装",
-  "private": true,
   "version": "0.0.0",
   "module": "./dist/milkdown.es.js",
   "main": "./dist/milkdown.umd.js",
