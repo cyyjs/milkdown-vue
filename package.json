@@ -1,10 +1,17 @@
 {
   "name": "milkdown-vue",
-  "description": "milkdown 封装",
+  "description": "milkdown vue 封装",
   "private": true,
   "version": "0.0.0",
   "module": "./dist/milkdown.es.js",
   "main": "./dist/milkdown.umd.js",
+  "exports": {
+    ".": {
+      "import": "./dist/milkdown.es.js",
+      "require": "./dist/milkdown.umd.js"
+    }
+  },
+  "author": "cyyjs@cyyjs.top",
   "homepage": "https://cyyjs.github.io/milkdown-vue",
   "repository": {
     "type": "git",
@@ -13,10 +20,16 @@
   "scripts": {
     "precommit": "yarn lint",
     "dev": "vite",
+    "build-demo": "DEMO=true vite build",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint --fix --ext .js,.vue --ignore-path .gitignore ."
   },
+  "files": [
+    "dist"
+  ],
+  "keywords": ["markdown", "milkdown", "vue"],
+  "license": "MIT",
   "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.18.9",
