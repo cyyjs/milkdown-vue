@@ -28,7 +28,7 @@ jobs:
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
-      - run: npm publish --opt=8829832201282396
+      - run: npm publish --otp=8829832201282396
         env:
           CI: true
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
