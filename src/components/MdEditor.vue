@@ -132,7 +132,7 @@ const createState = (doc, dark = false) => EditorState.create({
     ]),
     markdown(),
     baseTheme,
-    EditorView.theme( { }, { dark } ),
+    EditorView.theme({ }, { dark }),
     EditorView.updateListener.of((v) => {
       if (v.focusChanged) {
         mdFocus.value = v.view.hasFocus

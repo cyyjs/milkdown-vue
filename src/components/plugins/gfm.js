@@ -1,15 +1,15 @@
-import { gfm, image, link, commonmark } from '@milkdown/preset-gfm'
+import { gfm, image, link } from '@milkdown/preset-gfm'
 import { defineComponent, inject } from 'vue'
 import { nodeMetadata } from '@milkdown/vue'
 const MyLink = defineComponent({
   name: 'my-link',
-  setup(_, { slots }) {
-    const node = inject(nodeMetadata, {}).node;
+  setup (_, { slots }) {
+    const node = inject(nodeMetadata, {}).node
     const href = node?.value?.attrs?.href
-    return () => <a target="_blank" href={href}>{slots.default?.()}</a>;
+    return () => <a target="_blank" href={href}>{slots.default?.()}</a>
   }
 
-});
+})
 
 export default (renderVue) => gfm.configure(image, {
   placeholder: '添加图片',

@@ -14,19 +14,21 @@ export default defineConfig({
       include: /\.js$/
     })
   ],
-  build: isBuildDemo ? {} :{
-    lib: {
-      entry: path.resolve(__dirname, 'src/components/index.js'),
-      name: 'milkdown',
-      fileName: (format) => `milkdown.${format}.js`
-    },
-    rollupOptions: {
-      external: ['vue'],
-      output: {
-        globals: {
-          vue: 'Vue'
+  build: isBuildDemo
+    ? {}
+    : {
+        lib: {
+          entry: path.resolve(__dirname, 'src/components/index.js'),
+          name: 'milkdown',
+          fileName: (format) => `milkdown.${format}.js`
+        },
+        rollupOptions: {
+          external: ['vue'],
+          output: {
+            globals: {
+              vue: 'Vue'
+            }
+          }
         }
       }
-    }
-  }
 })
