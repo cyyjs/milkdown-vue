@@ -31,4 +31,5 @@ jobs:
       - run: npm publish
         env:
           CI: true
+          HUSKY: 0
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
