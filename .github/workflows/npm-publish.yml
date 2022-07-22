@@ -20,7 +20,7 @@ jobs:
       - run: yarn build
 
   publish-npm:
-    needs: build
+    needs: dist
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
