@@ -20,7 +20,7 @@ jobs:
       - run: yarn build
 
   publish-npm:
-    needs: dist
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -32,5 +32,4 @@ jobs:
       - run: npm publish
         env:
           CI: true
-          HUSKY: 0
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
