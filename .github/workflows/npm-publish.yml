@@ -28,6 +28,7 @@ jobs:
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
+      - run: npm pkg delete scripts
       - run: npm publish
         env:
           CI: true
