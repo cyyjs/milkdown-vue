@@ -20,6 +20,7 @@ export default defineConfig({
         lib: {
           entry: path.resolve(__dirname, 'src/components/index.js'),
           name: 'milkdown',
+          formats: ['esm'],
           fileName: (format) => `milkdown.${format}.js`
         },
         rollupOptions: {

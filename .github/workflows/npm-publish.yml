@@ -9,18 +9,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - run: yarn install
-      - run: yarn build
-
-  publish-npm:
-    needs: build
+  build-publish-npm:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -28,7 +17,9 @@ jobs:
         with:
           node-version: 16
           registry-url: https://registry.npmjs.org/
+      - run: yarn install
+      - run: yarn build
+      - run: npm pkg delete scripts
       - run: npm publish
         env:
-          CI: true
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

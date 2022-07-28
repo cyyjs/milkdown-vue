@@ -2,7 +2,7 @@
  * @Author: cyy
  * @Date: 2021-10-14 18:47:03
  * @LastEditors: cyy
- * @LastEditTime: 2022-07-21 17:27:06
+ * @LastEditTime: 2022-07-28 16:36:01
  * @Description:
 */
 import './font/iconfont.css'
@@ -22,7 +22,7 @@ import { prism } from '@milkdown/plugin-prism'
 import { tooltip } from '@milkdown/plugin-tooltip'
 import { emoji } from '@milkdown/plugin-emoji'
 import { clipboard } from '@milkdown/plugin-clipboard'
-import { math } from '@milkdown/plugin-math'
+// import { math } from '@milkdown/plugin-math'
 import { indent, indentPlugin } from '@milkdown/plugin-indent'
 import { diagram } from '@milkdown/plugin-diagram'
 import { listener, listenerCtx } from '@milkdown/plugin-listener'
@@ -92,7 +92,7 @@ export default defineComponent({
         .use(block)
         .use(history)
         .use(clipboard)
-        .use(math)
+        // .use(math)
         .use(prism)
         .use(tooltip)
         .use(cursor)
@@ -133,6 +133,7 @@ export default defineComponent({
     }, { deep: true })
 
     expose({
+      editorInstance,
       loading: editor.loading,
       setValue: (md) => editorInstance.action(replaceAll(md)),
       // 返回HTML
