@@ -2,7 +2,7 @@
  * @Author: cyy
  * @Date: 2021-10-14 18:47:03
  * @LastEditors: cyy
- * @LastEditTime: 2022-07-28 16:36:01
+ * @LastEditTime: 2022-09-19 11:14:40
  * @Description:
 */
 import './font/iconfont.css'
@@ -32,7 +32,7 @@ import gfm from './plugins/gfm'
 import block from './plugins/block'
 import menu from './plugins/menu'
 import getUploader from './plugins/uploder'
-import 'katex/dist/katex.min.css'
+// import 'katex/dist/katex.min.css'
 import './theme/code.css'
 import mdEditor from './MdEditor.vue'
 
