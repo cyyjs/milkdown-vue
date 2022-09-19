@@ -1,7 +1,7 @@
 {
   "name": "milkdown-vue",
   "description": "milkdown vue 封装",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "./dist/milkdown.esm.js",
   "exports": {
     ".": {
