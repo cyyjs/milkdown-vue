@@ -9,8 +9,9 @@ import { block, defaultConfigBuilder, blockPlugin } from '@milkdown/plugin-block
 import zh from './zh'
 
 export default block.configure(blockPlugin, {
-  configBuilder: (ctx) => defaultConfigBuilder(ctx).map((item) => {
-    item.content = zh[item.icon] || item.content
-    return item
-  })
+  configBuilder: (ctx) =>
+    defaultConfigBuilder(ctx).map((item) => {
+      item.content = zh[item.icon] || item.content
+      return item
+    })
 })

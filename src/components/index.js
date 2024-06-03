@@ -4,17 +4,11 @@
  * @LastEditors: cyy
  * @LastEditTime: 2022-09-19 11:14:40
  * @Description:
-*/
+ */
 import './font/iconfont.css'
-import {
-  defineComponent, h, watch, ref
-} from 'vue'
-import {
-  Editor, rootCtx, defaultValueCtx, editorViewOptionsCtx
-} from '@milkdown/core'
-import {
-  forceUpdate, getHTML, outline, switchTheme, replaceAll, $shortcut
-} from '@milkdown/utils'
+import { defineComponent, h, watch, ref } from 'vue'
+import { Editor, rootCtx, defaultValueCtx, editorViewOptionsCtx } from '@milkdown/core'
+import { forceUpdate, getHTML, outline, switchTheme, replaceAll, $shortcut } from '@milkdown/utils'
 import { VueEditor, useEditor } from '@milkdown/vue'
 import { history } from '@milkdown/plugin-history'
 import { cursor } from '@milkdown/plugin-cursor'
@@ -54,7 +48,7 @@ export default defineComponent({
     }
   },
   emits: ['update:modelValue'],
-  setup (props, { expose, emit }) {
+  setup(props, { expose, emit }) {
     const doc = ref(props.modelValue)
     const showMDEditor = ref(false)
     let editorInstance
@@ -127,10 +121,14 @@ export default defineComponent({
     })
 
     // 只读切换
-    watch(() => props.config, () => {
-      editorInstance.action(forceUpdate())
-      editorInstance.action(switchTheme(props.config.theme === 'dark' ? nordDark : nordLight))
-    }, { deep: true })
+    watch(
+      () => props.config,
+      () => {
+        editorInstance.action(forceUpdate())
+        editorInstance.action(switchTheme(props.config.theme === 'dark' ? nordDark : nordLight))
+      },
+      { deep: true }
+    )
 
     expose({
       editorInstance,
@@ -142,21 +140,22 @@ export default defineComponent({
       getOutline: () => editorInstance.action(outline())
     })
 
-    return () => h('div', {}, [
-      h(VueEditor, { ...editor, style: { display: showMDEditor.value ? 'none' : 'block' } }),
-      h(mdEditor, {
-        style: { display: showMDEditor.value ? 'block' : 'none' },
-        modelValue: doc.value,
-        dark: props.config.theme === 'dark',
-        onSave: () => emit('save', doc.value),
-        onSwitchEditor: () => {
-          showMDEditor.value = !showMDEditor.value
-        },
-        'onUpdate:modelValue': (v) => {
-          emit('update:modelValue', v)
-          editorInstance.action(replaceAll(v))
-        }
-      })
-    ])
+    return () =>
+      h('div', {}, [
+        h(VueEditor, { ...editor, style: { display: showMDEditor.value ? 'none' : 'block' } }),
+        h(mdEditor, {
+          style: { display: showMDEditor.value ? 'block' : 'none' },
+          modelValue: doc.value,
+          dark: props.config.theme === 'dark',
+          onSave: () => emit('save', doc.value),
+          onSwitchEditor: () => {
+            showMDEditor.value = !showMDEditor.value
+          },
+          'onUpdate:modelValue': (v) => {
+            emit('update:modelValue', v)
+            editorInstance.action(replaceAll(v))
+          }
+        })
+      ])
   }
 })

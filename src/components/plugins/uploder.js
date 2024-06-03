@@ -28,7 +28,7 @@ const createUploader = (uploaderFn) => {
       console.error(e)
     }
     if (Array.isArray(result) && result.length) {
-      const nodes = result.map(image => {
+      const nodes = result.map((image) => {
         const src = image.url
         const alt = image.name
         return schema.nodes.image.createAndFill({ src, alt, title: alt })

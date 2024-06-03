@@ -116,46 +116,51 @@ export const defaultActions = (ctx, input = '/') => {
   const userInput = input.slice(1).toLocaleLowerCase()
 
   return actions
-    .filter((action) => !!nodes[action.typeName] && action.keyword.some((keyword) => keyword.includes(userInput)))
+    .filter(
+      (action) =>
+        !!nodes[action.typeName] && action.keyword.some((keyword) => keyword.includes(userInput))
+    )
     .map(({ keyword, typeName, ...action }) => action)
 }
 
 export default slash.configure(slashPlugin, {
-  config: (ctx) => ({ content, isTopLevel, parentNode }) => {
-    if (!isTopLevel) return null
+  config:
+    (ctx) =>
+    ({ content, isTopLevel, parentNode }) => {
+      if (!isTopLevel) return null
 
-    if (!content) {
-      return { placeholder: '/ 👈 👩🏻‍💻' }
-    }
-
-    const mapActions = (action) => {
-      const { id = '' } = action
-      if (zh[id]) {
-        action.dom = createDropdownItem(ctx.get(themeManagerCtx), zh[id], id)
+      if (!content) {
+        return { placeholder: '/ 👈 👩🏻‍💻' }
       }
-      return action
-    }
 
-    if (content.startsWith('/')) {
-      // if (parentNode.type.name === 'customNode') {
-      //   actions.push({
-      //     id: 'custom',
-      //     dom: createDropdownItem(ctx.get(themeToolCtx), 'Custom', 'h1'),
-      //     command: () => ctx.get(commandsCtx).call(/* Add custom command here */),
-      //     keyword: ['custom'],
-      //     enable: () => true
-      //   })
-      // }
-      return content === '/'
-        ? {
-            placeholder: '🤔 ...',
-            actions: defaultActions(ctx).map(mapActions)
-          }
-        : {
-            actions: defaultActions(ctx, content).map(mapActions)
-          }
-    }
+      const mapActions = (action) => {
+        const { id = '' } = action
+        if (zh[id]) {
+          action.dom = createDropdownItem(ctx.get(themeManagerCtx), zh[id], id)
+        }
+        return action
+      }
 
-    return null
-  }
+      if (content.startsWith('/')) {
+        // if (parentNode.type.name === 'customNode') {
+        //   actions.push({
+        //     id: 'custom',
+        //     dom: createDropdownItem(ctx.get(themeToolCtx), 'Custom', 'h1'),
+        //     command: () => ctx.get(commandsCtx).call(/* Add custom command here */),
+        //     keyword: ['custom'],
+        //     enable: () => true
+        //   })
+        // }
+        return content === '/'
+          ? {
+              placeholder: '🤔 ...',
+              actions: defaultActions(ctx).map(mapActions)
+            }
+          : {
+              actions: defaultActions(ctx, content).map(mapActions)
+            }
+      }
+
+      return null
+    }
 })

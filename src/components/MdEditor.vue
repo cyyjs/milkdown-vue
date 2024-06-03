@@ -2,16 +2,14 @@
  * @Author: cyy
  * @Date: 2022-07-20 11:58:55
  * @LastEditors: cyy
- * @LastEditTime: 2024-06-03 11:14:20
+ * @LastEditTime: 2024-06-03 12:27:17
  * @Description: markdown编辑器
 -->
 <template lang="pug">
 div.md(ref="mdRef")
 </template>
 <script setup>
-import {
-  ref, onMounted, watch
-} from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { EditorState } from '@codemirror/state'
 import {
   autocompletion,
@@ -89,60 +87,62 @@ const baseTheme = EditorView.baseTheme({
   }
 })
 
-const createState = (doc, dark = false) => EditorState.create({
-  doc,
-  extensions: [
-    lineNumbers(),
-    highlightActiveLineGutter(),
-    highlightSpecialChars(),
-    history(),
-    foldGutter(),
-    drawSelection(),
-    dropCursor(),
-    EditorState.allowMultipleSelections.of(true),
-    indentOnInput(),
-    syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
-    bracketMatching(),
-    closeBrackets(),
-    autocompletion(),
-    rectangularSelection(),
-    crosshairCursor(),
-    highlightActiveLine(),
-    highlightSelectionMatches(),
-    keymap.of([
-      ...closeBracketsKeymap,
-      ...defaultKeymap,
-      ...searchKeymap,
-      ...historyKeymap,
-      ...foldKeymap,
-      ...completionKeymap,
-      {
-        key: 'Mod-/',
-        run () {
-          emit('switchEditor')
-          return true
+const createState = (doc, dark = false) =>
+  EditorState.create({
+    doc,
+    extensions: [
+      lineNumbers(),
+      highlightActiveLineGutter(),
+      highlightSpecialChars(),
+      history(),
+      foldGutter(),
+      drawSelection(),
+      dropCursor(),
+      EditorState.allowMultipleSelections.of(true),
+      indentOnInput(),
+      syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
+      bracketMatching(),
+      closeBrackets(),
+      autocompletion(),
+      rectangularSelection(),
+      crosshairCursor(),
+      highlightActiveLine(),
+      highlightSelectionMatches(),
+      keymap.of([
+        ...closeBracketsKeymap,
+        ...defaultKeymap,
+        ...searchKeymap,
+        ...historyKeymap,
+        ...foldKeymap,
+        ...completionKeymap,
+        {
+          key: 'Mod-/',
+          run() {
+            emit('switchEditor')
+            return true
+          }
+        },
+        {
+          key: 'Mod-s',
+          run() {
+            emit('save')
+            return true
+          }
         }
-      }, {
-        key: 'Mod-s',
-        run (v) {
-          emit('save')
-          return true
+      ]),
+      markdown(),
+      baseTheme,
+      EditorView.theme({}, { dark }),
+      EditorView.updateListener.of((v) => {
+        if (v.focusChanged) {
+          mdFocus.value = v.view.hasFocus
         }
-      }
-    ]),
-    markdown(),
-    baseTheme,
-    EditorView.theme({ }, { dark }),
-    EditorView.updateListener.of((v) => {
-      if (v.focusChanged) {
-        mdFocus.value = v.view.hasFocus
-      }
-      if (v.docChanged) {
-        emit('update:modelValue', v.state.doc.toString())
-      }
-    })
-  ]
-})
+        if (v.docChanged) {
+          emit('update:modelValue', v.state.doc.toString())
+        }
+      })
+    ]
+  })
 let view
 onMounted(() => {
   view = new EditorView({
@@ -150,12 +150,9 @@ onMounted(() => {
     parent: mdRef.value
   })
 })
-watch(
-  [() => props.modelValue, () => props.dark],
-  () => {
-    if (!mdFocus.value) {
-      view.setState(createState(props.modelValue, props.dark))
-    }
+watch([() => props.modelValue, () => props.dark], () => {
+  if (!mdFocus.value) {
+    view.setState(createState(props.modelValue, props.dark))
   }
-)
+})
 </script>

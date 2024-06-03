@@ -56,37 +56,39 @@ export const createTheme = (isDarkMode) => (emotion, manager) => {
     const bg = manager.get(ThemeColor, ['secondary', 0.12])
     const hover = manager.get(ThemeColor, ['secondary'])
     return css`
-          scrollbar-width: thin;
-          scrollbar-color: ${main} ${bg};
-          -webkit-overflow-scrolling: touch;
-          &::-webkit-scrollbar {
-              ${direction === 'y' ? 'width' : 'height'}: ${type === 'thin' ? 2 : 12}px;
-              background-color: transparent;
-          }
-          &::-webkit-scrollbar-track {
-              border-radius: 999px;
-              background: transparent;
-              border: 4px solid transparent;
-          }
-          &::-webkit-scrollbar-thumb {
-              border-radius: 999px;
-              background-color: ${main};
-              border: ${type === 'thin' ? 0 : 4}px solid transparent;
-              background-clip: content-box;
-          }
-          &::-webkit-scrollbar-thumb:hover {
-              background-color: ${hover};
-          }
-      `
+      scrollbar-width: thin;
+      scrollbar-color: ${main} ${bg};
+      -webkit-overflow-scrolling: touch;
+      &::-webkit-scrollbar {
+        ${direction === 'y' ? 'width' : 'height'}: ${type === 'thin' ? 2 : 12}px;
+        background-color: transparent;
+      }
+      &::-webkit-scrollbar-track {
+        border-radius: 999px;
+        background: transparent;
+        border: 4px solid transparent;
+      }
+      &::-webkit-scrollbar-thumb {
+        border-radius: 999px;
+        background-color: ${main};
+        border: ${type === 'thin' ? 0 : 4}px solid transparent;
+        background-clip: content-box;
+      }
+      &::-webkit-scrollbar-thumb:hover {
+        background-color: ${hover};
+      }
+    `
   })
 
   manager.set(ThemeShadow, () => {
     const lineWidth = manager.get(ThemeSize, 'lineWidth')
     const getShadow = (opacity) => manager.get(ThemeColor, ['shadow', opacity])
     return css`
-          box-shadow: 0 ${lineWidth} ${lineWidth} ${getShadow(0.14)}, 0 2px ${lineWidth} ${getShadow(0.12)},
-              0 ${lineWidth} 3px ${getShadow(0.2)};
-      `
+      box-shadow:
+        0 ${lineWidth} ${lineWidth} ${getShadow(0.14)},
+        0 2px ${lineWidth} ${getShadow(0.12)},
+        0 ${lineWidth} 3px ${getShadow(0.2)};
+    `
   })
 
   manager.set(ThemeBorder, (direction) => {
@@ -94,12 +96,12 @@ export const createTheme = (isDarkMode) => (emotion, manager) => {
     const line = manager.get(ThemeColor, ['line'])
     if (!direction) {
       return css`
-              border: ${lineWidth} solid ${line};
-          `
+        border: ${lineWidth} solid ${line};
+      `
     }
     return css`
-          ${`border-${direction}`}: ${lineWidth} solid ${line};
-      `
+      ${`border-${direction}`}: ${lineWidth} solid ${line};
+    `
   })
 
   manager.set(ThemeIcon, (icon) => {
@@ -115,7 +117,8 @@ export const createTheme = (isDarkMode) => (emotion, manager) => {
   useAllPresetRenderer(manager, emotion)
 }
 
-export const getNord = (isDarkMode = false) => themeFactory((emotion, manager) => createTheme(isDarkMode)(emotion, manager))
+export const getNord = (isDarkMode = false) =>
+  themeFactory((emotion, manager) => createTheme(isDarkMode)(emotion, manager))
 
 export const nordDark = getNord(true)
 export const nordLight = getNord(false)
