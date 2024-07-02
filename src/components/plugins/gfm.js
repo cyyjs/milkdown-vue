@@ -6,9 +6,7 @@ const MyLink = defineComponent({
   setup(_, { slots }) {
     const node = inject(nodeMetadata, {}).node
     const href = node?.value?.attrs?.href
-    return () => (
-      h('a', { target: '_blank', href }, slots.default?.())
-    )
+    return () => h('a', { target: '_blank', href }, slots.default?.())
   }
 })
 

@@ -1,15 +1,16 @@
 <template lang="pug">
 main
-  editor.left(v-model='doc' ref='editorRef' :config='config' @save='save' :uploader='uploader')
+  .left
+    editor(v-model='doc' ref='editorRef' :config='config' @save='save' :uploader='uploader')
   .right
     .btns
       button(@click='getHtml') getHtml
       button(@click='getOutline') getOutline
-      button(@click='config.readonly = !config.readonly') readonly:{{config.readonly}}
-      button(@click='config.theme = config.theme === "light" ? "dark" : "light"') theme:{{config.theme}}
+      button(@click='config.readonly = !config.readonly') readonly:{{ config.readonly }}
+      button(@click='config.theme = config.theme === "light" ? "dark" : "light"') theme:{{ config.theme }}
       button(@click='setValue(doc2)') setValue
       a(href='https://github.com/cyyjs/milkdown-vue' target='_black')
-        img.github(src='https://github.com/fluidicon.png' alt)
+        img.github(src='/fluidicon.png' alt)
     | #Doc
     textarea(v-model='doc' disabled)
     | #Print
@@ -20,7 +21,8 @@ main
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 // import Editor from '../'
 import { ref } from 'vue'
-import Editor from './components/index.js'
+import Editor from './components/MilkdownEditorWrapper.vue'
+// import Editor from './components/index.js'
 import Readme from '../README.md?raw'
 
 const editorRef = ref(null)
@@ -60,10 +62,6 @@ const uploader = (images) => {
 </script>
 
 <style>
-.left {
-  border: 1px solid #ccc;
-}
-
 .right {
   padding-left: 20px;
   box-sizing: border-box;

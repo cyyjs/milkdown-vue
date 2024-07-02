@@ -2,34 +2,41 @@
  * @Author: cyy
  * @Date: 2021-10-14 18:47:03
  * @LastEditors: cyy
- * @LastEditTime: 2022-09-19 11:14:40
+ * @LastEditTime: 2024-06-03 18:52:38
  * @Description:
  */
-import './font/iconfont.css'
+// import './font/iconfont.css'
 import { defineComponent, h, watch, ref } from 'vue'
-import { Editor, rootCtx, defaultValueCtx, editorViewOptionsCtx } from '@milkdown/core'
-import { forceUpdate, getHTML, outline, switchTheme, replaceAll, $shortcut } from '@milkdown/utils'
-import { VueEditor, useEditor } from '@milkdown/vue'
-import { history } from '@milkdown/plugin-history'
-import { cursor } from '@milkdown/plugin-cursor'
-import { prism } from '@milkdown/plugin-prism'
-import { tooltip } from '@milkdown/plugin-tooltip'
-import { emoji } from '@milkdown/plugin-emoji'
-import { clipboard } from '@milkdown/plugin-clipboard'
+// import { Editor, rootCtx, defaultValueCtx, editorViewOptionsCtx } from '@milkdown/core'
+// import { forceUpdate, getHTML, outline, replaceAll, $shortcut } from '@milkdown/utils'
+// import { Milkdown, useEditor } from '@milkdown/vue'
+// import { history } from '@milkdown/plugin-history'
+// import { cursor } from '@milkdown/plugin-cursor'
+// import { prism } from '@milkdown/plugin-prism'
+// import { TooltipProvider } from '@milkdown/plugin-tooltip'
+// import { emoji } from '@milkdown/plugin-emoji'
+// import { clipboard } from '@milkdown/plugin-clipboard'
 // import { math } from '@milkdown/plugin-math'
-import { indent, indentPlugin } from '@milkdown/plugin-indent'
-import { diagram } from '@milkdown/plugin-diagram'
-import { listener, listenerCtx } from '@milkdown/plugin-listener'
-import slash from './plugins/slash'
-import { nord, nordDark, nordLight } from './theme'
-import gfm from './plugins/gfm'
-import block from './plugins/block'
-import menu from './plugins/menu'
-import getUploader from './plugins/uploder'
+// import { indent, indentPlugin } from '@milkdown/plugin-indent'
+// import { diagram } from '@milkdown/plugin-diagram'
+// import { listener, listenerCtx } from '@milkdown/plugin-listener'
+// import slash from './plugins/slash'
+// import { nord, nordDark, nordLight } from './theme'
+// import { nord } from "@milkdown/theme-nord";
+// import gfm from './plugins/gfm'
+// import block from './plugins/block'
+// import menu from './plugins/menu'
+// import getUploader from './plugins/uploder'
 // import 'katex/dist/katex.min.css'
-import './theme/code.css'
-import mdEditor from './MdEditor.vue'
+// import './theme/code.css'
+// import mdEditor from './MdEditor.vue'
+// import { usePluginViewFactory } from '@prosemirror-adapter/vue';
+// import Slash from './plugins/Slash.vue';
+// import { slashFactory } from '@milkdown/plugin-slash';
 
+// import { useTootip } from './plugins/tooltip'
+import MilkdownEditorWrapper from './MilkdownEditorWrapper.vue'
+// const slashTooltip = slashFactory('Commands');
 export default defineComponent({
   props: {
     modelValue: {
@@ -53,109 +60,115 @@ export default defineComponent({
     const showMDEditor = ref(false)
     let editorInstance
     // 自定义快捷键
-    const myShortcut = $shortcut((ctx) => ({
-      'Mod-s': () => {
-        emit('save', doc.value)
-        return true
-      },
-      'Mod-/': () => {
-        showMDEditor.value = !showMDEditor.value
-        return true
-      }
-    }))
+    // const myShortcut = $shortcut((ctx) => ({
+    //   'Mod-s': () => {
+    //     emit('save', doc.value)
+    //     return true
+    //   },
+    //   'Mod-/': () => {
+    //     showMDEditor.value = !showMDEditor.value
+    //     return true
+    //   }
+    // }))
+    // const pluginViewFactory = usePluginViewFactory();
+    // const editor = useEditor((root, renderVue) => {
+    // editorInstance = Editor.make()
+    // .config((ctx) => {
+    // ctx.set(rootCtx, root)
+    // ctx.set(defaultValueCtx, doc.value)
+    // 是否为只读
+    // ctx.set(editorViewOptionsCtx, { editable: () => !props.config.readonly })
+    // 监听内容更新
+    // ctx.get(listenerCtx).markdownUpdated((ctx, markdown) => {
+    //   doc.value = markdown
+    //   emit('update:modelValue', markdown)
+    // })
+    // ctx.set(slashTooltip.key, {
+    //   view: pluginViewFactory({
+    //     component: Slash
+    //   }),
+    // })
+    // useTootip(ctx)
+    // ctx.get(listenerCtx).updated((ctx, doc, prevDoc) => {
+    //   console.log(doc.toJSON())
+    // });
+    // })
+    // .use(listener)
+    // .use(myShortcut)
+    // .use(gfm(renderVue))
+    // .use(block)
+    // .use(history)
+    // .use(clipboard)
+    // .use(math)
+    // .use(prism)
+    // .use(cursor)
+    // .use(slash)
+    // .use(emoji)
+    // .use(diagram)
+    // .use(getUploader(props.uploader))
+    // .use(
+    //   indent.configure(indentPlugin, {
+    //     type: 'space', // available values: 'tab', 'space',
+    //     size: 2
+    //   })
+    // )
 
-    const editor = useEditor((root, renderVue) => {
-      editorInstance = Editor.make()
-        .config((ctx) => {
-          ctx.set(rootCtx, root)
-          ctx.set(defaultValueCtx, doc.value)
-          // 是否为只读
-          ctx.set(editorViewOptionsCtx, { editable: () => !props.config.readonly })
-          // 监听内容更新
-          ctx.get(listenerCtx).markdownUpdated((ctx, markdown) => {
-            doc.value = markdown
-            emit('update:modelValue', markdown)
-          })
-          // ctx.get(listenerCtx).updated((ctx, doc, prevDoc) => {
-          //   console.log(doc.toJSON())
-          // });
-        })
-        .use(listener)
-        .use(myShortcut)
-        .use(gfm(renderVue))
-        .use(block)
-        .use(history)
-        .use(clipboard)
-        // .use(math)
-        .use(prism)
-        .use(tooltip)
-        .use(cursor)
-        .use(slash)
-        .use(emoji)
-        .use(diagram)
-        .use(getUploader(props.uploader))
-        .use(
-          indent.configure(indentPlugin, {
-            type: 'space', // available values: 'tab', 'space',
-            size: 2
-          })
-        )
-
-      // 菜单显示
-      if (props.config.menu) {
-        editorInstance.use(menu)
-      }
-      // 主题配置
-      switch (props.config.theme) {
-        case 'dark':
-          editorInstance.use(nordDark)
-          break
-        case 'light':
-          editorInstance.use(nordLight)
-          break
-        default:
-          // 自动切换主题
-          editorInstance.use(nord)
-      }
-      return editorInstance
-    })
+    // 菜单显示
+    // if (props.config.menu) {
+    //   editorInstance.use(menu)
+    // }
+    // 主题配置
+    // switch (props.config.theme) {
+    // case 'dark':
+    //   editorInstance.use(nordDark)
+    //   break
+    // case 'light':
+    //   editorInstance.use(nordLight)
+    //   break
+    // default:
+    // 自动切换主题
+    // editorInstance.use(nord)
+    // }
+    // return editorInstance
+    // })
 
     // 只读切换
-    watch(
-      () => props.config,
-      () => {
-        editorInstance.action(forceUpdate())
-        editorInstance.action(switchTheme(props.config.theme === 'dark' ? nordDark : nordLight))
-      },
-      { deep: true }
-    )
+    // watch(
+    //   () => props.config,
+    //   () => {
+    //     editorInstance.action(forceUpdate())
+    //     // editorInstance.action(switchTheme(props.config.theme === 'dark' ? nordDark : nordLight))
+    //   },
+    //   { deep: true }
+    // )
 
-    expose({
-      editorInstance,
-      loading: editor.loading,
-      setValue: (md) => editorInstance.action(replaceAll(md)),
-      // 返回HTML
-      getHtml: () => editorInstance.action(getHTML()),
-      // 获取大纲
-      getOutline: () => editorInstance.action(outline())
-    })
+    // expose({
+    //   editorInstance,
+    //   loading: editor.loading,
+    //   setValue: (md) => editorInstance.action(replaceAll(md)),
+    //   // 返回HTML
+    //   getHtml: () => editorInstance.action(getHTML()),
+    //   // 获取大纲
+    //   getOutline: () => editorInstance.action(outline())
+    // })
 
     return () =>
       h('div', {}, [
-        h(VueEditor, { ...editor, style: { display: showMDEditor.value ? 'none' : 'block' } }),
-        h(mdEditor, {
-          style: { display: showMDEditor.value ? 'block' : 'none' },
-          modelValue: doc.value,
-          dark: props.config.theme === 'dark',
-          onSave: () => emit('save', doc.value),
-          onSwitchEditor: () => {
-            showMDEditor.value = !showMDEditor.value
-          },
-          'onUpdate:modelValue': (v) => {
-            emit('update:modelValue', v)
-            editorInstance.action(replaceAll(v))
-          }
-        })
+        h(MilkdownEditorWrapper)
+        // h(MilkdownEditorWrapper, { style: { display: showMDEditor.value ? 'none' : 'block' } }),
+        // h(mdEditor, {
+        //   style: { display: showMDEditor.value ? 'block' : 'none' },
+        //   modelValue: doc.value,
+        //   dark: props.config.theme === 'dark',
+        //   onSave: () => emit('save', doc.value),
+        //   onSwitchEditor: () => {
+        //     showMDEditor.value = !showMDEditor.value
+        //   },
+        //   'onUpdate:modelValue': (v) => {
+        //     emit('update:modelValue', v)
+        //     editorInstance.action(replaceAll(v))
+        //   }
+        // })
       ])
   }
 })
