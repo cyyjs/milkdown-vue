@@ -92,6 +92,7 @@
     "tailwindcss": "^3.4.4",
     "vite": "^5.3.2",
     "vite-plugin-libcss": "^1.1.1",
+    "vite-plugin-svg-icons": "^2.0.1",
     "vue": "^3.4.31"
   }
 }

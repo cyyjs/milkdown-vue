@@ -1,20 +1,33 @@
 <template lang="pug">
 div.tooltip(ref="divRef")
-  button(@mousedown.prevent="toggle('toggleStrongCommand')") B
-  button(@mousedown.prevent="toggle('toggleInlineCodeCommand')") Code
-  button(@mousedown.prevent="toggle('toggleLinkCommand')") Link
-  button(@mousedown.prevent="toggle('toggleEmphasisCommand')") I
+  button(@mousedown.prevent="toggle('toggleStrongCommand')")
+    SvgIcon(name="text-bold")
+  button(@mousedown.prevent="toggle('toggleEmphasisCommand')")
+    SvgIcon(name="text-italic")
+  button(@mousedown.prevent="toggle('toggleStrikethroughCommand')")
+    SvgIcon(name="strikethrough")
+  button(@mousedown.prevent="toggle('wrapInBlockquoteCommand')")
+    SvgIcon(name="quote")
+  button(@mousedown.prevent="toggle('toggleInlineCodeCommand')")
+    SvgIcon(name="code")
+  button(@mousedown.prevent="toggle('toggleLinkCommand')")
+    SvgIcon(name="link")
 
 </template>
 
 <script setup>
+import SvgIcon from '../../SvgIcon.vue'
 import { TooltipProvider } from '@milkdown/plugin-tooltip'
 import {
   toggleStrongCommand,
   toggleInlineCodeCommand,
   toggleLinkCommand,
-  toggleEmphasisCommand
+  toggleEmphasisCommand,
+  wrapInBlockquoteCommand
 } from '@milkdown/preset-commonmark'
+import {
+  toggleStrikethroughCommand,
+} from "@milkdown/preset-gfm";
 import { callCommand } from '@milkdown/utils'
 import { useInstance } from '@milkdown/vue'
 import { usePluginViewContext } from '@prosemirror-adapter/vue'
@@ -47,7 +60,9 @@ const toggleMap = {
   toggleStrongCommand: toggleStrongCommand.key,
   toggleInlineCodeCommand: toggleInlineCodeCommand.key,
   toggleLinkCommand: toggleLinkCommand.key,
-  toggleEmphasisCommand: toggleEmphasisCommand.key
+  toggleEmphasisCommand: toggleEmphasisCommand.key,
+  toggleStrikethroughCommand: toggleStrikethroughCommand.key,
+  wrapInBlockquoteCommand: wrapInBlockquoteCommand.key
 }
 const toggle = (t) => {
   if (loading.value) return
@@ -58,14 +73,14 @@ const toggle = (t) => {
 .tooltip {
   position: absolute;
   display: none;
-  background-color: #fff;
+  @apply overflow-hidden text-gray-600 bg-white border rounded;
 
   &[data-show='true'] {
     display: block;
   }
 
   button {
-    @apply text-gray-600 bg-slate-200 px-2 py-1 rounded-lg hover:bg-slate-300 border hover:text-gray-900;
+    @apply text-gray-600 p-2 hover:bg-slate-100 hover:text-gray-900;
   }
 }
 </style>
