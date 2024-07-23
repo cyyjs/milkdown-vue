@@ -2,7 +2,7 @@ import { slashFactory } from '@milkdown/plugin-slash'
 import { usePluginViewFactory } from '@prosemirror-adapter/vue'
 import Slash from './Slash.vue'
 import { ref } from 'vue'
-const inspectKeys = ["ArrowDown", "ArrowUp", "Enter"];
+const inspectKeys = ['ArrowDown', 'ArrowUp', 'Enter']
 export default () => {
   const slashMenu = slashFactory('slashMenu')
   const pluginViewFactory = usePluginViewFactory()
@@ -25,11 +25,11 @@ export default () => {
           //   return false;
           // }
           // return inspectKeys.includes(event.key);
-        },
+        }
       },
       view: pluginViewFactory({
         component: Slash
-      }),
+      })
       // opened: false
     })
   }

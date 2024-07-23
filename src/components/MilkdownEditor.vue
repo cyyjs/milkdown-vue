@@ -14,7 +14,7 @@ import { Editor, rootCtx, defaultValueCtx } from '@milkdown/core'
 import { nord } from './theme/nord'
 import { Milkdown, useEditor } from '@milkdown/vue'
 import { commonmark } from '@milkdown/preset-commonmark'
-import { gfm } from "@milkdown/preset-gfm";
+import { gfm } from '@milkdown/preset-gfm'
 import { getHTML, outline, replaceAll, getMarkdown } from '@milkdown/utils'
 import useTooltip from './plugins/tooltip/index'
 import useSlash from './plugins/slash/index'

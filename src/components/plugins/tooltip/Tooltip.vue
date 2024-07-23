@@ -25,9 +25,7 @@ import {
   toggleEmphasisCommand,
   wrapInBlockquoteCommand
 } from '@milkdown/preset-commonmark'
-import {
-  toggleStrikethroughCommand,
-} from "@milkdown/preset-gfm";
+import { toggleStrikethroughCommand } from '@milkdown/preset-gfm'
 import { callCommand } from '@milkdown/utils'
 import { useInstance } from '@milkdown/vue'
 import { usePluginViewContext } from '@prosemirror-adapter/vue'

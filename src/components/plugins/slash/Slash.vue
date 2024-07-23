@@ -25,11 +25,9 @@ import {
   wrapInBulletListCommand,
   wrapInOrderedListCommand,
   toggleInlineCodeCommand,
-  insertImageCommand,
+  insertImageCommand
 } from '@milkdown/preset-commonmark'
-import {
-  insertTableCommand,
-} from "@milkdown/preset-gfm";
+import { insertTableCommand } from '@milkdown/preset-gfm'
 import { callCommand } from '@milkdown/utils'
 import { useInstance } from '@milkdown/vue'
 import { usePluginViewContext } from '@prosemirror-adapter/vue'
@@ -49,7 +47,7 @@ const menuList = [
       { idx: 3, cmd: wrapInHeadingCommand.key, title: '标题三', icon: 'h3', payload: 3 },
       { idx: 4, cmd: wrapInHeadingCommand.key, title: '标题四', icon: 'h4', payload: 4 },
       { idx: 5, cmd: wrapInBulletListCommand.key, title: '无序列表', icon: 'list' },
-      { idx: 6, cmd: wrapInOrderedListCommand.key, title: '有序列表', icon: 'list-numbers' },
+      { idx: 6, cmd: wrapInOrderedListCommand.key, title: '有序列表', icon: 'list-numbers' }
     ]
   },
   {
@@ -59,7 +57,7 @@ const menuList = [
       { idx: 8, cmd: wrapInBlockquoteCommand.key, label: '引用', icon: 'quote' },
       { idx: 9, cmd: createCodeBlockCommand.key, label: '代码块', icon: 'code' },
       { idx: 10, cmd: insertHrCommand.key, label: '分割线', icon: 'dividing-line' },
-      { idx: 11, cmd: insertImageCommand.key, label: '插入图片', icon: 'picture' },
+      { idx: 11, cmd: insertImageCommand.key, label: '插入图片', icon: 'picture' }
     ]
   }
 ]
@@ -84,12 +82,12 @@ onUnmounted(() => {
 })
 
 const removeSlash = (ctx) => {
-  const view = ctx.get(editorViewCtx);
+  const view = ctx.get(editorViewCtx)
   const { dispatch, state } = view
   const { tr, selection } = state
   const { from } = selection
   dispatch(tr.deleteRange(from - 1, from))
-};
+}
 
 const select = (item) => {
   if (loading.value) return

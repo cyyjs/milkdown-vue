@@ -18,20 +18,20 @@ export default defineComponent({
   props: {
     prefix: {
       type: String,
-      default: 'icon',
+      default: 'icon'
     },
     name: {
       type: String,
-      required: true,
+      required: true
     },
     color: {
       type: String,
-      default: '#000',
+      default: '#000'
     },
     size: {
       type: [Number, String],
       default: 16
-    },
+    }
   },
   setup(props) {
     const symbolId = computed(() => `#${props.prefix}-${props.name}`)
