@@ -1,9 +1,10 @@
 <template lang="pug">
 main
   .left
-    editor(v-model='doc' ref='editorRef' :config='config' @save='save' :uploader='uploader')
+    editor(v-model='doc' ref='editorRef' :config='config' @save='save' @change="change" :uploader='uploader')
   .right
     .btns
+      button(@click='getMarkdown') getMarkdown
       button(@click='getHtml') getHtml
       button(@click='getOutline') getOutline
       button(@click='config.readonly = !config.readonly') readonly:{{ config.readonly }}
@@ -20,10 +21,10 @@ main
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
 // import Editor from '../'
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import Editor from './components/MilkdownEditorWrapper.vue'
 // import Editor from './components/index.js'
-import Readme from '../README.md?raw'
+import Readme from '../test.md?raw'
 
 const editorRef = ref(null)
 const config = ref({
@@ -39,8 +40,12 @@ console.log("Hello Wold!")
 
 `)
 const log = ref('')
+
 const getHtml = () => {
   log.value = editorRef.value.getHtml()
+}
+const getMarkdown = () => {
+  log.value = editorRef.value.getMarkdown()
 }
 const getOutline = () => {
   log.value = JSON.stringify(editorRef.value.getOutline(), null, 2)
@@ -49,6 +54,9 @@ const setValue = (v) => {
   editorRef.value.setValue(v)
 }
 const save = (v) => {
+  console.log(v)
+}
+const change = (v) => {
   console.log(v)
 }
 const uploader = (images) => {
@@ -62,6 +70,10 @@ const uploader = (images) => {
 </script>
 
 <style>
+.left {
+  min-height: 100vh;
+  overflow: auto;
+}
 .right {
   padding-left: 20px;
   box-sizing: border-box;
@@ -81,6 +93,8 @@ const uploader = (images) => {
 
 main {
   display: flex;
+  height: 100vh;
+  overflow: auto;
 }
 
 main > div {

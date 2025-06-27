@@ -2,7 +2,7 @@
  * @Author: cyy
  * @Date: 2022-07-20 11:58:55
  * @LastEditors: cyy
- * @LastEditTime: 2024-07-22 17:57:36
+ * @LastEditTime: 2025-06-27 15:40:00
  * @Description: markdown编辑器
 -->
 <template lang="pug">
@@ -41,17 +41,14 @@ import { highlightSelectionMatches, searchKeymap } from '@codemirror/search'
 import { defaultKeymap, history, historyKeymap } from '@codemirror/commands'
 import { markdown } from '@codemirror/lang-markdown'
 
+const data = defineModel({ type: String })
 const props = defineProps({
-  modelValue: {
-    type: String,
-    defalut: ''
-  },
   dark: {
     type: Boolean,
     default: false
   }
 })
-const emit = defineEmits(['update:modelValue', 'save', 'switchEditor'])
+const emit = defineEmits(['save', 'switch-editor'])
 const mdRef = ref(null)
 const mdFocus = ref(false)
 const baseTheme = EditorView.baseTheme({
@@ -86,7 +83,7 @@ const baseTheme = EditorView.baseTheme({
     border: 'none'
   }
 })
-
+let view
 const createState = (doc, dark = false) =>
   EditorState.create({
     doc,
@@ -109,26 +106,33 @@ const createState = (doc, dark = false) =>
       highlightActiveLine(),
       highlightSelectionMatches(),
       keymap.of([
-        ...closeBracketsKeymap,
-        ...defaultKeymap,
-        ...searchKeymap,
-        ...historyKeymap,
-        ...foldKeymap,
-        ...completionKeymap,
         {
           key: 'Mod-/',
           run() {
-            emit('switchEditor')
+            const selection = view.state.selection
+            emit('switch-editor', {
+              type: 'md',
+              selection: {
+                from: selection.main.from,
+                to: selection.main.to
+              }
+            })
             return true
           }
         },
         {
           key: 'Mod-s',
           run() {
-            emit('save')
+            emit('save', data.value)
             return true
           }
-        }
+        },
+        ...closeBracketsKeymap,
+        ...defaultKeymap,
+        ...searchKeymap,
+        ...historyKeymap,
+        ...foldKeymap,
+        ...completionKeymap
       ]),
       markdown(),
       baseTheme,
@@ -138,21 +142,33 @@ const createState = (doc, dark = false) =>
           mdFocus.value = v.view.hasFocus
         }
         if (v.docChanged) {
-          emit('update:modelValue', v.state.doc.toString())
+          data.value = v.state.doc.toString()
         }
       })
     ]
   })
-let view
+
 onMounted(() => {
   view = new EditorView({
-    state: createState(props.modelValue),
+    state: createState(data.value),
     parent: mdRef.value
   })
 })
-watch([() => props.modelValue, () => props.dark], () => {
+watch([() => data.value, () => props.dark], () => {
   if (!mdFocus.value) {
-    view.setState(createState(props.modelValue, props.dark))
+    view.setState(createState(data.value, props.dark))
   }
+})
+const focus = (to) => {
+  view.focus()
+  view.dispatch({
+    selection: {
+      anchor: to,
+      head: to
+    }
+  })
+}
+defineExpose({
+  focus
 })
 </script>

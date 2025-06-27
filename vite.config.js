@@ -3,6 +3,7 @@ import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+// import tailwindcss from '@tailwindcss/vite'
 // import libCss from 'vite-plugin-libcss'
 const isBuildExample = !!process.env.EXAMPLE
 
@@ -10,6 +11,7 @@ export default defineConfig({
   base: isBuildExample ? '/milkdown-vue' : '/',
   plugins: [
     vue(),
+    // tailwindcss(),
     // libCss()
     createSvgIconsPlugin({
       // 指定需要缓存的图标文件夹

@@ -1,11 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* @import "tailwindcss"; */
+/* @config "../../tailwind.config.js" */
 
-.milkdown {
+/* .milkdown {
   @apply bg-slate-50 px-2 py-4 m-5 border rounded;
 }
 
 .editor {
   @apply mx-auto;
-}
+} */

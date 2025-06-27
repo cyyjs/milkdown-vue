@@ -1,27 +1,25 @@
-import { editorViewOptionsCtx } from '@milkdown/core'
-import clsx from 'clsx'
+import { editorViewOptionsCtx } from '@milkdown/kit/core'
 
-import '@milkdown/prose/view/style/prosemirror.css'
-import '@milkdown/prose/tables/style/tables.css'
 import './code.css'
 import './style.css'
 
 export function nord(ctx) {
   ctx.update(editorViewOptionsCtx, (prev) => {
     const prevClass = prev.attributes
-
+    console.log(prev)
     return {
       ...prev,
       attributes: (state) => {
         const attrs = typeof prevClass === 'function' ? prevClass(state) : prevClass
-
+        console.log(attrs)
+        const className = ['prose dark:prose-invert outline-none']
+        if (attrs?.class) {
+          className.push(attrs?.class)
+        }
+        className.push('milkdown-theme-nord')
         return {
           ...attrs,
-          class: clsx(
-            'prose dark:prose-invert outline-none',
-            attrs?.class || '',
-            'milkdown-theme-nord'
-          )
+          class: className.join(' ')
         }
       }
     }
