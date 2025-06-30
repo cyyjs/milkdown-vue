@@ -1,0 +1,212 @@
+.milkdown-code-block {
+  display: block;
+  position: relative;
+  background: #f5f5f5;
+  margin: 20px 0;
+  border-radius: 6px;
+  .codemirror-host {
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    overflow: hidden;
+  }
+  .language-picker {
+    width: max-content;
+    position: absolute;
+    z-index: 1;
+    padding-top: 5px;
+    right: 5px !important;
+    left: inherit !important;
+  }
+
+  .tools {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 10px;
+    height: 20px;
+    background-color: var(--cyyjs-menu-bg);
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    &::before {
+      content: ' ';
+      background-image: url('../icons/mac-sign.svg');
+      background-repeat: no-repeat;
+      display: block;
+      width: 45px;
+      height: 16px;
+      position: absolute;
+      left: 10px;
+    }
+    .language-button {
+      gap: 8px;
+      border-radius: 6px;
+      border: 0;
+      padding: 5px 0;
+      // margin-bottom: 8px;
+      // opacity: 0;
+      position: absolute;
+      right: 10px;
+      transition: opacity 0.2s ease-in-out;
+      background-color: transparent;
+      color: #ccc;
+      font-size: 12px;
+      .expand-icon {
+        display: none;
+      }
+    }
+    .preview-toggle-button {
+      border-radius: 6px;
+      border: 0;
+      cursor: pointer;
+      &:hover {
+        background-color: #fff;
+      }
+    }
+  }
+
+  .language-button {
+    display: flex;
+    align-items: center;
+  }
+
+  .copy-button {
+    // opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  &:hover .copy-button,
+  .copy-button--copied {
+    opacity: 1;
+  }
+
+  .search-box {
+    display: flex;
+    align-items: center;
+  }
+
+  .search-box .clear-icon {
+    cursor: pointer;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .cm-editor {
+    outline: none !important;
+  }
+
+  &:hover {
+    .language-button {
+      opacity: 1;
+      color: #000;
+      background-color: #ddd;
+      padding: 4px 10px;
+      .expand-icon {
+        display: block;
+      }
+      &:hover {
+        background-color: #fff;
+      }
+    }
+    .preview-toggle-button {
+      background-color: #ddd;
+    }
+  }
+
+
+  .language-button {
+    .expand-icon {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.2s ease-in-out;
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+    &[data-expanded='true'] .expand-icon {
+      transform: rotate(180deg);
+    }
+  }
+
+  .list-wrapper {
+    background: var(--cyyjs-menu-bg);
+    border-radius: 6px;
+    box-shadow:
+      0px 2px 6px 0px rgba(0, 0, 0, 0.15),
+      0px 1px 2px 0px rgba(0, 0, 0, 0.3);
+    width: 180px;
+  }
+
+  .language-list {
+    height: 356px;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0;
+    .language-list-item {
+      cursor: pointer;
+      margin: 0;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 8px;
+      font-size: 12px;
+      &:hover {
+        background: #dddddd9f;
+      }
+      &:focus-visible {
+        outline: none;
+        background: cornsilk;
+      }
+      .leading {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+
+  .list-wrapper {
+    padding-top: 10px;
+  }
+
+  .search-box {
+    margin: 0 8px 8px 8px;
+    background: white;
+    height: 30px;
+    border-radius: 4px;
+    outline: none;
+    gap: 8px;
+    padding: 0;
+    font-size: 12px;
+    .search-input {
+      width: 100%;
+      border: 0;
+      background: transparent;
+      &:focus {
+        outline: none;
+      }
+    }
+    .search-icon {
+      // &>span {
+      //   width: 16px;
+      //   height: 16px;
+      // }
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+    .clear-icon {
+      width: 16px;
+      height: 16px;
+      margin-right: 5px;
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+
+}

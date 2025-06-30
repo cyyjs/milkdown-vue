@@ -6,6 +6,22 @@
 
 ## Markdown 基础语法
 
+```js
+function func() {
+  console.log('hello world')
+}
+```
+
+```mermaid
+graph LR
+  A[GraphCommand] --> B[update]
+  A --> C[goto]
+  A --> D[send]
+  
+  B --> B1[更新状态]
+  C --> C1[流程控制]
+  D --> D1[消息传递]
+```
 ### 1. 标题：让你的内容层次分明
 
 用 `#` 号来创建标题。标题从 `#` 开始，`#` 的数量表示标题的级别。
@@ -184,16 +200,3 @@ pie
 Markdown 是一种简单、强大且易于掌握的标记语言，通过学习基础和进阶语法，你可以快速创作内容并有效传达信息。无论是技术文档、个人博客还是项目说明，Markdown 都是你的得力助手。希望这篇内容能够带你全面了解 Markdown 的潜力，让你的写作更加丰富多彩！
 
 现在，拿起 Markdown 编辑器，开始创作吧！探索 Markdown 的世界，你会发现它远比想象中更精彩！
-
-#### 推荐阅读
-
-- [阿里又一个 20k+ stars 开源项目诞生，恭喜 fastjson！](https://mp.weixin.qq.com/s/RNKDCK2KoyeuMeEs6GUrow)
-- [刷掉 90% 候选人的互联网大厂海量数据面试题（附题解 + 方法总结）](https://mp.weixin.qq.com/s/rjGqxUvrEqJNlo09GrT1Dw)
-- [好用！期待已久的文本块功能究竟如何在 Java 13 中发挥作用？](https://mp.weixin.qq.com/s/kalGv5T8AZGxTnLHr2wDsA)
-- [2019 GitHub 开源贡献排行榜新鲜出炉！微软谷歌领头，阿里跻身前 12！](https://mp.weixin.qq.com/s/_q812aGD1b9QvZ2WFI0Qgw)
-
----
-
-<center>
-    <img src="https://cdn-doocs.oss-cn-shenzhen.aliyuncs.com/gh/doocs/md/images/1648303220922-7e14aefa-816e-44c1-8604-ade709ca1c69.png" style="width: 100px;">
-</center>
