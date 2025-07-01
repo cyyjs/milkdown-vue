@@ -21,13 +21,20 @@ import {
 import { Milkdown, useEditor } from '@milkdown/vue'
 import { commonmark } from '@milkdown/kit/preset/commonmark'
 import { gfm } from '@milkdown/kit/preset/gfm'
-import { getHTML, outline, replaceAll, getMarkdown, forceUpdate, $useKeymap } from '@milkdown/kit/utils'
+import {
+  getHTML,
+  outline,
+  replaceAll,
+  getMarkdown,
+  forceUpdate,
+  $useKeymap
+} from '@milkdown/kit/utils'
 import { listener, listenerCtx } from '@milkdown/kit/plugin/listener'
 import { TextSelection } from '@milkdown/kit/prose/state'
 
 import { imageBlockComponent } from '@milkdown/kit/component/image-block'
 import useCodeBlock from './plugins/code/index'
-import { createSaveKeymap, createChangeViewKeymap } from './plugins/keymaps';
+import { createSaveKeymap, createChangeViewKeymap } from './plugins/keymaps'
 // import useTooltip from './plugins/tooltip/index'
 // import useSlash from './plugins/slash/index'
 const emit = defineEmits(['change', 'switch-editor', 'save'])
@@ -45,15 +52,15 @@ const props = defineProps({
   },
   uploader: {
     type: Function,
-    default: () => { }
+    default: () => {}
   }
 })
 let editorInstance
 // const { tooltip, setTooltip } = useTooltip()
 // const { slash, setSlash } = useSlash()
 const { codeBlock, setCodeBlock } = useCodeBlock()
-const saveKeymap = $useKeymap('saveKeymap', createSaveKeymap(emit, doc));
-const changeViewKeymap = $useKeymap('changeViewKeymap', createChangeViewKeymap(emit));
+const saveKeymap = $useKeymap('saveKeymap', createSaveKeymap(emit, doc))
+const changeViewKeymap = $useKeymap('changeViewKeymap', createChangeViewKeymap(emit))
 useEditor((root) => {
   editorInstance = Editor.make()
     .config((ctx) => {
