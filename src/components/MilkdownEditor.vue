@@ -2,7 +2,7 @@
  * @Author: cyy
  * @Date: 2024-06-03 18:38:34
  * @LastEditors: cyy
- * @LastEditTime: 2025-06-30 15:35:58
+ * @LastEditTime: 2025-07-01 12:23:21
  * @Description: 
 -->
 <template lang="pug">
@@ -55,6 +55,7 @@ const props = defineProps({
     default: () => {}
   }
 })
+let currentDoc = ''
 let editorInstance
 // const { tooltip, setTooltip } = useTooltip()
 // const { slash, setSlash } = useSlash()
@@ -71,7 +72,9 @@ useEditor((root) => {
       ctx.set(rootCtx, root)
       ctx.set(defaultValueCtx, doc.value)
       ctx.get(listenerCtx).markdownUpdated((ctx, markdown) => {
-        emit('change', markdown)
+        doc.value = markdown
+        currentDoc = markdown
+        // emit('change', markdown)
       })
       setCodeBlock(ctx, {
         dark: props.dark
@@ -90,12 +93,6 @@ useEditor((root) => {
   // .use(slash)
   return editorInstance
 })
-watch(
-  () => doc.value,
-  (md) => {
-    editorInstance.action(replaceAll(md))
-  }
-)
 
 const focus = (to) => {
   if (!editorInstance) return
@@ -105,6 +102,14 @@ const focus = (to) => {
   tr.setSelection(TextSelection.create(tr.doc, to || 0))
   view.dispatch(tr)
 }
+
+watch(
+  () => doc.value,
+  (md) => {
+    if (md === currentDoc) return
+    editorInstance.action(replaceAll(md))
+  }
+)
 
 defineExpose({
   editorInstance,

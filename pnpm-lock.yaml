@@ -60,6 +60,9 @@ importers:
       codemirror:
         specifier: ^6.0.2
         version: 6.0.2
+      codemirror-lang-mermaid:
+        specifier: ^0.5.0
+        version: 0.5.0
       eslint:
         specifier: ^9.29.0
         version: 9.29.0
@@ -75,6 +78,9 @@ importers:
       husky:
         specifier: ^9.1.7
         version: 9.1.7
+      katex:
+        specifier: ^0.16.22
+        version: 0.16.22
       mermaid:
         specifier: ^11.7.0
         version: 11.7.0
@@ -1163,6 +1169,9 @@ packages:
   clsx@2.1.1:
     resolution: {integrity: sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==}
     engines: {node: '>=6'}
+
+  codemirror-lang-mermaid@0.5.0:
+    resolution: {integrity: sha512-Taw/2gPCyNArQJCxIP/HSUif+3zrvD+6Ugt7KJZ2dUKou/8r3ZhcfG8krNTZfV2iu8AuGnymKuo7bLPFyqsh/A==}
 
   codemirror@6.0.2:
     resolution: {integrity: sha512-VhydHotNW5w1UGK0Qj96BwSk/Zqbp9WbnyK2W/eVMv4QyF41INRGpjUhFJY7/uDNuudSc33a/PKr4iDqRduvHw==}
@@ -4685,6 +4694,12 @@ snapshots:
   clone@2.1.2: {}
 
   clsx@2.1.1: {}
+
+  codemirror-lang-mermaid@0.5.0:
+    dependencies:
+      '@codemirror/language': 6.11.1
+      '@lezer/highlight': 1.2.1
+      '@lezer/lr': 1.4.2
 
   codemirror@6.0.2:
     dependencies:
