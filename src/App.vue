@@ -69,16 +69,7 @@ const uploader = (images) => {
 }
 </script>
 
-<style>
-.left {
-  min-height: 100vh;
-  overflow: auto;
-}
-.right {
-  padding-left: 20px;
-  box-sizing: border-box;
-}
-
+<style lang="less">
 .btns {
   margin-bottom: 10px;
 }
@@ -93,12 +84,13 @@ const uploader = (images) => {
 
 main {
   display: flex;
-  height: 100vh;
-  overflow: auto;
+  height: 100%;
+  gap: 20px;
 }
 
-main > div {
-  width: 50%;
+main>div {
+  width: calc(50% - 10px);
+  overflow: auto;
   flex-shrink: 0;
 }
 

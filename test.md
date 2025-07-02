@@ -4,7 +4,20 @@
 
 它不仅让写作变得简单明了，还能轻松地将内容转化为漂亮的网页格式。今天，我们将全面探讨 Markdown 的基础和进阶语法，让你在这个过程中充分享受写作的乐趣！
 
-## Markdown 基础语法
+Markdown 允许嵌入 LaTeX 语法展示数学公式：
+
+- **行内公式**：用 `$` 包裹公式，如 $E = mc^2$。
+- **块级公式**：用 `$$` 包裹公式，如：
+
+$$
+\begin{aligned}
+d_{i, j} &\leftarrow d_{i, j} + 1 \\
+d_{i, y + 1} &\leftarrow d_{i, y + 1} - 1 \\
+d_{x + 1, j} &\leftarrow d_{x + 1, j} - 1 \\
+d_{x + 1, y + 1} &\leftarrow d_{x + 1, y + 1} + 1
+\end{aligned}
+$$
+
 
 ```js
 function func() {
@@ -13,14 +26,11 @@ function func() {
 ```
 
 ```mermaid
-graph LR
-  A[GraphCommand] --> B[update]
-  A --> C[goto]
-  A --> D[send]
-  
-  B --> B1[更新状态]
-  C --> C1[流程控制]
-  D --> D1[消息传递]
+mindmap
+Root
+    A
+      B
+      C
 ```
 ### 1. 标题：让你的内容层次分明
 

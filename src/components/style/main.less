@@ -1,44 +1,7 @@
-:root {
-  font-family:
-    -apple-system-font,
-    BlinkMacSystemFont,
-    Helvetica Neue,
-    PingFang SC,
-    Hiragino Sans GB,
-    Microsoft YaHei UI,
-    Microsoft YaHei,
-    Arial,
-    sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-  color-scheme: light dark;
-  --cyyjs-primary-color: #009874;
-  --cyyjs-border-radius: 6px;
-}
-.light {
-  --cyyjs-bg: #fff;
-  --cyyjs-color: #000;
-  --cyyjs-code-bg: rgba(27, 31, 35, 0.05);
-  --cyyjs-blockquote-bg: #f7f7f7;
-  --cyyjs-blockquote-color: rgba(0, 0, 0, 0.5);
-  --cyyjs-pre-bg: rgba(27, 31, 35, 0.05);
-  --cyyjs-border: 1px solid #eaecef;
-  --cyyjs-hr-color: rgba(27, 31, 35, 0.1);
-  --cyyjs-menu-bg: #efefef;
-  --cyyjs-input-bg: #fff;
-}
-.dark {
-  --cyyjs-bg: #252932;
-  --cyyjs-color: #fff;
-  --cyyjs-code-bg: rgba(255, 255, 255, 0.3);
-  --cyyjs-blockquote-bg: rgba(255, 255, 255, 0.3);
-  --cyyjs-blockquote-color: rgba(255, 255, 255, 0.9);
-  --cyyjs-pre-bg: rgba(255, 255, 255, 0.3);
-  --cyyjs-border: 1px solid rgba(255, 255, 255, 0.3);
-  --cyyjs-hr-color: rgba(255, 255, 255, 0.3);
-  --cyyjs-menu-bg: #686868;
-  --cyyjs-input-bg: #b7b5b5be;
-}
+@import './base.less';
+@import 'katex/dist/katex.min.css';
+@import './latex.less';
+
 .cyyjs-mk-box {
   .milkdown {
     transition: all 0.3s ease-in-out;

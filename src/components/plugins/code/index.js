@@ -2,7 +2,7 @@
  * @Author: cyy
  * @Date: 2025-06-30 10:38:00
  * @LastEditors: cyy
- * @LastEditTime: 2025-07-01 13:45:00
+ * @LastEditTime: 2025-07-02 14:10:39
  * @Description:
  */
 import { defaultKeymap, indentWithTab } from '@codemirror/commands'
@@ -16,22 +16,28 @@ import expandIcon from '../../icons/down.svg?raw'
 import clearSearchIcon from '../../icons/clear.svg?raw'
 import mermaid from 'mermaid'
 import katex from 'katex'
-
+import { blockLatexSchema } from './block-latex'
+import { mathInlineSchema } from './inline-latex'
+import { mathBlockInputRule, mathInlineInputRule } from './input-rule'
+import { remarkMathBlockPlugin, remarkMathPlugin } from './remark'
+import { inlineLatexTooltip } from './inline-tooltip/tooltip'
+import { LatexInlineTooltip } from './inline-tooltip/view'
+// import 'katex/dist/katex.min.css';
 mermaid.initialize({
   startOnLoad: false,
   theme: 'base',
   themeVariables: {
-    primaryColor: '#00987444',
+    primaryColor: '#7ce2ca',
     pieOuterStrokeWidth: '1px'
   }
 })
 
-export default () => {
-  const setCodeBlock = (ctx, { dark } = {}) => {
-    const extensions = [basicSetup, keymap.of([...defaultKeymap, indentWithTab])]
-    if (dark) {
-      extensions.push(oneDark)
-    }
+export default (editor, config = {}) => {
+  const extensions = [basicSetup, keymap.of([...defaultKeymap, indentWithTab])]
+  if (config.dark) {
+    extensions.push(oneDark)
+  }
+  editor.config(ctx => {
     ctx.update(codeBlockConfig.key, (defaultConfig) => ({
       ...defaultConfig,
       expandIcon,
@@ -48,9 +54,9 @@ export default () => {
           name: 'Mermaid',
           extensions: ['mermaid'],
           load() {
-            return import('codemirror-lang-mermaid').then(m => m.mermaid())
+            return import('codemirror-lang-mermaid').then((m) => m.mermaid())
           }
-        }),
+        })
       ],
       extensions,
       onCopy: (text) => {
@@ -81,15 +87,24 @@ export default () => {
         } else if (lang === 'latex') {
           return katex.renderToString(content, {
             throwOnError: false,
-            displayMode: true,
+            displayMode: true
           })
-        } 
+        }
         return null
       }
     }))
-  }
-  return {
-    codeBlock: codeBlockComponent,
-    setCodeBlock
-  }
+    ctx.set(inlineLatexTooltip.key, {
+      view: (view) => {
+        return new LatexInlineTooltip(ctx, view, config)
+      },
+    })
+  })
+    .use(remarkMathPlugin)
+    .use(remarkMathBlockPlugin)
+    .use(mathInlineSchema)
+    .use(inlineLatexTooltip)
+    .use(blockLatexSchema)
+    .use(mathInlineInputRule)
+    .use(mathBlockInputRule)
+    .use(codeBlockComponent)
 }

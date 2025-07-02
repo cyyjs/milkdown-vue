@@ -1,0 +1,49 @@
+.milkdown {
+  span[data-type='math_inline'] {
+    padding: 0 4px;
+    display: inline-block;
+    vertical-align: bottom;
+    color: var(--cyyjs-color);
+    &>.katex {
+      position: relative;
+    }
+  }
+
+  .milkdown-latex-inline-edit {
+    &[data-show='false'] {
+      display: none;
+    }
+    position: absolute;
+    background: var(--cyyjs-bg-2);
+    box-shadow: var(--cyyjs-shadow-1);
+    border-radius: 6px;
+    padding: 2px 6px 2px 12px;
+
+    .container {
+      display: flex;
+      gap: 6px;
+      align-items: flex-start;
+
+      button {
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+        padding: 0;
+        background: transparent;
+        border: 0;
+        color: var(--cyyjs-color);
+        border-radius: 4px;
+        // &:hover {
+        //   background: #ccc;
+        // }
+      }
+    }
+
+    .ProseMirror {
+      padding: 0;
+      min-width: 174px;
+      max-width: 294px;
+      // font-family: var(--crepe-font-code);
+    }
+  }
+}

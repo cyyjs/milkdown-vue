@@ -2,7 +2,7 @@
  * @Author: cyy
  * @Date: 2024-06-03 18:38:34
  * @LastEditors: cyy
- * @LastEditTime: 2025-07-01 12:23:21
+ * @LastEditTime: 2025-07-02 11:58:22
  * @Description: 
 -->
 <template lang="pug">
@@ -52,14 +52,13 @@ const props = defineProps({
   },
   uploader: {
     type: Function,
-    default: () => {}
+    default: () => { }
   }
 })
 let currentDoc = ''
 let editorInstance
 // const { tooltip, setTooltip } = useTooltip()
 // const { slash, setSlash } = useSlash()
-const { codeBlock, setCodeBlock } = useCodeBlock()
 const saveKeymap = $useKeymap('saveKeymap', createSaveKeymap(emit, doc))
 const changeViewKeymap = $useKeymap('changeViewKeymap', createChangeViewKeymap(emit))
 useEditor((root) => {
@@ -76,9 +75,7 @@ useEditor((root) => {
         currentDoc = markdown
         // emit('change', markdown)
       })
-      setCodeBlock(ctx, {
-        dark: props.dark
-      })
+
       // setTooltip(ctx)
       // setSlash(ctx)
     })
@@ -87,10 +84,12 @@ useEditor((root) => {
     .use(saveKeymap)
     .use(changeViewKeymap)
     .use(gfm)
-    .use(codeBlock)
     .use(imageBlockComponent)
   // .use(tooltip)
   // .use(slash)
+  useCodeBlock(editorInstance, {
+    dark: props.dark
+  })
   return editorInstance
 })
 

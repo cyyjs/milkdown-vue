@@ -1,10 +1,9 @@
-/* @import "tailwindcss"; */
-/* @config "../../tailwind.config.js" */
-
-/* .milkdown {
-  @apply bg-slate-50 px-2 py-4 m-5 border rounded;
+html, body {
+  height: 100vh;
+  padding: 0;
+  margin: 0;
 }
-
-.editor {
-  @apply mx-auto;
-} */
+#app {
+  padding: 20px;
+  height: calc(100vh - 40px);
+}
