@@ -10,18 +10,18 @@ export const mathInlineSchema = $nodeSchema(mathInlineId, () => ({
   atom: true,
   attrs: {
     value: {
-      default: '',
-    },
+      default: ''
+    }
   },
   parseDOM: [
     {
       tag: `span[data-type="${mathInlineId}"]`,
       getAttrs: (dom) => {
         return {
-          value: dom.dataset.value ?? '',
+          value: dom.dataset.value ?? ''
         }
-      },
-    },
+      }
+    }
   ],
   toDOM: (node) => {
     const code = node.attrs.value
@@ -29,7 +29,7 @@ export const mathInlineSchema = $nodeSchema(mathInlineId, () => ({
     dom.dataset.type = mathInlineId
     dom.dataset.value = code
     katex.render(code, dom, {
-      throwOnError: false,
+      throwOnError: false
     })
 
     return dom
@@ -38,12 +38,12 @@ export const mathInlineSchema = $nodeSchema(mathInlineId, () => ({
     match: (node) => node.type === 'inlineMath',
     runner: (state, node, type) => {
       state.addNode(type, { value: node.value })
-    },
+    }
   },
   toMarkdown: {
     match: (node) => node.type.name === mathInlineId,
     runner: (state, node) => {
       state.addNode('inlineMath', undefined, node.attrs.value)
-    },
-  },
+    }
+  }
 }))

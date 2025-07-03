@@ -11,9 +11,9 @@ export const mathInlineInputRule = $inputRule((ctx) =>
   nodeRule(/(?:\$)([^$]+)(?:\$)$/, mathInlineSchema.type(ctx), {
     getAttr: (match) => {
       return {
-        value: match[1] ?? '',
+        value: match[1] ?? ''
       }
-    },
+    }
   })
 )
 
@@ -21,6 +21,6 @@ export const mathInlineInputRule = $inputRule((ctx) =>
 /// For example, `$$ ` will create a code block with language javascript.
 export const mathBlockInputRule = $inputRule((ctx) =>
   textblockTypeInputRule(/^\$\$[\s\n]$/, codeBlockSchema.type(ctx), () => ({
-    language: 'LaTeX',
+    language: 'LaTeX'
   }))
 )

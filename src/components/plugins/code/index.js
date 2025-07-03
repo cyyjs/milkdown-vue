@@ -2,7 +2,7 @@
  * @Author: cyy
  * @Date: 2025-06-30 10:38:00
  * @LastEditors: cyy
- * @LastEditTime: 2025-07-02 14:10:39
+ * @LastEditTime: 2025-07-03 12:19:53
  * @Description:
  */
 import { defaultKeymap, indentWithTab } from '@codemirror/commands'
@@ -16,12 +16,17 @@ import expandIcon from '../../icons/down.svg?raw'
 import clearSearchIcon from '../../icons/clear.svg?raw'
 import mermaid from 'mermaid'
 import katex from 'katex'
+import { mermaid as codemirrorLangMermaid } from 'codemirror-lang-mermaid'
 import { blockLatexSchema } from './block-latex'
 import { mathInlineSchema } from './inline-latex'
 import { mathBlockInputRule, mathInlineInputRule } from './input-rule'
 import { remarkMathBlockPlugin, remarkMathPlugin } from './remark'
 import { inlineLatexTooltip } from './inline-tooltip/tooltip'
 import { LatexInlineTooltip } from './inline-tooltip/view'
+import copyIcon from '../../icons/copy.svg?raw'
+import editIcon from '../../icons/edit.svg?raw'
+import visibilityOfIcon from '../../icons/visibility-off.svg?raw'
+
 // import 'katex/dist/katex.min.css';
 mermaid.initialize({
   startOnLoad: false,
@@ -37,68 +42,71 @@ export default (editor, config = {}) => {
   if (config.dark) {
     extensions.push(oneDark)
   }
-  editor.config(ctx => {
-    ctx.update(codeBlockConfig.key, (defaultConfig) => ({
-      ...defaultConfig,
-      expandIcon,
-      searchIcon: null,
-      clearSearchIcon,
-      copyIcon: '📄',
-      copyText: '复制代码',
-      searchPlaceholder: '搜索',
-      noResultText: '没有找到',
-      previewLabel: '预览',
-      languages: [
-        ...languages,
-        LanguageDescription.of({
-          name: 'Mermaid',
-          extensions: ['mermaid'],
-          load() {
-            return import('codemirror-lang-mermaid').then((m) => m.mermaid())
-          }
-        })
-      ],
-      extensions,
-      onCopy: (text) => {
-        alert('Copied: ' + text)
-      },
-      renderLanguage: (language, selected) => (selected ? `✔ ${language}` : language),
-      previewToggleButton: (previewOnlyMode) => (previewOnlyMode ? '编辑' : '预览'),
-      renderPreview: (language, content) => {
-        const lang = language.toLowerCase()
-        if (lang === 'mermaid' && content.length > 0) {
-          const id = `mermaid-${Math.random().toString(36).substring(2, 9)}`
-          // 创建图表容器
-          const container = document.createElement('div')
-          container.id = id
-          container.className = 'mermaid'
-          container.textContent = content
-          requestAnimationFrame(async () => {
-            const node = document.getElementById(id)
-            try {
-              await mermaid.parse(content)
-              const { svg } = await mermaid.render(id + '_svg', content)
-              node.innerHTML = svg
-            } catch (error) {
-              node.innerHTML = `<pre style="overflow: auto;color:Red;">${error.message}</pre>`
+  editor
+    .config((ctx) => {
+      ctx.update(codeBlockConfig.key, (defaultConfig) => ({
+        ...defaultConfig,
+        expandIcon,
+        searchIcon: null,
+        clearSearchIcon,
+        copyIcon: copyIcon,
+        copyText: '复制',
+        searchPlaceholder: '搜索',
+        noResultText: '没有找到',
+        previewLabel: '预览',
+        languages: [
+          ...languages,
+          LanguageDescription.of({
+            name: 'Mermaid',
+            extensions: ['mermaid'],
+            load() {
+              return Promise.resolve(codemirrorLangMermaid())
             }
           })
-          return container
-        } else if (lang === 'latex') {
-          return katex.renderToString(content, {
-            throwOnError: false,
-            displayMode: true
-          })
+        ],
+        extensions,
+        onCopy: (text) => {
+          if (typeof config.onCopy === 'function') {
+            config.onCopy(text)
+          }
+        },
+        renderLanguage: (language, selected) => (selected ? `✔ ${language}` : language),
+        previewToggleButton: (previewOnlyMode) => (previewOnlyMode ? `${editIcon} 编辑` : `${visibilityOfIcon} 隐藏`),
+        renderPreview: (language, content) => {
+          const lang = language.toLowerCase()
+          if (lang === 'mermaid' && content.length > 0) {
+            const id = `mermaid-${Math.random().toString(36).substring(2, 9)}`
+            // 创建图表容器
+            const container = document.createElement('div')
+            container.id = id
+            container.className = 'mermaid'
+            container.textContent = content
+            requestAnimationFrame(async () => {
+              const node = document.getElementById(id)
+              try {
+                await mermaid.parse(content)
+                const { svg } = await mermaid.render(id + '_svg', content)
+                node.innerHTML = svg
+              } catch (error) {
+                node.innerHTML = `<pre style="overflow: auto;color:Red;">${error.message}</pre>`
+              }
+            })
+            return container
+          } else if (lang === 'latex') {
+            return katex.renderToString(content, {
+              throwOnError: false,
+              displayMode: true
+            })
+          }
+          return null
         }
-        return null
-      }
-    }))
-    ctx.set(inlineLatexTooltip.key, {
-      view: (view) => {
-        return new LatexInlineTooltip(ctx, view, config)
-      },
+      }))
+      ctx.set(inlineLatexTooltip.key, {
+        view: (view) => {
+          return new LatexInlineTooltip(ctx, view, config)
+        }
+      })
     })
-  })
     .use(remarkMathPlugin)
     .use(remarkMathBlockPlugin)
     .use(mathInlineSchema)

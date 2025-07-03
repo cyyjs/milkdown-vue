@@ -7,7 +7,7 @@ import { EditorView } from '@milkdown/kit/prose/view'
 import { createApp, shallowRef } from 'vue'
 
 import { mathInlineId } from '../inline-latex'
-import {LatexTooltip} from './component'
+import { LatexTooltip } from './component'
 // import LatexTooltip from './component.vue'
 
 export class LatexInlineTooltip {
@@ -15,20 +15,16 @@ export class LatexInlineTooltip {
   #provider
   #dom
   #innerView = shallowRef(null)
-  #updateValue = shallowRef(() => { })
+  #updateValue = shallowRef(() => {})
   #app
-  constructor(
-    ctx,
-    view,
-    config
-  ) {
+  constructor(ctx, view, config) {
     const content = document.createElement('div')
     content.className = 'milkdown-latex-inline-edit'
     this.#content = content
     this.#app = createApp(LatexTooltip, {
       config,
       innerView: this.#innerView,
-      updateValue: this.#updateValue,
+      updateValue: this.#updateValue
     })
     this.#app.mount(content)
     this.#provider = new TooltipProvider({
@@ -37,8 +33,8 @@ export class LatexInlineTooltip {
       shouldShow: this.#shouldShow,
       offset: 10,
       floatingUIOptions: {
-        placement: 'bottom',
-      },
+        placement: 'bottom'
+      }
     })
     this.#provider.update(view)
     this.#dom = document.createElement('div')
@@ -61,10 +57,7 @@ export class LatexInlineTooltip {
 
       const textFrom = selection.from
 
-      const paragraph = schema.nodes.paragraph?.create(
-        null,
-        schema.text(node.attrs.value)
-      )
+      const paragraph = schema.nodes.paragraph?.create(null, schema.text(node.attrs.value))
 
       const innerView = new EditorView(this.#dom, {
         state: EditorState.create({
@@ -72,7 +65,7 @@ export class LatexInlineTooltip {
           schema: new Schema({
             nodes: {
               doc: {
-                content: 'block+',
+                content: 'block+'
               },
               paragraph: {
                 content: 'inline*',
@@ -80,12 +73,12 @@ export class LatexInlineTooltip {
                 parseDOM: [{ tag: 'p' }],
                 toDOM() {
                   return ['p', 0]
-                },
+                }
               },
               text: {
-                group: 'inline',
-              },
-            },
+                group: 'inline'
+              }
+            }
           }),
           plugins: [
             keymap({
@@ -95,10 +88,10 @@ export class LatexInlineTooltip {
               Enter: () => {
                 this.#updateValue.value()
                 return true
-              },
-            }),
-          ],
-        }),
+              }
+            })
+          ]
+        })
       })
       this.#innerView.value = innerView
       this.#updateValue.value = () => {

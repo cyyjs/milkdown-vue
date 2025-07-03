@@ -2,7 +2,7 @@
  * @Author: cyy
  * @Date: 2024-06-03 18:39:43
  * @LastEditors: cyy
- * @LastEditTime: 2025-06-27 16:54:05
+ * @LastEditTime: 2025-07-02 17:08:56
  * @Description: 
 -->
 <template lang="pug">
@@ -18,6 +18,7 @@
       @change="emit('change', $event)"
       @switchEditor="switchEditor"
       @save="emit('save', $event)"
+      @copy="emit('copy', $event)"
     )
   MdEditor(
     ref="codeEditorRef"
@@ -51,7 +52,7 @@ const props = defineProps({
     default: () => () => Promise.resolve('')
   }
 })
-const emit = defineEmits(['change', 'save'])
+const emit = defineEmits(['change', 'save', 'copy'])
 const viewType = ref('md')
 const editorRef = ref(null)
 const codeEditorRef = ref(null)

@@ -2,7 +2,7 @@
  * @Author: cyy
  * @Date: 2024-06-03 18:38:34
  * @LastEditors: cyy
- * @LastEditTime: 2025-07-02 11:58:22
+ * @LastEditTime: 2025-07-02 17:07:51
  * @Description: 
 -->
 <template lang="pug">
@@ -37,7 +37,7 @@ import useCodeBlock from './plugins/code/index'
 import { createSaveKeymap, createChangeViewKeymap } from './plugins/keymaps'
 // import useTooltip from './plugins/tooltip/index'
 // import useSlash from './plugins/slash/index'
-const emit = defineEmits(['change', 'switch-editor', 'save'])
+const emit = defineEmits(['change', 'switch-editor', 'save', 'copy'])
 const doc = defineModel({ type: String })
 const props = defineProps({
   config: {
@@ -52,7 +52,7 @@ const props = defineProps({
   },
   uploader: {
     type: Function,
-    default: () => { }
+    default: () => {}
   }
 })
 let currentDoc = ''
@@ -88,7 +88,10 @@ useEditor((root) => {
   // .use(tooltip)
   // .use(slash)
   useCodeBlock(editorInstance, {
-    dark: props.dark
+    dark: props.dark,
+    onCopy: (text) => {
+      emit('copy', text)
+    }
   })
   return editorInstance
 })

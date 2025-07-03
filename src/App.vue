@@ -1,7 +1,15 @@
 <template lang="pug">
 main
   .left
-    editor(v-model='doc' ref='editorRef' :config='config' @save='save' @change="change" :uploader='uploader')
+    editor(
+      v-model='doc'
+      ref='editorRef'
+      :config='config'
+      @save='save'
+      @change="change"
+      @copy="copy"
+      :uploader='uploader'
+    )
   .right
     .btns
       button(@click='getMarkdown') getMarkdown
@@ -59,6 +67,9 @@ const save = (v) => {
 const change = (v) => {
   console.log(v)
 }
+const copy = (code) => {
+  alert(code)
+}
 const uploader = (images) => {
   return [
     {
@@ -88,7 +99,7 @@ main {
   gap: 20px;
 }
 
-main>div {
+main > div {
   width: calc(50% - 10px);
   overflow: auto;
   flex-shrink: 0;

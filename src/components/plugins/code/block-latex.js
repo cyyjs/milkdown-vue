@@ -10,16 +10,12 @@ export const blockLatexSchema = codeBlockSchema.extendSchema((prev) => {
         runner: (state, node) => {
           const language = node.attrs.language ?? ''
           if (language.toLowerCase() === 'latex') {
-              state.addNode(
-                'math',
-                undefined,
-                node.content.firstChild?.text || ''
-              )
-            } else {
-              return baseSchema.toMarkdown.runner(state, node)
-            }
-        },
-      },
+            state.addNode('math', undefined, node.content.firstChild?.text || '')
+          } else {
+            return baseSchema.toMarkdown.runner(state, node)
+          }
+        }
+      }
     }
   }
 })

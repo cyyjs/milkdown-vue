@@ -12,7 +12,7 @@
   .language-picker {
     width: max-content;
     position: absolute;
-    z-index: 1;
+    z-index: 2;
     padding-top: 5px;
     right: 5px !important;
     left: inherit !important;
@@ -20,9 +20,10 @@
 
   .tools {
     display: flex;
-    justify-content: center;
+    justify-content: right;
     align-items: center;
-    padding: 5px 10px;
+    flex-direction: row-reverse;
+    padding: 10px;
     height: 20px;
     background-color: var(--cyyjs-menu-bg);
     border-top-left-radius: 6px;
@@ -38,46 +39,82 @@
       left: 10px;
     }
     .language-button {
-      gap: 8px;
+      gap: 5px;
       border-radius: 6px;
       border: 0;
       padding: 5px 0;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      margin-left: 5px;
       // margin-bottom: 8px;
       // opacity: 0;
-      position: absolute;
-      right: 10px;
-      transition: opacity 0.2s ease-in-out;
+      // position: absolute;
+      // right: 10px;
+      transition: all 0.2s ease-in-out;
       background-color: transparent;
       color: #ccc;
       font-size: 12px;
       .expand-icon {
         display: none;
+        width: 16px;
+        height: 16px;
+        transition: transform 0.2s ease-in-out;
+        svg {
+          width: 16px;
+          height: 16px;
+        }
       }
-    }
-    .preview-toggle-button {
-      border-radius: 6px;
-      border: 0;
-      cursor: pointer;
       &:hover {
         background-color: #fff;
       }
+      &[data-expanded='true'] .expand-icon {
+        transform: rotate(180deg);
+      }
+    }
+    .tools-button-group {
+      // position: absolute;
+      transition: all 0.2s ease-in-out;
+      opacity: 0;
+      right: 10px;
+      top: 30px;
+      display: flex;
+      align-items: center;
+      gap: 1px;
+      z-index: 1;
+      button {
+        font-size: 12px;
+        padding: 4px 6px;
+        border: 0;
+        display: inline-flex;
+        align-items: center;
+        cursor: pointer;
+        transition: background-color 0.2s ease-in-out;
+        gap: 2px;
+        .milkdown-icon {
+          display: flex;
+          align-items: center;
+          gap: 2px;
+        }
+        &:hover {
+          background-color: #fff;
+        }
+        &:first-child {
+          border-top-left-radius: 6px;
+          border-bottom-left-radius: 6px;
+        }
+        &:last-child {
+          border-top-right-radius: 6px;
+          border-bottom-right-radius: 6px;
+        }
+      }
     }
   }
 
-  .language-button {
-    display: flex;
-    align-items: center;
-  }
-
-  .copy-button {
-    // opacity: 0;
-    transition: opacity 0.2s ease-in-out;
-  }
-
-  &:hover .copy-button,
-  .copy-button--copied {
-    opacity: 1;
-  }
+  // &:hover .copy-button,
+  // .copy-button--copied {
+  //   opacity: 1;
+  // }
 
   .hidden {
     display: none;
@@ -91,32 +128,18 @@
     .language-button {
       opacity: 1;
       color: #000;
-      background-color: #ddd;
-      padding: 4px 10px;
+      background-color: #e1e1e1;
+      padding: 4px 6px;
+      right: 5px;
       .expand-icon {
         display: block;
       }
-      &:hover {
-        background-color: #fff;
-      }
     }
-    .preview-toggle-button {
-      background-color: #ddd;
+    .tools-button-group {
+      opacity: 1;
     }
-  }
-
-  .language-button {
-    .expand-icon {
-      width: 16px;
-      height: 16px;
-      transition: transform 0.2s ease-in-out;
-      svg {
-        width: 16px;
-        height: 16px;
-      }
-    }
-    &[data-expanded='true'] .expand-icon {
-      transform: rotate(180deg);
+    button {
+      background-color: #e1e1e1;
     }
   }
 
@@ -130,7 +153,7 @@
   }
 
   .language-list {
-    max-height: 356px;
+    max-height: 256px;
     overflow-y: auto;
     margin: 0;
     padding: 0;
@@ -171,7 +194,7 @@
     margin: 0 8px 8px 8px;
     background: var(--cyyjs-input-bg);
     height: 30px;
-    border-radius: 4px;
+    border-radius: 6px;
     outline: none;
     gap: 8px;
     padding: 0;

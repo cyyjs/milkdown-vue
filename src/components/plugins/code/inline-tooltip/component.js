@@ -1,22 +1,21 @@
-
 import { Icon } from '@milkdown/kit/component'
 import { defineComponent, h } from 'vue'
 import inlineEditConfirm from '../../../icons/confirm.svg?raw'
 
-export const LatexTooltip = defineComponent ({
+export const LatexTooltip = defineComponent({
   props: {
     config: {
       type: Object,
-      required: true,
+      required: true
     },
     innerView: {
       type: Object,
-      required: true,
+      required: true
     },
     updateValue: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   setup(props) {
     const innerViewRef = (el) => {
@@ -37,19 +36,19 @@ export const LatexTooltip = defineComponent ({
       return h(
         'div',
         {
-          class: 'container',
+          class: 'container'
         },
         [
           props.innerView && h('div', { ref: innerViewRef }),
           h(
             'button',
             {
-              onPointerdown: onUpdate,
+              onPointerdown: onUpdate
             },
             [h(Icon, { icon: inlineEditConfirm })]
-          ),
+          )
         ]
       )
     }
-  },
+  }
 })
