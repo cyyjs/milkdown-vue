@@ -2,7 +2,7 @@
  * @Author: cyy
  * @Date: 2024-06-03 18:38:34
  * @LastEditors: cyy
- * @LastEditTime: 2025-07-02 17:07:51
+ * @LastEditTime: 2025-07-08 16:51:28
  * @Description: 
 -->
 <template lang="pug">
@@ -34,6 +34,9 @@ import { TextSelection } from '@milkdown/kit/prose/state'
 
 import { imageBlockComponent } from '@milkdown/kit/component/image-block'
 import useCodeBlock from './plugins/code/index'
+import useLinkTooltip from './plugins/linkTooltip'
+import usePlaceholder from './plugins/placeholder/index'
+import useTable from './plugins/table/index'
 import { createSaveKeymap, createChangeViewKeymap } from './plugins/keymaps'
 // import useTooltip from './plugins/tooltip/index'
 // import useSlash from './plugins/slash/index'
@@ -93,6 +96,14 @@ useEditor((root) => {
       emit('copy', text)
     }
   })
+  useLinkTooltip(editorInstance, {
+    dark: props.dark,
+    onCopy: (text) => {
+      emit('copy', text)
+    }
+  })
+  usePlaceholder(editorInstance, { text: props.config.placeholder })
+  useTable(editorInstance, { text: props.config })
   return editorInstance
 })
 

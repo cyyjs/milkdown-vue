@@ -71,7 +71,8 @@ export default (editor, config = {}) => {
           }
         },
         renderLanguage: (language, selected) => (selected ? `✔ ${language}` : language),
-        previewToggleButton: (previewOnlyMode) => (previewOnlyMode ? `${editIcon} 编辑` : `${visibilityOfIcon} 隐藏`),
+        previewToggleButton: (previewOnlyMode) =>
+          previewOnlyMode ? `${editIcon} 编辑` : `${visibilityOfIcon} 隐藏`,
         renderPreview: (language, content) => {
           const lang = language.toLowerCase()
           if (lang === 'mermaid' && content.length > 0) {

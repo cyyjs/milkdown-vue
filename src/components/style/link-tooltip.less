@@ -1,0 +1,111 @@
+.insert-link-button {
+  width: 3rem;
+  height: 3rem;
+  margin: 0.5rem 1.25rem 0;
+  padding: 0.5rem;
+  background-color: var(--cyyjs-bg);
+  border-radius: 9999px;
+  &:hover {
+    background-color: #dddddd9f;
+  }
+}
+
+.milkdown-link-preview {
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+  overflow: hidden;
+  border-radius: 0.25rem;
+  position: absolute;
+  z-index: 2;
+  &[data-show='false'] {
+    display: none;
+  }
+  & > .link-preview {
+    background-color: var(--cyyjs-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    cursor: pointer;
+    & > .link-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      & > svg {
+        width: 0.875rem;
+        height: 0.875rem;
+      }
+    }
+    & > .link-display {
+      width: 240px;
+      line-height: 24px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 14px;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    & > .button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.25rem;
+      border-radius: 6px;
+      height: 14px;
+      & > svg {
+        width: 14px;
+        height: 14px;
+      }
+      &:hover {
+        background-color: #dddddd9f;
+      }
+      &.link-remove-button {
+        color: red;
+        margin-left: -5px;
+      }
+    }
+  }
+}
+
+.milkdown-link-edit {
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+  overflow: hidden;
+  border-radius: 0.25rem;
+  position: absolute;
+  &[data-show='false'] {
+    display: none;
+  }
+  & > .link-edit {
+    background-color: var(--cyyjs-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    & > .input-area {
+      outline: none;
+      background-color: transparent;
+      width: 13rem;
+      height: 24px;
+      border: var(--cyyjs-border);
+      border-radius: 6px;
+      font-size: 0.875rem;
+    }
+    & > .button {
+      cursor: pointer;
+      border-radius: 0.25rem;
+      display: flex;
+      width: 24px;
+      height: 24px;
+      align-items: center;
+      &:hover {
+        background-color: #dddddd9f;
+      }
+      .hidden {
+        visibility: hidden;
+        pointer-events: none;
+      }
+    }
+  }
+}

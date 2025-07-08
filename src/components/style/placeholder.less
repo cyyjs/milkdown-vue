@@ -1,0 +1,9 @@
+.milkdown {
+  .md-placeholder:before {
+    pointer-events: none;
+    content: attr(data-placeholder);
+    height: 0;
+    color: color-mix(in srgb, var(--cyyjs-color), transparent 60%);
+    position: absolute;
+  }
+}

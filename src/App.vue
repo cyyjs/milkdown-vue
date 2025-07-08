@@ -38,7 +38,8 @@ const editorRef = ref(null)
 const config = ref({
   readonly: false,
   menu: true,
-  theme: 'auto'
+  theme: 'auto',
+  placeholder: '请输入...'
 })
 const doc = ref(Readme)
 const doc2 = ref(`### Hello Wold
