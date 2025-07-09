@@ -11,12 +11,9 @@ import {
   strongSchema,
   toggleEmphasisCommand,
   toggleInlineCodeCommand,
-  toggleStrongCommand,
+  toggleStrongCommand
 } from '@milkdown/kit/preset/commonmark'
-import {
-  strikethroughSchema,
-  toggleStrikethroughCommand,
-} from '@milkdown/kit/preset/gfm'
+import { strikethroughSchema, toggleStrikethroughCommand } from '@milkdown/kit/preset/gfm'
 
 import type { ToolbarFeatureConfig } from '.'
 
@@ -28,7 +25,7 @@ import {
   functionsIcon,
   italicIcon,
   linkIcon,
-  strikethroughIcon,
+  strikethroughIcon
 } from '../../icons'
 import { GroupBuilder } from '../../utils/group-builder'
 import { toggleLatexCommand } from '../latex/command'
@@ -53,35 +50,29 @@ export function getGroups(config?: ToolbarFeatureConfig, ctx?: Ctx) {
       onRun: (ctx) => {
         const commands = ctx.get(commandsCtx)
         commands.call(toggleStrongCommand.key)
-      },
+      }
     })
     .addItem('italic', {
       icon: config?.italicIcon ?? italicIcon,
       active: (ctx) => {
         const commands = ctx.get(commandsCtx)
-        return commands.call(
-          isMarkSelectedCommand.key,
-          emphasisSchema.type(ctx)
-        )
+        return commands.call(isMarkSelectedCommand.key, emphasisSchema.type(ctx))
       },
       onRun: (ctx) => {
         const commands = ctx.get(commandsCtx)
         commands.call(toggleEmphasisCommand.key)
-      },
+      }
     })
     .addItem('strikethrough', {
       icon: config?.strikethroughIcon ?? strikethroughIcon,
       active: (ctx) => {
         const commands = ctx.get(commandsCtx)
-        return commands.call(
-          isMarkSelectedCommand.key,
-          strikethroughSchema.type(ctx)
-        )
+        return commands.call(isMarkSelectedCommand.key, strikethroughSchema.type(ctx))
       },
       onRun: (ctx) => {
         const commands = ctx.get(commandsCtx)
         commands.call(toggleStrikethroughCommand.key)
-      },
+      }
     })
 
   const functionGroup = groupBuilder.addGroup('function', 'Function')
@@ -89,15 +80,12 @@ export function getGroups(config?: ToolbarFeatureConfig, ctx?: Ctx) {
     icon: config?.codeIcon ?? codeIcon,
     active: (ctx) => {
       const commands = ctx.get(commandsCtx)
-      return commands.call(
-        isMarkSelectedCommand.key,
-        inlineCodeSchema.type(ctx)
-      )
+      return commands.call(isMarkSelectedCommand.key, inlineCodeSchema.type(ctx))
     },
     onRun: (ctx) => {
       const commands = ctx.get(commandsCtx)
       commands.call(toggleInlineCodeCommand.key)
-    },
+    }
   })
 
   const flags = ctx && useCrepeFeatures(ctx).get()
@@ -107,15 +95,12 @@ export function getGroups(config?: ToolbarFeatureConfig, ctx?: Ctx) {
       icon: config?.latexIcon ?? functionsIcon,
       active: (ctx) => {
         const commands = ctx.get(commandsCtx)
-        return commands.call(
-          isNodeSelectedCommand.key,
-          mathInlineSchema.type(ctx)
-        )
+        return commands.call(isNodeSelectedCommand.key, mathInlineSchema.type(ctx))
       },
       onRun: (ctx) => {
         const commands = ctx.get(commandsCtx)
         commands.call(toggleLatexCommand.key)
-      },
+      }
     })
   }
   functionGroup.addItem('link', {
@@ -127,7 +112,7 @@ export function getGroups(config?: ToolbarFeatureConfig, ctx?: Ctx) {
     onRun: (ctx) => {
       const commands = ctx.get(commandsCtx)
       commands.call(toggleLinkCommand.key)
-    },
+    }
   })
 
   config?.buildToolbar?.(groupBuilder)

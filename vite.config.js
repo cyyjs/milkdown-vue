@@ -21,7 +21,25 @@ export default defineConfig({
     })
   ],
   build: isBuildExample
-    ? {}
+    ? {
+      rollupOptions: {
+        output: {
+          assetFileNames: (assetInfo) => {
+            // 文件不生成 hash
+            if (/\.(otf|ttf|woff|woff2|eot)$/.test(assetInfo.name)) {
+              return 'assets/fonts/[name].[ext]'
+            }
+            // 其他资源保持默认的 hash 命名
+            return '[name]-[hash].[ext]'
+          },
+          manualChunks: (id) => {
+            if (id.includes('lodash-es')) {
+              return 'lodash-es'
+            }
+          },
+        }
+      },
+    }
     : {
       lib: {
         entry: fileURLToPath(new URL('./src/components/index.js', import.meta.url)),
@@ -30,10 +48,15 @@ export default defineConfig({
         fileName: (format) => `milkdown.${format}.js`
       },
       rollupOptions: {
-        external: ['vue'],
+        external: ['vue', 'mermaid', 'katex'],
         output: {
           globals: {
             vue: 'Vue'
+          },
+          manualChunks: (id) => {
+            if (id.includes('@codemirror/legacy-modes')) {
+              return 'codemirror-legacy-modes'
+            }
           }
         }
       }

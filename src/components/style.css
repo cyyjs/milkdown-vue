@@ -1,3 +1,4 @@
+@import 'katex/dist/katex.min.css';
 html,
 body {
   height: 100vh;

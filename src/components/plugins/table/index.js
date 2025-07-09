@@ -1,7 +1,4 @@
-import {
-  tableBlock,
-  tableBlockConfig,
-} from '@milkdown/kit/component/table-block'
+import { tableBlock, tableBlockConfig } from '@milkdown/kit/component/table-block'
 
 // import { crepeFeatureConfig } from '../../core/slice'
 
@@ -41,7 +38,7 @@ export default (editor, config) => {
             case 'row_drag_handle':
               return config?.rowDragHandleIcon ?? dragHandleIcon
           }
-        },
+        }
       }))
     })
     .use(tableBlock)

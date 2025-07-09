@@ -9,7 +9,7 @@ function isDocEmpty(doc) {
   return doc.childCount <= 1 && !doc.firstChild?.content.size
 }
 
-function createPlaceholderDecoration( state, placeholderText ) {
+function createPlaceholderDecoration(state, placeholderText) {
   const { selection } = state
   if (!selection.empty) return null
 
@@ -24,14 +24,14 @@ function createPlaceholderDecoration( state, placeholderText ) {
 
   return Decoration.node(before, before + node.nodeSize, {
     class: 'md-placeholder',
-    'data-placeholder': placeholderText,
+    'data-placeholder': placeholderText
   })
 }
 
 export const placeholderConfig = $ctx(
   {
     text: 'Please enter...',
-    mode: 'block',
+    mode: 'block'
   },
   'placeholderConfigCtx'
 )
@@ -45,15 +45,14 @@ export const placeholderPlugin = $prose((ctx) => {
         const config = ctx.get(placeholderConfig.key)
         if (config.mode === 'doc' && !isDocEmpty(state.doc)) return null
 
-        if (isInCodeBlock(state.selection) || isInList(state.selection))
-          return null
+        if (isInCodeBlock(state.selection) || isInList(state.selection)) return null
 
         const placeholderText = config.text ?? 'Please enter...'
         const deco = createPlaceholderDecoration(state, placeholderText)
         if (!deco) return null
         return DecorationSet.create(state.doc, [deco])
-      },
-    },
+      }
+    }
   })
 })
 
@@ -64,7 +63,7 @@ export default (editor, config) => {
         ctx.update(placeholderConfig.key, (prev) => {
           return {
             ...prev,
-            ...config,
+            ...config
           }
         })
       }

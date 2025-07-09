@@ -4,14 +4,7 @@ import type { Selection } from '@milkdown/kit/prose/state'
 import { Icon } from '@milkdown/kit/component'
 import { editorCtx, EditorStatus } from '@milkdown/kit/core'
 import clsx from 'clsx'
-import {
-  defineComponent,
-  type Ref,
-  type ShallowRef,
-  h,
-  Fragment,
-  computed,
-} from 'vue'
+import { defineComponent, type Ref, type ShallowRef, h, Fragment, computed } from 'vue'
 
 import type { ToolbarFeatureConfig } from '.'
 
@@ -32,24 +25,24 @@ export const Toolbar = defineComponent<ToolbarProps>({
   props: {
     ctx: {
       type: Object,
-      required: true,
+      required: true
     },
     hide: {
       type: Function,
-      required: true,
+      required: true
     },
     show: {
       type: Object,
-      required: true,
+      required: true
     },
     selection: {
       type: Object,
-      required: true,
+      required: true
     },
     config: {
       type: Object,
-      required: false,
-    },
+      required: false
+    }
   },
   setup(props) {
     const { ctx, config } = props
@@ -80,10 +73,7 @@ export const Toolbar = defineComponent<ToolbarProps>({
                 return (
                   <button
                     type="button"
-                    class={clsx(
-                      'toolbar-item',
-                      ctx && checkActive(item.active) && 'active'
-                    )}
+                    class={clsx('toolbar-item', ctx && checkActive(item.active) && 'active')}
                     onPointerdown={onClick(item.onRun)}
                   >
                     <Icon icon={item.icon} />
@@ -102,5 +92,5 @@ export const Toolbar = defineComponent<ToolbarProps>({
         </>
       )
     }
-  },
+  }
 })

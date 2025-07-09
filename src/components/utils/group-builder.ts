@@ -38,7 +38,7 @@ export class GroupBuilder<T> {
       clear: () => {
         group.items = []
         return groupInstance
-      },
+      }
     }
     return groupInstance
   }
@@ -48,7 +48,7 @@ export class GroupBuilder<T> {
     const group: MenuItemGroup<T, false> = {
       key,
       label,
-      items,
+      items
     }
     this.#groups.push(group)
 

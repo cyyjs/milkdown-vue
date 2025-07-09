@@ -1,9 +1,5 @@
 import type { Ctx } from '@milkdown/kit/ctx'
-import type {
-  EditorState,
-  PluginView,
-  Selection,
-} from '@milkdown/kit/prose/state'
+import type { EditorState, PluginView, Selection } from '@milkdown/kit/prose/state'
 import type { EditorView } from '@milkdown/kit/prose/view'
 
 import { TooltipProvider, tooltipFactory } from '@milkdown/kit/plugin/tooltip'
@@ -48,7 +44,7 @@ class ToolbarView implements PluginView {
       hide: this.hide,
       config,
       selection: this.#selection,
-      show: this.#show,
+      show: this.#show
     })
     app.mount(content)
     this.#content = content
@@ -63,30 +59,21 @@ class ToolbarView implements PluginView {
         const { empty, from, to } = selection
 
         const isEmptyTextBlock =
-          !doc.textBetween(from, to).length &&
-          selection instanceof TextSelection
+          !doc.textBetween(from, to).length && selection instanceof TextSelection
 
         const isNotTextBlock = !(selection instanceof TextSelection)
 
-        const activeElement = (view.dom.getRootNode() as ShadowRoot | Document)
-          .activeElement
+        const activeElement = (view.dom.getRootNode() as ShadowRoot | Document).activeElement
         const isTooltipChildren = content.contains(activeElement)
 
         const notHasFocus = !view.hasFocus() && !isTooltipChildren
 
         const isReadonly = !view.editable
 
-        if (
-          notHasFocus ||
-          isNotTextBlock ||
-          empty ||
-          isEmptyTextBlock ||
-          isReadonly
-        )
-          return false
+        if (notHasFocus || isNotTextBlock || empty || isEmptyTextBlock || isReadonly) return false
 
         return true
-      },
+      }
     })
     this.#tooltipProvider.onShow = () => {
       this.#show.value = true
@@ -113,15 +100,12 @@ class ToolbarView implements PluginView {
   }
 }
 
-export const toolbar: DefineFeature<ToolbarFeatureConfig> = (
-  editor,
-  config
-) => {
+export const toolbar: DefineFeature<ToolbarFeatureConfig> = (editor, config) => {
   editor
     .config(crepeFeatureConfig(CrepeFeature.Toolbar))
     .config((ctx) => {
       ctx.set(toolbarTooltip.key, {
-        view: (view) => new ToolbarView(ctx, view, config),
+        view: (view) => new ToolbarView(ctx, view, config)
       })
     })
     .use(toolbarTooltip)
