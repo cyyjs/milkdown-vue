@@ -1,41 +1,21 @@
-import type { Ctx } from '@milkdown/kit/ctx'
-import type { EditorState, PluginView, Selection } from '@milkdown/kit/prose/state'
-import type { EditorView } from '@milkdown/kit/prose/view'
-
 import { TooltipProvider, tooltipFactory } from '@milkdown/kit/plugin/tooltip'
 import { TextSelection } from '@milkdown/kit/prose/state'
-import { createApp, ref, shallowRef, type App, type ShallowRef } from 'vue'
+import { createApp, ref, shallowRef } from 'vue'
 
-import type { GroupBuilder } from '../../utils'
-import type { DefineFeature } from '../shared'
-import type { ToolbarItem } from './config'
-
-import { crepeFeatureConfig } from '../../core/slice'
-import { CrepeFeature } from '../../feature'
-import { Toolbar } from './component'
-
-interface ToolbarConfig {
-  boldIcon: string
-  codeIcon: string
-  italicIcon: string
-  linkIcon: string
-  strikethroughIcon: string
-  latexIcon: string
-  buildToolbar: (builder: GroupBuilder<ToolbarItem>) => void
-}
-
-export type ToolbarFeatureConfig = Partial<ToolbarConfig>
+// import { crepeFeatureConfig } from '../../core/slice'
+// import { CrepeFeature } from '../../feature'
+import Toolbar from './component.vue'
 
 const toolbarTooltip = tooltipFactory('CREPE_TOOLBAR')
 
-class ToolbarView implements PluginView {
-  #tooltipProvider: TooltipProvider
-  #content: HTMLElement
-  #app: App
-  #selection: ShallowRef<Selection>
+class ToolbarView {
+  #tooltipProvider
+  #content
+  #app
+  #selection
   #show = ref(false)
 
-  constructor(ctx: Ctx, view: EditorView, config?: ToolbarFeatureConfig) {
+  constructor(ctx, view, config) {
     const content = document.createElement('div')
     content.className = 'milkdown-toolbar'
     this.#selection = shallowRef(view.state.selection)
@@ -54,7 +34,7 @@ class ToolbarView implements PluginView {
       content: this.#content,
       debounce: 20,
       offset: 10,
-      shouldShow(view: EditorView) {
+      shouldShow(view) {
         const { doc, selection } = view.state
         const { empty, from, to } = selection
 
@@ -63,7 +43,7 @@ class ToolbarView implements PluginView {
 
         const isNotTextBlock = !(selection instanceof TextSelection)
 
-        const activeElement = (view.dom.getRootNode() as ShadowRoot | Document).activeElement
+        const activeElement = view.dom.getRootNode().activeElement
         const isTooltipChildren = content.contains(activeElement)
 
         const notHasFocus = !view.hasFocus() && !isTooltipChildren
@@ -84,7 +64,7 @@ class ToolbarView implements PluginView {
     this.update(view)
   }
 
-  update = (view: EditorView, prevState?: EditorState) => {
+  update = (view, prevState) => {
     this.#tooltipProvider.update(view, prevState)
     this.#selection.value = view.state.selection
   }
@@ -100,9 +80,9 @@ class ToolbarView implements PluginView {
   }
 }
 
-export const toolbar: DefineFeature<ToolbarFeatureConfig> = (editor, config) => {
+export default (editor, config) => {
   editor
-    .config(crepeFeatureConfig(CrepeFeature.Toolbar))
+    // .config(crepeFeatureConfig(CrepeFeature.Toolbar))
     .config((ctx) => {
       ctx.set(toolbarTooltip.key, {
         view: (view) => new ToolbarView(ctx, view, config)

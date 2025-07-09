@@ -2,7 +2,7 @@
  * @Author: cyy
  * @Date: 2024-07-22 17:50:45
  * @LastEditors: cyy
- * @LastEditTime: 2024-07-22 18:00:43
+ * @LastEditTime: 2025-07-09 17:17:05
  * @Description: 
 -->
 <template lang="pug">
@@ -26,7 +26,7 @@ export default defineComponent({
     },
     color: {
       type: String,
-      default: '#000'
+      default: 'currentColor'
     },
     size: {
       type: [Number, String],

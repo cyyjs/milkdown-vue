@@ -1,0 +1,20 @@
+.milkdown {
+  &:has(.milkdown-link-preview[data-show='true']) .milkdown-toolbar,
+  &:has(.milkdown-link-edit[data-show='true']) .milkdown-toolbar {
+    display: none;
+  }
+  .milkdown-toolbar {
+    &[data-show='false'] {
+      display: none;
+    }
+    z-index: 10;
+    position: absolute;
+    display: flex;
+    background: var(--cyyjs-bg-2);
+    box-shadow: var(--cyyjs-shadow-1);
+    border-radius: 6px;
+    overflow: hidden;
+    padding: 5px;
+    gap: 5px;
+  }
+}

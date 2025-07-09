@@ -2,7 +2,7 @@
  * @Author: cyy
  * @Date: 2025-06-30 10:38:00
  * @LastEditors: cyy
- * @LastEditTime: 2025-07-09 11:28:37
+ * @LastEditTime: 2025-07-09 17:05:26
  * @Description:
  */
 import { defaultKeymap, indentWithTab } from '@codemirror/commands'
@@ -19,6 +19,7 @@ import katex from 'katex'
 import { mermaid as codemirrorLangMermaid } from 'codemirror-lang-mermaid'
 import { blockLatexSchema } from './block-latex'
 import { mathInlineSchema } from './inline-latex'
+import { toggleLatexCommand } from './command'
 import { mathBlockInputRule, mathInlineInputRule } from './input-rule'
 import { remarkMathBlockPlugin, remarkMathPlugin } from './remark'
 import { inlineLatexTooltip } from './inline-tooltip/tooltip'
@@ -116,4 +117,5 @@ export default (editor, config = {}) => {
     .use(mathInlineInputRule)
     .use(mathBlockInputRule)
     .use(codeBlockComponent)
+    .use(toggleLatexCommand)
 }

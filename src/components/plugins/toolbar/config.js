@@ -1,5 +1,3 @@
-import type { Ctx } from '@milkdown/kit/ctx'
-
 import { toggleLinkCommand } from '@milkdown/kit/component/link-tooltip'
 import { commandsCtx } from '@milkdown/kit/core'
 import {
@@ -9,40 +7,23 @@ import {
   isNodeSelectedCommand,
   linkSchema,
   strongSchema,
+  blockquoteSchema,
   toggleEmphasisCommand,
   toggleInlineCodeCommand,
-  toggleStrongCommand
+  toggleStrongCommand,
+  wrapInBlockquoteCommand
 } from '@milkdown/kit/preset/commonmark'
 import { strikethroughSchema, toggleStrikethroughCommand } from '@milkdown/kit/preset/gfm'
-
-import type { ToolbarFeatureConfig } from '.'
-
-import { CrepeFeature } from '..'
-import { useCrepeFeatures } from '../../core/slice'
-import {
-  boldIcon,
-  codeIcon,
-  functionsIcon,
-  italicIcon,
-  linkIcon,
-  strikethroughIcon
-} from '../../icons'
 import { GroupBuilder } from '../../utils/group-builder'
-import { toggleLatexCommand } from '../latex/command'
-import { mathInlineSchema } from '../latex/inline-latex'
+import { toggleLatexCommand } from '../code/command'
+import { mathInlineSchema } from '../code/inline-latex'
 
-export type ToolbarItem = {
-  active: (ctx: Ctx) => boolean
-  icon: string
-}
-
-export function getGroups(config?: ToolbarFeatureConfig, ctx?: Ctx) {
-  const groupBuilder = new GroupBuilder<ToolbarItem>()
-
+export function getGroups(config, ctx) {
+  const groupBuilder = new GroupBuilder()
   groupBuilder
     .addGroup('formatting', 'Formatting')
     .addItem('bold', {
-      icon: config?.boldIcon ?? boldIcon,
+      icon: config?.boldIcon ?? 'text-bold',
       active: (ctx) => {
         const commands = ctx.get(commandsCtx)
         return commands.call(isMarkSelectedCommand.key, strongSchema.type(ctx))
@@ -53,7 +34,7 @@ export function getGroups(config?: ToolbarFeatureConfig, ctx?: Ctx) {
       }
     })
     .addItem('italic', {
-      icon: config?.italicIcon ?? italicIcon,
+      icon: config?.italicIcon ?? 'text-italic',
       active: (ctx) => {
         const commands = ctx.get(commandsCtx)
         return commands.call(isMarkSelectedCommand.key, emphasisSchema.type(ctx))
@@ -64,7 +45,7 @@ export function getGroups(config?: ToolbarFeatureConfig, ctx?: Ctx) {
       }
     })
     .addItem('strikethrough', {
-      icon: config?.strikethroughIcon ?? strikethroughIcon,
+      icon: config?.strikethroughIcon ?? 'strikethrough',
       active: (ctx) => {
         const commands = ctx.get(commandsCtx)
         return commands.call(isMarkSelectedCommand.key, strikethroughSchema.type(ctx))
@@ -76,8 +57,19 @@ export function getGroups(config?: ToolbarFeatureConfig, ctx?: Ctx) {
     })
 
   const functionGroup = groupBuilder.addGroup('function', 'Function')
+  functionGroup.addItem('blockquote', {
+    icon: config?.blockquoteIcon ?? 'quote',
+    active: (ctx) => {
+      const commands = ctx.get(commandsCtx)
+      return commands.call(isNodeSelectedCommand.key, blockquoteSchema.type(ctx))
+    },
+    onRun: (ctx) => {
+      const commands = ctx.get(commandsCtx)
+      commands.call(wrapInBlockquoteCommand.key)
+    }
+  })
   functionGroup.addItem('code', {
-    icon: config?.codeIcon ?? codeIcon,
+    icon: config?.codeIcon ?? 'code',
     active: (ctx) => {
       const commands = ctx.get(commandsCtx)
       return commands.call(isMarkSelectedCommand.key, inlineCodeSchema.type(ctx))
@@ -88,23 +80,19 @@ export function getGroups(config?: ToolbarFeatureConfig, ctx?: Ctx) {
     }
   })
 
-  const flags = ctx && useCrepeFeatures(ctx).get()
-  const isLatexEnabled = flags?.includes(CrepeFeature.Latex)
-  if (isLatexEnabled) {
-    functionGroup.addItem('latex', {
-      icon: config?.latexIcon ?? functionsIcon,
-      active: (ctx) => {
-        const commands = ctx.get(commandsCtx)
-        return commands.call(isNodeSelectedCommand.key, mathInlineSchema.type(ctx))
-      },
-      onRun: (ctx) => {
-        const commands = ctx.get(commandsCtx)
-        commands.call(toggleLatexCommand.key)
-      }
-    })
-  }
+  functionGroup.addItem('latex', {
+    icon: config?.latexIcon ?? 'formula',
+    active: (ctx) => {
+      const commands = ctx.get(commandsCtx)
+      return commands.call(isNodeSelectedCommand.key, mathInlineSchema.type(ctx))
+    },
+    onRun: (ctx) => {
+      const commands = ctx.get(commandsCtx)
+      commands.call(toggleLatexCommand.key)
+    }
+  })
   functionGroup.addItem('link', {
-    icon: config?.linkIcon ?? linkIcon,
+    icon: config?.linkIcon ?? 'link',
     active: (ctx) => {
       const commands = ctx.get(commandsCtx)
       return commands.call(isMarkSelectedCommand.key, linkSchema.type(ctx))

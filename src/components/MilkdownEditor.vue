@@ -2,7 +2,7 @@
  * @Author: cyy
  * @Date: 2024-06-03 18:38:34
  * @LastEditors: cyy
- * @LastEditTime: 2025-07-08 16:51:28
+ * @LastEditTime: 2025-07-09 15:48:26
  * @Description: 
 -->
 <template lang="pug">
@@ -26,7 +26,6 @@ import {
   outline,
   replaceAll,
   getMarkdown,
-  forceUpdate,
   $useKeymap
 } from '@milkdown/kit/utils'
 import { listener, listenerCtx } from '@milkdown/kit/plugin/listener'
@@ -36,6 +35,7 @@ import { imageBlockComponent } from '@milkdown/kit/component/image-block'
 import useCodeBlock from './plugins/code/index'
 import useLinkTooltip from './plugins/linkTooltip'
 import usePlaceholder from './plugins/placeholder/index'
+import useToolbar from './plugins/toolbar/index'
 import useTable from './plugins/table/index'
 import { createSaveKeymap, createChangeViewKeymap } from './plugins/keymaps'
 // import useTooltip from './plugins/tooltip/index'
@@ -104,6 +104,7 @@ useEditor((root) => {
   })
   usePlaceholder(editorInstance, { text: props.config.placeholder })
   useTable(editorInstance, { text: props.config })
+  useToolbar(editorInstance, props.config)
   return editorInstance
 })
 
