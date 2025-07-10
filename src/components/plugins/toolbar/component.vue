@@ -51,7 +51,6 @@ const checkActive = (checker) => {
 }
 
 const groupInfo = computed(() => getGroups(props.config, props.ctx))
-
 </script>
 <style lang="less" scoped>
 .toolbar-group {
@@ -76,9 +75,9 @@ const groupInfo = computed(() => getGroups(props.config, props.ctx))
   background-color: transparent;
   border: 0;
   color: var(--cyyjs-color);
-  &>.span {
+  & > .span {
     width: 24px;
-      height: 24px;
+    height: 24px;
     display: inline-block;
   }
   &:hover {

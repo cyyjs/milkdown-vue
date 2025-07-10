@@ -1,0 +1,350 @@
+.milkdown {
+  .milkdown-image-inline {
+    outline: none;
+    display: inline-flex;
+    border-radius: 6px;
+    vertical-align: text-bottom;
+    &>.image-inline {
+      max-width: 100%;
+    }
+    & input {
+      background: transparent;
+      outline: none;
+      border: 0;
+    }
+
+    & > .empty-image-inline {
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 6px;
+      gap: 10px;
+      background: var(--cyyjs-color-surface);
+      font-family: var(--cyyjs-font-default);
+      border-radius: 6px;
+      font-size: 0.9rem;
+      .confirm {
+        cursor: pointer;
+        display: flex;
+        width: 22px;
+        height: 22px;
+        padding: 3px;
+        border-radius: 6px;
+        color: var(--cyyjs-primary-color);
+        &:hover {
+          background: var(--cyyjs-btn-hv);
+        }
+        svg {
+          width: 22px;
+          height: 22px;
+        }
+      }
+      .link-importer {
+        position: relative;
+        flex: 1;
+        & > .link-input-area {
+          width: 208px;
+          color: var(--cyyjs-color-on-background);
+          display: flex;
+        }
+        .placeholder {
+          position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          display: flex;
+          align-items: center;
+          cursor: text;
+          .uploader {
+            cursor: pointer;
+            display: flex;
+          }
+        }
+      }
+      .image-icon {
+        svg {
+          width: 18px;
+          height: 18px;
+        }
+        color: var(--cyyjs-primary-color);
+        padding: 3px;
+        width: 18px;
+        height: 18px;
+      }
+      .link-importer {
+        height: 24px;
+        .placeholder {
+          color: color-mix(in srgb, var(--cyyjs-color-on-background), transparent 60%);
+          :not(input)::selection {
+            background: transparent;
+          }
+          .uploader {
+            gap: 8px;
+            color: var(--cyyjs-primary-color);
+            justify-content: center;
+            transition: color 0.2s;
+            font-family: var(--cyyjs-font-default);
+            &:hover {
+              color: var(--cyyjs-primary-color);
+            }
+          }
+          .text {
+            margin-left: 8px;
+          }
+        }
+        .link-input-area {
+          line-height: 24px;
+        }
+      }
+    }
+
+    & .hidden {
+      display: none !important;
+    }
+
+    &.empty.selected {
+      background: none;
+      outline: none;
+      .empty-image-inline {
+        box-shadow: var(--cyyjs-shadow-1);
+      }
+    }
+
+    &.selected {
+      background: none;
+      outline: 1px solid var(--cyyjs-primary-color);
+      :not(input)::selection {
+        background: transparent;
+      }
+    }
+  }
+
+  .milkdown-image-block {
+    outline: none;
+    margin: 4px 0;
+    display: block;
+
+    & > .image-wrapper {
+      position: relative;
+      width: fit-content;
+      margin: 0 auto;
+      min-width: 100px;
+      .operation {
+        position: absolute;
+        display: flex;
+        .operation-item {
+          cursor: pointer;
+        }
+      }
+      img {
+        max-width: 100%;
+        min-height: 100px;
+        display: block;
+        object-fit: cover;
+      }
+      .image-resize-handle {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        &:hover {
+          cursor: row-resize;
+        }
+      }
+    }
+
+    input {
+      background: transparent;
+      outline: none;
+      border: 0;
+    }
+
+    & > .caption-input {
+      display: block;
+      width: 100%;
+      text-align: center;
+      color: var(--cyyjs-color-on-background);
+    }
+
+    & > .image-edit {
+      display: flex;
+      .confirm {
+        cursor: pointer;
+      }
+      .link-importer {
+        position: relative;
+        flex: 1;
+        & > .link-input-area {
+          width: 100%;
+        }
+        .placeholder {
+          position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          display: flex;
+          align-items: center;
+          cursor: text;
+          .uploader {
+            cursor: pointer;
+            display: flex;
+          }
+        }
+      }
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    &.selected {
+      & > .image-edit:not(:has(input:focus)) {
+        position: relative;
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: color-mix(in srgb, var(--cyyjs-color-selected), transparent 60%);
+          pointer-events: none;
+        }
+      }
+      & > .image-wrapper {
+        position: relative;
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: color-mix(in srgb, var(--cyyjs-color-selected), transparent 60%);
+        }
+      }
+      :not(input)::selection {
+        background: transparent;
+      }
+    }
+
+    .image-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .operation {
+        gap: 12px;
+        right: 12px;
+        top: 12px;
+        opacity: 0;
+        transition: all 0.2s;
+        & > .operation-item {
+          color: var(--cyyjs-color-on-inverse);
+          padding: 4px;
+          background: var(--cyyjs-color-inverse);
+          opacity: 0.6;
+          border-radius: 50%;
+          width: 24px;
+          height: 24px;
+          text-align: center;
+          line-height: 30px;
+          & > .milkdown-icon {
+            display: inline-block;
+            height: 18px;
+            svg {
+              width: 18px;
+              height: 18px;
+            }
+          }
+        }
+      }
+      .image-resize-handle {
+        height: 4px;
+        bottom: -2px;
+        max-width: 160px;
+        width: 100%;
+        background: var(--cyyjs-color-outline);
+        opacity: 0;
+        transition: all 0.2s;
+        border-radius: 4px;
+      }
+    }
+
+    &:hover > .image-wrapper {
+      .operation {
+        opacity: 1;
+      }
+      .image-resize-handle {
+        opacity: 1;
+      }
+    }
+
+    .caption-input {
+      margin: 4px auto;
+      font-family: var(--cyyjs-font-default);
+    }
+
+    .image-edit {
+      align-items: center;
+      padding: 0 20px;
+      border-radius: 6px;
+      gap: 16px;
+      background: var(--cyyjs-color-surface);
+      height: 56px;
+      .image-icon {
+        color: var(--cyyjs-primary-color);
+        svg {
+          width: 24px;
+          height: 24px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
+      .link-importer {
+        .placeholder {
+          color: color-mix(in srgb, var(--cyyjs-color-on-background), transparent 60%);
+          :not(input)::selection {
+            background: transparent;
+          }
+          .uploader {
+            gap: 8px;
+            color: var(--cyyjs-primary-color);
+            justify-content: center;
+            transition: color 0.2s;
+            font-weight: 600;
+            &:hover {
+              color: var(--cyyjs-primary-color);
+            }
+          }
+          .text {
+            margin-left: 8px;
+          }
+        }
+        .link-input-area {
+          line-height: 24px;
+          color: var(--cyyjs-color-on-background);
+        }
+        &.focus .placeholder .uploader {
+          color: unset;
+        }
+      }
+      
+      .confirm {
+        cursor: pointer;
+        display: flex;
+        width: 24px;
+        height: 24px;
+        padding: 3px;
+        border-radius: 6px;
+        color: var(--cyyjs-primary-color);
+        &:hover {
+          background: var(--cyyjs-btn-hv);
+        }
+        svg {
+          width: 24px;
+          height: 24px;
+        }
+      }
+    }
+  }
+}

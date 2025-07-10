@@ -69,15 +69,17 @@ const change = (v) => {
   console.log(v)
 }
 const copy = (code) => {
-  alert(code)
+  console.log(code)
 }
-const uploader = (images) => {
-  return [
-    {
-      url: 'https://cyyjs.top/_nuxt/img/qrcode.5c9aef0.jpg',
-      name: 'head'
+const uploader = (imageFile) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.readAsDataURL(imageFile)
+    reader.onload = () => {
+      resolve(reader.result)
     }
-  ]
+  })
+  // return Promise.resolve('https://cyyjs.top/_nuxt/img/qrcode.5c9aef0.jpg')
 }
 </script>
 

@@ -20,7 +20,7 @@ export default (editor, config) => {
         editButton: config?.editButton ?? editIcon,
         removeButton: config?.removeButton ?? removeIcon,
         confirmButton: config?.confirmButton ?? confirmIcon,
-        inputPlaceholder: config?.inputPlaceholder ?? 'Paste link...',
+        inputPlaceholder: config?.inputPlaceholder ?? '粘贴链接...',
         onCopyLink: config?.onCopy ?? (() => {})
       }))
     })

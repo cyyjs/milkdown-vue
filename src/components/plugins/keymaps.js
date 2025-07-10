@@ -1,21 +1,22 @@
-import { editorViewCtx } from '@milkdown/kit/core'
+import { editorViewCtx, rootCtx } from '@milkdown/kit/core'
+import { $useKeymap, getMarkdown } from '@milkdown/kit/utils'
 
-export const createSaveKeymap = (emit, doc) => ({
+export const createSaveKeymap = fn => ({
   CustomCommand: {
     shortcuts: ['Mod-s'],
     command: (ctx) => () => {
-      emit('save', doc.value)
+      fn()
       return true
     }
   }
 })
 
-export const createChangeViewKeymap = (emit) => ({
+export const createChangeViewKeymap = (fn) => ({
   CustomCommand: {
     shortcuts: ['Mod-/'],
     command: (ctx) => () => {
       const selection = ctx.get(editorViewCtx).state.selection
-      emit('switch-editor', {
+      fn({
         type: 'code',
         selection: { from: selection.from, to: selection.to }
       })
@@ -23,3 +24,11 @@ export const createChangeViewKeymap = (emit) => ({
     }
   }
 })
+
+export default (editor, { save=()=>{}, changeView=()=>{} }) => {
+  const saveKeymap = $useKeymap('saveKeymap', createSaveKeymap(save))
+  const changeViewKeymap = $useKeymap('changeViewKeymap', createChangeViewKeymap(changeView))
+  editor
+    .use(changeViewKeymap)
+    .use(saveKeymap)
+}

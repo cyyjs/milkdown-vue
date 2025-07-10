@@ -9,7 +9,7 @@ export const toggleLatexCommand = $command('ToggleLatex', (ctx) => {
     const {
       hasNode: hasLatex,
       pos: latexPos,
-      target: latexNode,
+      target: latexNode
     } = findNodeInSelection(state, mathInlineSchema.type(ctx))
 
     const { selection, doc, tr } = state
@@ -17,13 +17,11 @@ export const toggleLatexCommand = $command('ToggleLatex', (ctx) => {
       const text = doc.textBetween(selection.from, selection.to)
       let _tr = tr.replaceSelectionWith(
         mathInlineSchema.type(ctx).create({
-          value: text,
+          value: text
         })
       )
       if (dispatch) {
-        dispatch(
-          _tr.setSelection(NodeSelection.create(_tr.doc, selection.from))
-        )
+        dispatch(_tr.setSelection(NodeSelection.create(_tr.doc, selection.from)))
       }
       return true
     }
@@ -35,11 +33,7 @@ export const toggleLatexCommand = $command('ToggleLatex', (ctx) => {
     const content = latexNode.attrs.value
     _tr = _tr.insertText(content, latexPos)
     if (dispatch) {
-      dispatch(
-        _tr.setSelection(
-          TextSelection.create(_tr.doc, from, to + content.length - 1)
-        )
-      )
+      dispatch(_tr.setSelection(TextSelection.create(_tr.doc, from, to + content.length - 1)))
     }
     return true
   }
