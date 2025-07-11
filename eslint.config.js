@@ -3,11 +3,14 @@ import pluginJs from "@eslint/js";
 import pluginVue from "eslint-plugin-vue";
 
 export default [
-
+  {
+    ignores: ['dist/**'],
+  },
   ...pluginVue.configs["flat/essential"],
   {
     languageOptions: { globals: globals.browser },
     files: ["src/**/*.{js,mjs,cjs,vue}"],
+
     rules: {
       ...pluginJs.configs.recommended.rules,
       "vue/multi-word-component-names": "off",
