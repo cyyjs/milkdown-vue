@@ -2,7 +2,7 @@
  * @Author: cyy
  * @Date: 2024-06-03 18:38:34
  * @LastEditors: cyy
- * @LastEditTime: 2025-07-10 15:59:58
+ * @LastEditTime: 2025-07-11 15:35:04
  * @Description: 
 -->
 <template lang="pug">
@@ -25,14 +25,16 @@ import { getHTML, outline, replaceAll, getMarkdown } from '@milkdown/kit/utils'
 import { listener, listenerCtx } from '@milkdown/kit/plugin/listener'
 import { TextSelection } from '@milkdown/kit/prose/state'
 
-import useCodeBlock from './plugins/code/index'
+import useCodeBlock from './plugins/code'
 import useLinkTooltip from './plugins/linkTooltip'
-import usePlaceholder from './plugins/placeholder/index'
-import useToolbar from './plugins/toolbar/index'
-import useTable from './plugins/table/index'
+import usePlaceholder from './plugins/placeholder'
+import useToolbar from './plugins/toolbar'
+import useTable from './plugins/table'
 import useImage from './plugins/image'
 import useKeymaps from './plugins/keymaps'
-// import useSlash from './plugins/slash/index'
+import useCursor from './plugins/cursor'
+import useBlockEdit from './plugins/block-edit'
+import useListItem from './plugins/list-item'
 const emit = defineEmits(['change', 'switch-editor', 'save', 'copy'])
 const doc = defineModel({ type: String })
 const props = defineProps({
@@ -53,7 +55,7 @@ const props = defineProps({
 })
 let currentDoc = ''
 let editorInstance
-// const { slash, setSlash } = useSlash()
+
 useEditor((root) => {
   editorInstance = Editor.make()
     .config((ctx) => {
@@ -68,15 +70,10 @@ useEditor((root) => {
         currentDoc = markdown
         // emit('change', markdown)
       })
-
-      // setSlash(ctx)
     })
     .use(commonmark)
     .use(listener)
     .use(gfm)
-    // .use(imageInlineComponent)
-    // .use(imageBlockComponent)
-  // .use(slash)
   useKeymaps(editorInstance, {
     save: () => {
       emit('save', doc.value)
@@ -97,12 +94,13 @@ useEditor((root) => {
       emit('copy', text)
     }
   })
-  usePlaceholder(editorInstance, { text: props.config.placeholder })
-  useTable(editorInstance, { text: props.config })
+  useImage(editorInstance, { onUpload: props.uploader })
   useToolbar(editorInstance, props.config)
-  useImage(editorInstance, {
-    onUpload: props.uploader
-  })
+  useTable(editorInstance, props.config)
+  useCursor(editorInstance, props.config)
+  usePlaceholder(editorInstance, { text: props.config.placeholder })
+  useBlockEdit(editorInstance, props.config)
+  useListItem(editorInstance, props.config)
   return editorInstance
 })
 

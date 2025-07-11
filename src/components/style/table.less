@@ -2,17 +2,24 @@
   .milkdown-table-block {
     display: block;
     margin: 4px 0;
-
-    th,
-    td {
-      border: 1px solid color-mix(in srgb, var(--cyyjs-color-outline), transparent 80%);
-      padding: 4px 16px;
-      .ProseMirror-selectednode {
-        background-color: transparent !important;
-      }
-      &:has(.ProseMirror-selectednode) {
-        outline: 1px solid var(--cyyjs-primary-color);
-        outline-offset: -1px;
+    table {
+      border-collapse: collapse;
+      border-spacing: 0;
+      td,
+      th {
+        padding: 0 13px;
+        border: var(--cyyjs-border);
+        p {
+          margin: 0.5em 0;
+          padding: 0;
+        }
+        .ProseMirror-selectednode {
+          background-color: transparent !important;
+        }
+        &:has(.ProseMirror-selectednode) {
+          outline: 1px solid var(--cyyjs-primary-color);
+          outline-offset: -1px;
+        }
       }
     }
 

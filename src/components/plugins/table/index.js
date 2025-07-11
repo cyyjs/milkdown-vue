@@ -1,7 +1,4 @@
 import { tableBlock, tableBlockConfig } from '@milkdown/kit/component/table-block'
-
-// import { crepeFeatureConfig } from '../../core/slice'
-
 import alignCenterIcon from '../../icons/align-center.svg?raw'
 import alignLeftIcon from '../../icons/align-left.svg?raw'
 import alignRightIcon from '../../icons/align-right.svg?raw'
@@ -9,11 +6,8 @@ import dragHandleIcon from '../../icons/drag-handle.svg?raw'
 import plusIcon from '../../icons/plus.svg?raw'
 import removeIcon from '../../icons/remove.svg?raw'
 
-// import { CrepeFeature } from '../index'
-
 export default (editor, config) => {
   editor
-    // .config(crepeFeatureConfig(CrepeFeature.Table))
     .config((ctx) => {
       ctx.update(tableBlockConfig.key, (defaultConfig) => ({
         ...defaultConfig,

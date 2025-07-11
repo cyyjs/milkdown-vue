@@ -1,0 +1,27 @@
+.milkdown {
+  .milkdown-block-handle {
+    &[data-show='false'] {
+      opacity: 0;
+      pointer-events: none;
+    }
+    transition: all 0.2s;
+    position: absolute;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .milkdown-slash-menu {
+    &[data-show='false'] {
+      display: none;
+    }
+    position: absolute;
+    z-index: 10;
+    display: block;
+    font-family: var(--cyyjs-font-default);
+    background: var(--cyyjs-bg);
+    border-radius: 6px;
+    box-shadow: var(--cyyjs-shadow-1);
+  }
+}

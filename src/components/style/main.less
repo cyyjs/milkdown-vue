@@ -1,73 +1,12 @@
 @import './base.less';
+@import './reset.less';
 @import './latex.less';
 @import './link-tooltip.less';
 @import './placeholder.less';
 @import './table.less';
 @import './toolbar.less';
 @import './image.less';
-
-.cyyjs-mk-box {
-  .milkdown {
-    padding: 10px;
-    position: relative;
-    transition: all 0.3s ease-in-out;
-    background-color: var(--cyyjs-bg);
-    color: var(--cyyjs-color);
-    @import url('./code-block.less');
-    .ProseMirror-focused {
-      outline: 0;
-    }
-    a {
-      font-weight: 500;
-      color: var(--cyyjs-primary-color);
-      text-decoration: inherit;
-    }
-    code {
-      font-size: 90%;
-      // color: #d14;
-      background: var(--cyyjs-code-bg);
-      padding: 3px 5px;
-      border-radius: var(--cyyjs-border-radius);
-    }
-    ul,
-    ol {
-      margin: 0;
-      padding-inline-start: 1.5em;
-    }
-    hr {
-      background-color: var(--cyyjs-hr-color);
-      height: 2px;
-      border: 0;
-    }
-    blockquote {
-      padding: 1px 1em;
-      margin: 0;
-      border-left: 4px solid var(--cyyjs-primary-color);
-      color: var(--cyyjs-blockquote-color);
-      background: var(--cyyjs-blockquote-bg);
-      margin-bottom: 1em;
-      border-radius: var(--cyyjs-border-radius);
-    }
-    pre {
-      background-color: var(--cyyjs-pre-bg);
-      padding: 1em;
-      border-radius: var(--cyyjs-border-radius);
-      border: var(--cyyjs-border);
-      code {
-        background-color: transparent;
-      }
-    }
-    table {
-      border-collapse: collapse;
-      border-spacing: 0;
-      td,
-      th {
-        padding: 0 13px;
-        border: var(--cyyjs-border);
-        p {
-          margin: 0.5em 0;
-        }
-      }
-    }
-  }
-}
+@import './cursor.less';
+@import './block-edit.less';
+@import './list-item.less';
+@import './code-block.less';

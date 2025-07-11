@@ -23,7 +23,7 @@ export function getGroups(config, ctx) {
   groupBuilder
     .addGroup('formatting', 'Formatting')
     .addItem('bold', {
-      icon: config?.boldIcon ?? 'text-bold',
+      icon: config?.boldIcon ?? 'bold',
       active: (ctx) => {
         const commands = ctx.get(commandsCtx)
         return commands.call(isMarkSelectedCommand.key, strongSchema.type(ctx))
@@ -34,7 +34,7 @@ export function getGroups(config, ctx) {
       }
     })
     .addItem('italic', {
-      icon: config?.italicIcon ?? 'text-italic',
+      icon: config?.italicIcon ?? 'italic',
       active: (ctx) => {
         const commands = ctx.get(commandsCtx)
         return commands.call(isMarkSelectedCommand.key, emphasisSchema.type(ctx))
@@ -81,7 +81,7 @@ export function getGroups(config, ctx) {
   })
 
   functionGroup.addItem('latex', {
-    icon: config?.latexIcon ?? 'formula',
+    icon: config?.latexIcon ?? 'functions',
     active: (ctx) => {
       const commands = ctx.get(commandsCtx)
       return commands.call(isNodeSelectedCommand.key, mathInlineSchema.type(ctx))

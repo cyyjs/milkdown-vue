@@ -1,0 +1,42 @@
+.milkdown {
+  .milkdown-list-item-block {
+    display: block;
+    padding: 0;
+
+    & > .list-item {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    & > .list-item > .children {
+      min-width: 0;
+      flex: 1;
+    }
+
+    li {
+      gap: 10px;
+      .label-wrapper {
+        color: var(--cyyjs-color);
+        height: 32px;
+        width: 24px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .label {
+          height: 24px;
+          display: inline-block;
+          width: 24px;
+          text-align: right;
+        }
+        .checked,
+        .unchecked {
+          color: var(--cyyjs-primary-color);
+          cursor: pointer;
+        }
+        .readonly {
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}
