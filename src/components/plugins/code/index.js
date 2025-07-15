@@ -2,7 +2,7 @@
  * @Author: cyy
  * @Date: 2025-06-30 10:38:00
  * @LastEditors: cyy
- * @LastEditTime: 2025-07-09 17:05:26
+ * @LastEditTime: 2025-07-14 18:22:05
  * @Description:
  */
 import { defaultKeymap, indentWithTab } from '@codemirror/commands'
@@ -10,7 +10,8 @@ import { LanguageDescription } from '@codemirror/language'
 import { languages } from '@codemirror/language-data'
 import { oneDark } from '@codemirror/theme-one-dark'
 import { keymap } from '@codemirror/view'
-import { codeBlockComponent, codeBlockConfig } from '@milkdown/kit/component/code-block'
+import { codeBlockComponent, codeBlockConfig } from '../code-block'
+// import { codeBlockComponent, codeBlockConfig } from '@milkdown/kit/component/code-block'
 import { basicSetup } from 'codemirror'
 import expandIcon from '../../icons/down.svg?raw'
 import clearSearchIcon from '../../icons/clear.svg?raw'
@@ -28,17 +29,16 @@ import copyIcon from '../../icons/copy.svg?raw'
 import editIcon from '../../icons/edit.svg?raw'
 import visibilityOfIcon from '../../icons/visibility-off.svg?raw'
 
-// import 'katex/dist/katex.min.css';
-mermaid.initialize({
-  startOnLoad: false,
-  theme: 'base',
-  themeVariables: {
-    primaryColor: '#7ce2ca',
-    pieOuterStrokeWidth: '1px'
-  }
-})
 
 export default (editor, config = {}) => {
+  mermaid.initialize({
+    startOnLoad: false,
+    theme: 'base',
+    themeVariables: {
+      primaryColor: '#7ce2ca',
+      pieOuterStrokeWidth: '1px'
+    }
+  })
   const extensions = [basicSetup, keymap.of([...defaultKeymap, indentWithTab])]
   if (config.dark) {
     extensions.push(oneDark)

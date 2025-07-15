@@ -69,7 +69,10 @@ class MenuView {
 
         const pos = self.#programmaticallyPos
 
-        filter.value = (currentText.startsWith('/') || currentText.startsWith('、'))  ? currentText.slice(1) : currentText
+        filter.value =
+          currentText.startsWith('/') || currentText.startsWith('、')
+            ? currentText.slice(1)
+            : currentText
 
         if (typeof pos === 'number') {
           const maxSize = view.state.doc.nodeSize - 2

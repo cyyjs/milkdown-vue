@@ -2,10 +2,11 @@
   .milkdown-code-block {
     display: block;
     position: relative;
-    background: #f5f5f5;
+    background: var(--cyyjs-bg);
     margin: 10px 0;
     border-radius: 6px;
     .codemirror-host {
+      background: var(--cyyjs-bg-2);
       border-bottom-left-radius: 6px;
       border-bottom-right-radius: 6px;
       overflow: hidden;
@@ -228,6 +229,13 @@
           width: 16px;
           height: 16px;
         }
+      }
+    }
+  }
+  &>.ProseMirror-focused {
+    .milkdown-code-block {
+      .codemirror-host {
+        display: block;
       }
     }
   }
