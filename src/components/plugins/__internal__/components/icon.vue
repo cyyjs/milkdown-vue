@@ -6,23 +6,19 @@ span.milkdown-icon(
 )
 </template>
 <script setup>
-
 const props = defineProps({
   icon: {
     type: String,
-    required: false,
+    required: false
   },
   class: {
     type: String,
-    required: false,
+    required: false
   },
   onClick: {
     type: Function,
-    required: false,
+    required: false
   }
 })
 </script>
-<style lang="less" scoped>
-
-</style>
-
+<style lang="less" scoped></style>

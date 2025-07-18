@@ -5,125 +5,22 @@
     background: var(--cyyjs-bg);
     margin: 10px 0;
     border-radius: 6px;
-    .codemirror-host {
-      background: var(--cyyjs-bg-2);
-      border-bottom-left-radius: 6px;
-      border-bottom-right-radius: 6px;
-      overflow: hidden;
+   
+    &:has(.preview-panel) {
+      .tools, .codemirror-host{
+        display: none;
+      }
     }
-    .language-picker {
-      width: max-content;
-      position: absolute;
-      z-index: 2;
-      padding-top: 5px;
-      right: 5px !important;
-      left: inherit !important;
-    }
-
-    .tools {
-      display: flex;
-      justify-content: right;
-      align-items: center;
-      flex-direction: row-reverse;
-      padding: 10px;
-      height: 20px;
-      background-color: var(--cyyjs-menu-bg);
-      border-top-left-radius: 6px;
-      border-top-right-radius: 6px;
-      &::before {
-        content: ' ';
-        background-image: url('../icons/mac-sign.svg');
-        background-repeat: no-repeat;
+    &.block-focus {
+      .tools {
+        display: flex;
+      }
+      .codemirror-host {
         display: block;
-        width: 45px;
-        height: 16px;
-        position: absolute;
-        left: 10px;
-      }
-      .language-button {
-        gap: 5px;
-        border-radius: 6px;
-        border: 0;
-        padding: 5px 0;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        margin-left: 5px;
-        // margin-bottom: 8px;
-        // opacity: 0;
-        // position: absolute;
-        // right: 10px;
-        transition: all 0.2s ease-in-out;
-        background-color: transparent;
-        color: #ccc;
-        font-size: 12px;
-        .expand-icon {
-          display: none;
-          width: 16px;
-          height: 16px;
-          transition: transform 0.2s ease-in-out;
-          svg {
-            width: 16px;
-            height: 16px;
-          }
-        }
-        &:hover {
-          background-color: #fff;
-        }
-        &[data-expanded='true'] .expand-icon {
-          transform: rotate(180deg);
-        }
-      }
-      .tools-button-group {
-        // position: absolute;
-        transition: all 0.2s ease-in-out;
-        opacity: 0;
-        right: 10px;
-        top: 30px;
-        display: flex;
-        align-items: center;
-        gap: 1px;
-        z-index: 1;
-        button {
-          font-size: 12px;
-          padding: 4px 6px;
-          border: 0;
-          display: inline-flex;
-          align-items: center;
-          cursor: pointer;
-          transition: background-color 0.2s ease-in-out;
-          gap: 2px;
-          .milkdown-icon {
-            display: flex;
-            align-items: center;
-            gap: 2px;
-          }
-          &:hover {
-            background-color: #fff;
-          }
-          &:first-child {
-            border-top-left-radius: 6px;
-            border-bottom-left-radius: 6px;
-          }
-          &:last-child {
-            border-top-right-radius: 6px;
-            border-bottom-right-radius: 6px;
-          }
-        }
       }
     }
-
-    // &:hover .copy-button,
-    // .copy-button--copied {
-    //   opacity: 1;
-    // }
-
     .hidden {
       display: none;
-    }
-
-    .cm-editor {
-      outline: none !important;
     }
 
     &:hover {
@@ -142,100 +39,6 @@
       }
       button {
         background-color: #e1e1e1;
-      }
-    }
-
-    .list-wrapper {
-      background: var(--cyyjs-menu-bg);
-      border-radius: 6px;
-      box-shadow:
-        0px 2px 6px 0px rgba(0, 0, 0, 0.15),
-        0px 1px 2px 0px rgba(0, 0, 0, 0.3);
-      width: 180px;
-    }
-
-    .language-list {
-      max-height: 256px;
-      overflow-y: auto;
-      margin: 0;
-      padding: 0;
-      .language-list-item {
-        cursor: pointer;
-        margin: 0;
-        height: 26px;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding: 0 8px;
-        font-size: 12px;
-        &:hover {
-          background: #dddddd9f;
-        }
-        &:focus-visible {
-          outline: none;
-          background: cornsilk;
-        }
-        .leading {
-          width: 16px;
-          height: 16px;
-        }
-        &.no-result {
-          display: block;
-          text-align: center;
-        }
-      }
-    }
-
-    .list-wrapper {
-      padding-top: 10px;
-    }
-
-    .search-box {
-      display: flex;
-      align-items: center;
-      margin: 0 8px 8px 8px;
-      background: var(--cyyjs-input-bg);
-      height: 30px;
-      border-radius: 6px;
-      outline: none;
-      gap: 8px;
-      padding: 0;
-      font-size: 12px;
-      .search-input {
-        width: 100%;
-        border: 0;
-        background: transparent;
-        color: var(--cyyjs-color);
-        &:focus {
-          outline: none;
-        }
-      }
-      .search-icon {
-        // &>span {
-        //   width: 16px;
-        //   height: 16px;
-        // }
-        svg {
-          width: 16px;
-          height: 16px;
-        }
-      }
-      .clear-icon {
-        width: 16px;
-        height: 16px;
-        margin-right: 5px;
-        cursor: pointer;
-        svg {
-          width: 16px;
-          height: 16px;
-        }
-      }
-    }
-  }
-  &>.ProseMirror-focused {
-    .milkdown-code-block {
-      .codemirror-host {
-        display: block;
       }
     }
   }

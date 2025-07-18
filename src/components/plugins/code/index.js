@@ -29,7 +29,6 @@ import copyIcon from '../../icons/copy.svg?raw'
 import editIcon from '../../icons/edit.svg?raw'
 import visibilityOfIcon from '../../icons/visibility-off.svg?raw'
 
-
 export default (editor, config = {}) => {
   mermaid.initialize({
     startOnLoad: false,

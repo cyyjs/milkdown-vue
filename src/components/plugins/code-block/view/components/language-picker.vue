@@ -42,30 +42,30 @@ button.language-button(
 </template>
 <script setup>
 import { computePosition } from '@floating-ui/dom'
-import { computed, ref, onMounted, onUnmounted, watch, } from 'vue'
+import { computed, ref, onMounted, onUnmounted, watch } from 'vue'
 import Icon from '../../../__internal__/components/icon.vue'
 
 const props = defineProps({
   language: {
     type: Object,
-    required: true,
+    required: true
   },
   getReadOnly: {
     type: Function,
-    required: true,
+    required: true
   },
   config: {
     type: Object,
-    required: true,
+    required: true
   },
   getAllLanguages: {
     type: Function,
-    required: true,
+    required: true
   },
   setLanguage: {
     type: Function,
-    required: true,
-  },
+    required: true
+  }
 })
 
 const triggerRef = ref()
@@ -81,27 +81,24 @@ watch([showPicker, triggerRef, pickerRef], () => {
   if (!picker || !languageList) return
 
   computePosition(picker, languageList, {
-    placement: 'bottom-start',
+    placement: 'bottom-start'
   })
     .then(({ x, y }) => {
       Object.assign(languageList.style, {
         left: `${x}px`,
-        top: `${y}px`,
+        top: `${y}px`
       })
     })
     .catch(console.error)
 })
 
-const selectLanguage = e => {
+const selectLanguage = (e) => {
   const active = document.activeElement
-  if (
-    active instanceof HTMLElement &&
-    active.dataset.language
-  ) {
+  if (active instanceof HTMLElement && active.dataset.language) {
     props.setLanguage(active.dataset.language)
   }
 }
-const onTogglePicker = e => {
+const onTogglePicker = (e) => {
   if (props.getReadOnly()) return
 
   const next = !showPicker.value
@@ -116,8 +113,7 @@ const languages = computed(() => {
 
   const all = props.getAllLanguages() ?? []
   const selected = all.find(
-    (languageInfo) =>
-      languageInfo.name.toLowerCase() === props.language.value.toLowerCase()
+    (languageInfo) => languageInfo.name.toLowerCase() === props.language.value.toLowerCase()
   )
 
   const filtered = all.filter((languageInfo) => {
@@ -125,9 +121,7 @@ const languages = computed(() => {
 
     return (
       (languageInfo.name.toLowerCase().includes(currentValue) ||
-        languageInfo.alias.some((alias) =>
-          alias.toLowerCase().includes(currentValue)
-        )) &&
+        languageInfo.alias.some((alias) => alias.toLowerCase().includes(currentValue))) &&
       languageInfo !== selected
     )
   })
@@ -139,7 +133,7 @@ const languages = computed(() => {
   return [selected, ...filtered]
 })
 
-const clickHandler = e => {
+const clickHandler = (e) => {
   const target = e.target
 
   if (triggerRef.value && triggerRef.value.contains(target)) return
@@ -161,4 +155,145 @@ onUnmounted(() => {
   window.removeEventListener('click', clickHandler)
 })
 </script>
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.language-button {
+  gap: 5px;
+  border-radius: 6px;
+  border: 0;
+  padding: 5px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
+  transition: all 0.2s ease-in-out;
+  background-color: transparent;
+  color: #ccc;
+  font-size: 12px;
+
+  .expand-icon {
+    display: none;
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s ease-in-out;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  &:hover {
+    background-color: #fff;
+  }
+
+  &[data-expanded='true'] .expand-icon {
+    transform: rotate(180deg);
+  }
+}
+.list-wrapper {
+  background: var(--cyyjs-menu-bg);
+  border-radius: 6px;
+  box-shadow:
+    0px 2px 6px 0px rgba(0, 0, 0, 0.15),
+    0px 1px 2px 0px rgba(0, 0, 0, 0.3);
+  width: 180px;
+}
+
+.language-picker {
+  width: max-content;
+  position: absolute;
+  z-index: 2;
+  padding-top: 5px;
+  right: 5px;
+  left: inherit !important;
+
+  .language-list {
+    max-height: 256px;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0;
+
+    .language-list-item {
+      cursor: pointer;
+      margin: 0;
+      height: 26px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 0 8px;
+      font-size: 12px;
+
+      &:hover {
+        background: #dddddd9f;
+      }
+
+      &:focus-visible {
+        outline: none;
+        background: cornsilk;
+      }
+
+      .leading {
+        width: 16px;
+        height: 16px;
+      }
+
+      &.no-result {
+        display: block;
+        text-align: center;
+      }
+    }
+  }
+
+  .list-wrapper {
+    padding-top: 10px;
+  }
+
+  .search-box {
+    display: flex;
+    align-items: center;
+    margin: 0 8px 8px 8px;
+    background: var(--cyyjs-input-bg);
+    height: 30px;
+    border-radius: 6px;
+    outline: none;
+    gap: 8px;
+    padding: 0;
+    font-size: 12px;
+
+    .search-input {
+      width: 100%;
+      border: 0;
+      background: transparent;
+      color: var(--cyyjs-color);
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .search-icon {
+
+      // &>span {
+      //   width: 16px;
+      //   height: 16px;
+      // }
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    .clear-icon {
+      width: 16px;
+      height: 16px;
+      margin-right: 5px;
+      cursor: pointer;
+
+      svg {
+        width: 16px;
+        height: 16px;
+      }
+    }
+  }
+}
+</style>

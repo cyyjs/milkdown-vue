@@ -24,9 +24,7 @@ async function copyToClipboard(text) {
     element.style.fontSize = '12pt' // Prevent zooming on iOS
 
     const selection = document.getSelection()
-    const originalRange = selection
-      ? selection.rangeCount > 0 && selection.getRangeAt(0)
-      : null
+    const originalRange = selection ? selection.rangeCount > 0 && selection.getRangeAt(0) : null
 
     document.body.appendChild(element)
     element.select()
@@ -53,20 +51,20 @@ async function copyToClipboard(text) {
 const props = defineProps({
   copyText: {
     type: String,
-    required: true,
+    required: true
   },
   copyIcon: {
     type: String,
-    required: true,
+    required: true
   },
   onCopy: {
     type: Function,
-    required: true,
+    required: true
   },
   text: {
     type: String,
-    required: true,
-  },
+    required: true
+  }
 })
 
 const onCopyCode = () => {

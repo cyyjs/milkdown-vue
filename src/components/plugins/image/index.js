@@ -28,7 +28,7 @@ export default (editor, config = {}) => {
         const alt = image.name
         return schema.nodes.image.createAndFill({
           src,
-          alt,
+          alt
         })
       })
     )
@@ -39,7 +39,7 @@ export default (editor, config = {}) => {
       // 拖拽上传
       ctx.update(uploadConfig.key, (prev) => ({
         ...prev,
-        uploader,
+        uploader
       }))
       ctx.update(imageBlockConfig.key, (defaultConfig) => ({
         ...defaultConfig,

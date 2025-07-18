@@ -91,11 +91,23 @@
   blockquote {
     padding: 1px 1em;
     margin: 0;
-    border-left: 4px solid var(--cyyjs-primary-color);
+    // border-left: 4px solid var(--cyyjs-primary-color);
     color: var(--cyyjs-blockquote-color);
     background: var(--cyyjs-blockquote-bg);
     margin-bottom: 1em;
     border-radius: var(--cyyjs-border-radius);
+    position: relative;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 4px;
+      border-top-left-radius: var(--cyyjs-border-radius);
+      border-bottom-left-radius: var(--cyyjs-border-radius);
+      background-color: var(--cyyjs-primary-color);
+    }
   }
   pre {
     background-color: var(--cyyjs-pre-bg);

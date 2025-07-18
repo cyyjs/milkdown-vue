@@ -10,10 +10,10 @@ export class LanguageLoader {
   }
 
   getAll() {
-    return this.languages.map(language => {
+    return this.languages.map((language) => {
       return {
         name: language.name,
-        alias: language.alias,
+        alias: language.alias
       }
     })
   }

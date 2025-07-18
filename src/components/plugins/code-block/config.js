@@ -16,12 +16,12 @@ export const defaultConfig = {
   renderLanguage: (language) => language,
   renderPreview: () => null,
   previewToggleButton: (previewOnlyMode) => (previewOnlyMode ? 'Edit' : 'Hide'),
-  previewLabel: 'Preview',
+  previewLabel: 'Preview'
 }
 
 export const codeBlockConfig = $ctx(defaultConfig, 'codeBlockConfigCtx')
 
 withMeta(codeBlockConfig, {
   displayName: 'Config<code-block>',
-  group: 'CodeBlock',
+  group: 'CodeBlock'
 })

@@ -4,7 +4,4 @@ import { codeBlockView } from './view'
 export * from './config'
 export * from './view'
 
-export const codeBlockComponent = [
-  codeBlockView,
-  codeBlockConfig,
-]
+export const codeBlockComponent = [codeBlockView, codeBlockConfig]

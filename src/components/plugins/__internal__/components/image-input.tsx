@@ -28,40 +28,40 @@ export const ImageInput = defineComponent<ImageInputProps>({
   props: {
     src: {
       type: Object,
-      required: true,
+      required: true
     },
     selected: {
       type: Object,
-      required: true,
+      required: true
     },
     readonly: {
       type: Object,
-      required: true,
+      required: true
     },
     setLink: {
       type: Function,
-      required: true,
+      required: true
     },
     imageIcon: {
       type: String,
-      required: false,
+      required: false
     },
     uploadButton: {
       type: String,
-      required: false,
+      required: false
     },
     confirmButton: {
       type: String,
-      required: false,
+      required: false
     },
     uploadPlaceholderText: {
       type: String,
-      required: false,
+      required: false
     },
     onUpload: {
       type: Function,
-      required: true,
-    },
+      required: true
+    }
   },
   setup({
     readonly,
@@ -72,7 +72,7 @@ export const ImageInput = defineComponent<ImageInputProps>({
     uploadButton,
     confirmButton,
     uploadPlaceholderText,
-    className,
+    className
   }) {
     const focusLinkInput = ref(false)
     const linkInputRef = ref<HTMLInputElement>()
@@ -160,5 +160,5 @@ export const ImageInput = defineComponent<ImageInputProps>({
         </div>
       )
     }
-  },
+  }
 })

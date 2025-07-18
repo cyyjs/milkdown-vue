@@ -1,5 +1,5 @@
 import { Compartment, EditorState } from '@codemirror/state'
-import { EditorView as CodeMirror, keymap as cmKeymap, drawSelection, } from '@codemirror/view'
+import { EditorView as CodeMirror, keymap as cmKeymap, drawSelection } from '@codemirror/view'
 import { exitCode } from '@milkdown/kit/prose/commands'
 import { redo, undo } from '@milkdown/kit/prose/history'
 import { TextSelection } from '@milkdown/kit/prose/state'
@@ -32,8 +32,8 @@ export class CodeMirrorBlock {
         this.languageConf.of([]),
         EditorState.changeFilter.of(() => this.view.editable),
         ...config.extensions,
-        CodeMirror.updateListener.of(this.forwardUpdate),
-      ],
+        CodeMirror.updateListener.of(this.forwardUpdate)
+      ]
     })
 
     this.app = this.createApp()
@@ -63,11 +63,7 @@ export class CodeMirrorBlock {
       const tr = this.view.state.tr
       update.changes.iterChanges((fromA, toA, fromB, toB, text) => {
         if (text.length)
-          tr.replaceWith(
-            offset + fromA,
-            offset + toA,
-            this.view.state.schema.text(text.toString())
-          )
+          tr.replaceWith(offset + fromA, offset + toA, this.view.state.schema.text(text.toString()))
         else tr.delete(offset + fromA, offset + toA)
         offset += toB - fromB - (toA - fromA)
       })
@@ -85,7 +81,7 @@ export class CodeMirrorBlock {
       getAllLanguages: this.getAllLanguages,
       getReadOnly: () => !this.view.editable,
       setLanguage: this.setLanguage,
-      config: this.config,
+      config: this.config
     })
   }
 
@@ -109,7 +105,7 @@ export class CodeMirrorBlock {
       .then((lang) => {
         if (lang) {
           this.cm.dispatch({
-            effects: this.languageConf.reconfigure(lang),
+            effects: this.languageConf.reconfigure(lang)
           })
           this.languageName = languageName
         }
@@ -131,7 +127,7 @@ export class CodeMirrorBlock {
 
           view.focus()
           return true
-        },
+        }
       },
       { key: 'Mod-z', run: () => undo(view.state, view.dispatch) },
       { key: 'Shift-Mod-z', run: () => redo(view.state, view.dispatch) },
@@ -145,8 +141,7 @@ export class CodeMirrorBlock {
 
           const selection = ranges[0]
 
-          if (selection && (!selection.empty || selection.anchor > 0))
-            return false
+          if (selection && (!selection.empty || selection.anchor > 0)) return false
 
           if (this.cm.state.doc.lines >= 2) return false
 
@@ -163,8 +158,8 @@ export class CodeMirrorBlock {
           this.view.dispatch(tr)
           this.view.focus()
           return true
-        },
-      },
+        }
+      }
     ]
   }
 
@@ -176,10 +171,7 @@ export class CodeMirrorBlock {
     if (dir < 0 ? main.from > 0 : main.to < state.doc.length) return false
 
     const targetPos = (this.getPos() ?? 0) + (dir < 0 ? 0 : this.node.nodeSize)
-    const selection = TextSelection.near(
-      this.view.state.doc.resolve(targetPos),
-      dir
-    )
+    const selection = TextSelection.near(this.view.state.doc.resolve(targetPos), dir)
     const tr = this.view.state.tr.setSelection(selection).scrollIntoView()
     this.view.dispatch(tr)
     this.view.focus()
@@ -205,9 +197,7 @@ export class CodeMirrorBlock {
     this.updateLanguage()
     if (this.view.editable === this.cm.state.readOnly) {
       this.cm.dispatch({
-        effects: this.readOnlyConf.reconfigure(
-          EditorState.readOnly.of(!this.view.editable)
-        ),
+        effects: this.readOnlyConf.reconfigure(EditorState.readOnly.of(!this.view.editable))
       })
     }
 
@@ -216,7 +206,7 @@ export class CodeMirrorBlock {
       this.updating = true
       this.cm.dispatch({
         changes: { from: change.from, to: change.to, insert: change.text },
-        scrollIntoView: true,
+        scrollIntoView: true
       })
       this.updating = false
     }
@@ -244,11 +234,7 @@ export class CodeMirrorBlock {
 
   setLanguage = (language) => {
     this.view.dispatch(
-      this.view.state.tr.setNodeAttribute(
-        this.getPos() ?? 0,
-        'language',
-        language
-      )
+      this.view.state.tr.setNodeAttribute(this.getPos() ?? 0, 'language', language)
     )
   }
 
@@ -257,18 +243,14 @@ export class CodeMirrorBlock {
   }
 }
 
-function computeChange( oldVal, newVal ) {
+function computeChange(oldVal, newVal) {
   if (oldVal === newVal) return null
 
   let start = 0
   let oldEnd = oldVal.length
   let newEnd = newVal.length
 
-  while (
-    start < oldEnd &&
-    oldVal.charCodeAt(start) === newVal.charCodeAt(start)
-  )
-    ++start
+  while (start < oldEnd && oldVal.charCodeAt(start) === newVal.charCodeAt(start)) ++start
 
   while (
     oldEnd > start &&

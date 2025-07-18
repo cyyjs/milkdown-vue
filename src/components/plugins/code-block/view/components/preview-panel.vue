@@ -8,8 +8,8 @@ import { computed } from 'vue'
 
 const props = defineProps({
   preview: {
-    type: [String, Object],
-  },
+    type: [String, Object]
+  }
 })
 
 const previewHtml = computed(() => {
@@ -18,5 +18,11 @@ const previewHtml = computed(() => {
 })
 </script>
 <style lang="less" scoped>
-
+.preview-panel {
+  &>:deep(.preview) {
+    &>.mermaid {
+      text-align: center;
+    }
+  }
+}
 </style>

@@ -13,9 +13,9 @@ import {
   paragraphSchema,
   selectTextNearPosCommand,
   setBlockTypeCommand,
-  wrapInBlockTypeCommand
+  wrapInBlockTypeCommand,
 } from '@milkdown/kit/preset/commonmark'
-import { createTable } from '@milkdown/kit/preset/gfm'
+import { createTable  } from '@milkdown/kit/preset/gfm'
 
 import icons from '../../../icons'
 
